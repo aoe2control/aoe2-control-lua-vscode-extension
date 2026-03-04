@@ -3,6 +3,9 @@
   "displayName": "aoe2-control-lua",
   "description": "Coding support for the Age of Empires 2 Lua engine \"CONTROL\"",
   "version": "0.0.1",
+  "publisher": "BigJohn",
+  "repository": "https://github.com/aoe2control/aoe2-control-lua-vscode-extension",
+  "icon": "logo.png",
   "engines": {
     "vscode": "^1.109.0"
   },
