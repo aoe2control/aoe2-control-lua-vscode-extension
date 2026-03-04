@@ -1,0 +1,91 @@
+{
+	"Load callback": {
+		"prefix": "Load",
+		"body": [
+			"function Load()",
+			"    $0",
+			"end"
+		],
+		"description": "CONTROL lifecycle: Called when module is selected or AI is enabled. Use for Settings.Add* only."
+	},
+	"Init callback": {
+		"prefix": "Init",
+		"body": [
+			"function Init()",
+			"    $0",
+			"end"
+		],
+		"description": "CONTROL lifecycle: Called when game is ready. Use for one-time setup (IPC.StartServer, ChatLocal)."
+	},
+	"Update callback": {
+		"prefix": "Update",
+		"body": [
+			"function Update()",
+			"    $0",
+			"end"
+		],
+		"description": "CONTROL lifecycle: Called at configurable interval. Use for main game logic and commands."
+	},
+	"Render callback": {
+		"prefix": "Render",
+		"body": [
+			"function Render()",
+			"    $0",
+			"end"
+		],
+		"description": "CONTROL lifecycle: Called every frame. Use for drawing overlays."
+	},
+	"End callback": {
+		"prefix": "End",
+		"body": [
+			"function End(hasWon)",
+			"    $0",
+			"end"
+		],
+		"description": "CONTROL lifecycle: Called once when game ends. hasWon is boolean."
+	},
+	"Unload callback": {
+		"prefix": "Unload",
+		"body": [
+			"function Unload()",
+			"    $0",
+			"end"
+		],
+		"description": "CONTROL lifecycle: Called when module is unloaded. Use for IPC.StopServer() and cleanup."
+	},
+	"Full CONTROL module": {
+		"prefix": "control-module",
+		"body": [
+			"function Load()",
+			"    -- Settings.Add* only. Call from Load() only.",
+			"    $1",
+			"end",
+			"",
+			"function Init()",
+			"    -- One-time setup when game is ready.",
+			"    $2",
+			"end",
+			"",
+			"function Update()",
+			"    -- Main game logic. Called at configurable interval.",
+			"    $3",
+			"end",
+			"",
+			"function Render()",
+			"    -- Drawing overlays. Called every frame.",
+			"    $4",
+			"end",
+			"",
+			"function End(hasWon)",
+			"    -- Cleanup when game ends.",
+			"    $5",
+			"end",
+			"",
+			"function Unload()",
+			"    -- Cleanup when module is unloaded.",
+			"    $6",
+			"end"
+		],
+		"description": "CONTROL module template with all lifecycle callbacks."
+	}
+}
