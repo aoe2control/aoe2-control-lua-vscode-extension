@@ -15,7 +15,7 @@
 			"    $0",
 			"end"
 		],
-		"description": "CONTROL lifecycle: Called when game is ready. Use for one-time setup (IPC.StartServer, ChatLocal)."
+		"description": "CONTROL lifecycle: Called when game is ready. Use for one-time setup (IPC.StartServer, ChatMessage)."
 	},
 	"Update callback": {
 		"prefix": "Update",

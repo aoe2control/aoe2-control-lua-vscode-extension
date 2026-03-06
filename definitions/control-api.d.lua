@@ -20,7 +20,7 @@ function Update() end
 function Render() end
 
 ---Called once when game ends.
----@param hasWon boolean Whether the local player won.
+---@param hasWon boolean Whether the assigned player won.
 function End(hasWon) end
 
 ---Called when module is unloaded, AI is disabled, or engine is ejected. Use for IPC cleanup.
@@ -96,6 +96,24 @@ Object = {}
 ---@return integer
 function Object:GetId() end
 
+---@return ObjectType
+function Object:GetObjectType() end
+
+---@return Player|nil
+function Object:GetOwningPlayer() end
+
+---@return Object|nil
+function Object:GetGarrisonObject() end
+
+---@return Vector3
+function Object:GetTargetPosition() end
+
+---@return Object|nil
+function Object:GetTargetObject() end
+
+---@return Vector3
+function Object:GetDirection() end
+
 ---@return Vector3
 function Object:GetPosition() end
 
@@ -114,9 +132,12 @@ function Object:GetUnitObjectType() end
 ---@return UnitClass
 function Object:GetClass() end
 
+---@param attribute UnitAttribute
+---@param damageType? integer
 ---@return number
 function Object:GetAttribute(attribute, damageType) end
 
+---@param objectData ObjectData
 ---@return integer
 function Object:GetObjectData(objectData) end
 
@@ -133,12 +154,43 @@ function Object:IsScouting() end
 function Object:IsVisible() end
 
 ---@class Player
----Player from GetLocalPlayer, GetPlayerById.
+---Player from GetAssignedPlayer, GetPlayerById.
 Player = {}
 
 ---@return integer
 function Player:GetId() end
 
+---@return PlayerType
+function Player:GetPlayerType() end
+
+---@return Object[]
+function Player:GetPlayerObjects() end
+
+---@return Vector2
+function Player:GetCameraPosition() end
+
+---@return Object|nil
+function Player:GetMouseHoveredObject() end
+
+---@return Object|nil
+function Player:GetSelectedObject() end
+
+---@return integer
+function Player:GetSelectedObjectCount() end
+
+---@return string
+function Player:GetPlayerName() end
+
+---@return integer
+function Player:GetCivilizationId() end
+
+---@return string
+function Player:GetCivilizationName() end
+
+---@return Color
+function Player:GetColor() end
+
+---@param attribute PlayerAttribute
 ---@return number
 function Player:GetAttribute(attribute) end
 
@@ -157,6 +209,14 @@ function Player:GetFact(factId, parameter) end
 function Player:CanAfford(unitId, isBuilding) end
 
 ---@param technology Technology
+---@return ResearchState
+function Player:GetResearchState(technology) end
+
+---@param technology Technology
+---@return boolean
+function Player:CanAffordResearch(technology) end
+
+---@param technology Technology
 ---@return boolean
 function Player:CanResearch(technology) end
 
@@ -168,16 +228,31 @@ function Player:IsTechnologyResearched(technology) end
 ---@return Object[]
 function Player:GetObjectsByTypes(unitTypes) end
 
----@param unitClass UnitClass
----@param deadInclusive? boolean
+---@param unitTypes UnitObjectType[]
 ---@return Object[]
-function Player:GetObjectsByClass(unitClass, deadInclusive) end
+function Player:GetObjectsByMostCommonType(unitTypes) end
+
+---@param unitClass UnitClass
+---@return Object[]
+function Player:GetObjectsByClass(unitClass) end
+
+---@param unitClass UnitClass
+---@return Object[]
+function Player:GetObjectsByClassDeadInclusive(unitClass) end
 
 ---@return Object[]
 function Player:GetTownCenters() end
 
 ---@return boolean
 function Player:HasWon() end
+
+---@param player Player
+---@return boolean
+function Player:IsAlliedWith(player) end
+
+---@param player Player
+---@return boolean
+function Player:IsEnemyTo(player) end
 
 -- =============================================================================
 -- COMMANDS (Game API — Actions) — Call from Init, Update, or Render
@@ -197,7 +272,7 @@ function SetCameraPosition(position) end
 
 ---Send message to local chat.
 ---@param message string
-function ChatLocal(message) end
+function ChatMessage(message) end
 
 ---Train units at specified buildings. trainSources = table of UnitObjectType (buildings), amount defaults to 1.
 ---@param trainSources UnitObjectType[]|Object[] Buildings that can train (e.g. {UnitObjectType.TOWN_CENTER_FEUDAL_AGE})
@@ -314,7 +389,7 @@ function SetUnitCombatStance(units, stance) end
 ---@return number
 function GetFact(factId, parameter) end
 
----Count of unit type for local player.
+---Count of unit type for the assigned player.
 ---@param unitId UnitObjectType
 ---@return integer
 function GetUnitTypeCount(unitId) end
@@ -324,7 +399,7 @@ function GetUnitTypeCount(unitId) end
 ---@return number
 function GetAttribute(attribute) end
 
----Can local player afford unit or building.
+---Can the assigned player afford a unit or building.
 ---@param unitId UnitObjectType
 ---@param isBuilding? boolean
 ---@return boolean
@@ -357,7 +432,10 @@ function GetObjectsByClass(unitClass) end
 function GetGameTime() end
 
 ---@return Player
-function GetLocalPlayer() end
+function GetAssignedPlayer() end
+
+---@return integer
+function GetAssignedPlayerId() end
 
 ---@param id integer
 ---@return Player
@@ -994,13 +1072,28 @@ Key = {
 }
 
 -- =============================================================================
--- STRATEGIC COMPONENTS (minimal stubs)
+-- STRATEGIC COMPONENTS
 -- =============================================================================
 
 ---@class ResourceTracker
 ---Tracks trees, gold, stone, farms, etc.
 ---@return ResourceTracker
 function ResourceTracker() end
+
+function ResourceTracker:Update() end
+
+---@param position Vector3
+---@param radius number
+---@return Object[]
+function ResourceTracker:GetConvertibleLivestock(position, radius) end
+
+---@return Object[]
+function ResourceTracker:GetOwnedLivestock() end
+
+---@param position Vector3
+---@param radius number
+---@return Object[]
+function ResourceTracker:GetDeadLivestock(position, radius) end
 
 ---@return Object[]
 function ResourceTracker:GetTrees() end
@@ -1029,6 +1122,35 @@ function VillagerOccupation:Update() end
 ---@return integer
 function VillagerOccupation:GetVillagerCount(profession) end
 
+---@return Object[]
+function VillagerOccupation:GetAllVillagers() end
+
+---@param amount integer
+---@param position Vector3
+---@param urgency UrgencyLevel
+---@return Object[]
+function VillagerOccupation:RequestVillagers(amount, position, urgency) end
+
+function VillagerOccupation:RebalanceVillagers() end
+
+---@param wood integer
+---@param food integer
+---@param gold integer
+---@param stone integer
+function VillagerOccupation:SetPriorities(wood, food, gold, stone) end
+
+function VillagerOccupation:ResetPriorities() end
+
+---@param profession VillagerProfession
+---@param percentage number
+function VillagerOccupation:SetPriorityPercentage(profession, percentage) end
+
+---@param villagers integer[]|Object[]
+function VillagerOccupation:AssignVillagers(villagers) end
+
+---@param villager Object
+function VillagerOccupation:AssignVillager(villager) end
+
 ---@class ConstructionPlacement
 ---Building placement.
 ---@param villagerOccupation VillagerOccupation
@@ -1037,15 +1159,65 @@ function ConstructionPlacement(villagerOccupation) end
 
 function ConstructionPlacement:Update() end
 
+---@param structureId UnitObjectType
+---@param builderUnitId integer
+---@param buildingSize integer
+---@param targetPos Vector3
+---@param direction PlacementDirection|Vector3
+---@param padding? integer
+---@param bypassTownCenterPadding? boolean
 ---@return boolean
-function ConstructionPlacement:TryBuildStructure(structureId, x, y, z, direction, priority, allowQueue) end
+function ConstructionPlacement:TryBuildStructure(structureId, builderUnitId, buildingSize, targetPos, direction, padding, bypassTownCenterPadding) end
 
----@return Vector3|nil
-function ConstructionPlacement:FindBestPosition(structureId, x, y, z) end
+---@param buildingSize integer
+---@param targetPos Vector3
+---@param direction PlacementDirection
+---@param padding integer
+---@param bypassTownCenterPadding? boolean
+---@return Vector3
+function ConstructionPlacement:FindBestPosition(buildingSize, targetPos, direction, padding, bypassTownCenterPadding) end
 
-function ConstructionPlacement:QueueBuildingRequest(structureId, x, y, z, direction, priority) end
+---@param structureId UnitObjectType
+---@param buildingSize integer
+---@param targetPosition Vector3
+---@param priority? BuildingRequestPriority
+---@param padding? integer
+---@param bypassTownCenterPadding? boolean
+---@param builderUnitId? integer
+---@param requireScouting? boolean
+function ConstructionPlacement:QueueBuildingRequest(structureId, buildingSize, targetPosition, priority, padding, bypassTownCenterPadding, builderUnitId, requireScouting) end
+
+---@param structureId UnitObjectType
+---@param buildingSize integer
+---@param priority? BuildingRequestPriority
+---@param padding? integer
+---@param bypassTownCenterPadding? boolean
+---@param builderUnitId? integer
+---@param requireScouting? boolean
+function ConstructionPlacement:QueueBuildingRequestAtTown(structureId, buildingSize, priority, padding, bypassTownCenterPadding, builderUnitId, requireScouting) end
 
 function ConstructionPlacement:ProcessBuildingRequests() end
+
+---@param structureId UnitObjectType
+---@return boolean
+function ConstructionPlacement:IsStructureTypeQueued(structureId) end
+
+---@param unitId integer
+---@return boolean
+function ConstructionPlacement:IsUnitAssignedToBuilding(unitId) end
+
+---@enum UrgencyLevel
+UrgencyLevel = {
+    LOW = 0,
+    MEDIUM = 1,
+    HIGH = 2
+}
+
+---@enum BuildingPosition
+BuildingPosition = {
+    TOWN_CENTER = 0,
+    AGGRESSIVE = 1
+}
 
 ---@enum VillagerProfession
 VillagerProfession = {
@@ -1053,4 +1225,25 @@ VillagerProfession = {
     FOOD = 1,
     STONE = 2,
     GOLD = 3
+}
+
+---@enum PlacementDirection
+PlacementDirection = {
+    Center = 0,
+    North = 1,
+    NorthEast = 2,
+    East = 3,
+    SouthEast = 4,
+    South = 5,
+    SouthWest = 6,
+    West = 7,
+    NorthWest = 8
+}
+
+---@enum BuildingRequestPriority
+BuildingRequestPriority = {
+    LOW = 0,
+    MEDIUM = 1,
+    HIGH = 2,
+    CRITICAL = 3
 }
