@@ -2,11 +2,11 @@
 	"Load callback": {
 		"prefix": "Load",
 		"body": [
-			"function Load()",
+			"function Load(assignedPlayerId)",
 			"    $0",
 			"end"
 		],
-		"description": "CONTROL lifecycle: Called when module is selected or AI is enabled. Use for Settings.Add* only."
+		"description": "CONTROL lifecycle: Called when module is selected or AI is enabled. assignedPlayerId is available here; use for Settings.Add* only."
 	},
 	"Init callback": {
 		"prefix": "Init",
@@ -56,8 +56,8 @@
 	"Full CONTROL module": {
 		"prefix": "control-module",
 		"body": [
-			"function Load()",
-			"    -- Settings.Add* only. Call from Load() only.",
+			"function Load(assignedPlayerId)",
+			"    -- Settings.Add* only. assignedPlayerId is available here.",
 			"    $1",
 			"end",
 			"",

@@ -8,7 +8,8 @@
 -- =============================================================================
 
 ---Called when module is selected or AI is enabled. Use for Settings.Add* only. Do NOT call game API.
-function Load() end
+---@param assignedPlayerId integer Player assigned to this module instance.
+function Load(assignedPlayerId) end
 
 ---Called when game is ready, world changed, module reloaded, or AI enabled. One-time setup.
 function Init() end
@@ -434,6 +435,7 @@ function GetGameTime() end
 ---@return Player
 function GetAssignedPlayer() end
 
+---Available during Load() and in-game callbacks.
 ---@return integer
 function GetAssignedPlayerId() end
 
@@ -698,7 +700,8 @@ function IPC.StartServer(pipeName) end
 
 function IPC.StopServer() end
 
----@param message string
+---@param message string|table
+---@return boolean
 function IPC.Send(message) end
 
 ---@return string[]
