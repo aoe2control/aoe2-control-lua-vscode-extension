@@ -94,11 +94,8 @@ function Color.HSV(h, s, v) end
 ---Map tile from GetMapTile or GetAllMapTiles.
 MapTile = {}
 
----@return integer
-function MapTile:GetPosX() end
-
----@return integer
-function MapTile:GetPosY() end
+---@return Vector2
+function MapTile:GetPos() end
 
 ---@return Terrain
 function MapTile:GetTerrain() end
@@ -111,6 +108,9 @@ function MapTile:GetTileVisibility() end
 
 ---@return boolean
 function MapTile:IsWalkable() end
+
+---@return boolean
+function MapTile:IsNavigatable() end
 
 ---@return integer
 function MapTile:GetObjectCount() end
@@ -164,7 +164,7 @@ function Object:GetUnitObjectType() end
 ---@return UnitClass
 function Object:GetClass() end
 
----@param attribute UnitAttribute
+---@param attribute ObjectAttribute
 ---@param damageType? integer
 ---@return number
 function Object:GetAttribute(attribute, damageType) end
@@ -477,19 +477,46 @@ function GetPlayerById(id) end
 ---@return integer
 function GetPlayerCount() end
 
+---Rebuilds the engine-owned tile snapshot buffer and returns `(ptr, size)`.
+---@return integer ptr
+---@return integer size
+function GetMapTilesPtr() end
+
 ---@return integer
 function GetMapWidth() end
 
 ---@return integer
 function GetMapHeight() end
 
----@param x integer
----@param y integer
+---@param x integer|Vector2
+---@param y? integer
 ---@return MapTile|nil
 function GetMapTile(x, y) end
 
 ---@return MapTile[]
 function GetAllMapTiles() end
+
+---Rebuilds the engine-owned object snapshot buffer and returns `(ptr, size)`.
+---Dead-inclusive.
+---@return integer ptr
+---@return integer size
+function GetObjectsPtr() end
+
+---@param pos1 Vector2
+---@param pos2 Vector2
+---@return Object[]
+function GetObjectsInArea(pos1, pos2) end
+
+---@param objectTypeId UnitObjectType|integer
+---@param objectData ObjectData
+---@return integer
+function GetObjectTypeData(objectTypeId, objectData) end
+
+---@param objectTypeId UnitObjectType|integer
+---@param attribute ObjectAttribute
+---@param damageType integer
+---@return number
+function GetObjectAttribute(objectTypeId, attribute, damageType) end
 
 ---@param player Player
 ---@return boolean
@@ -935,6 +962,56 @@ TileVisibility = {
     EXPLORED = 128
 }
 
+---@enum ObjectAttribute
+ObjectAttribute = {
+    HITPOINTS = 0,
+    LINE_OF_SIGHT = 1,
+    OBJECT_MAX = 2,
+    RADIUS_X = 3,
+    RADIUS_Y = 4,
+    SPEED = 5,
+    TURN_SPEED = 6,
+    ARMOR = 8,
+    WEAPON = 9,
+    SPEED_OF_ATTACK = 10,
+    HIT_CHANCE = 11,
+    WEAPON_RANGE = 12,
+    WORK_RATE = 13,
+    CARRY_CAPACITY = 14,
+    BASE_ARMOR = 15,
+    MISSILE_ID = 16,
+    BUILDING_FACET = 17,
+    DEFENSIVE_TERRAIN = 18,
+    TARGETING_TYPE = 19,
+    MINIMUM_WEAPON_RANGE = 20,
+    ATTRIBUTE_AMOUNT_HELD = 21,
+    AREA_EFFECT = 22,
+    SEARCH_RADIUS = 23,
+    HIDDEN_DAMAGE_RESIST = 24,
+    ICON_ID = 25,
+    FIRE_MISSILE_AT_FRAME = 41,
+    AREA_EFFECT_LEVEL = 44,
+    BLAST_DEFENSE_LEVEL = 45,
+    SHOWN_ATTACK = 46,
+    SHOWN_RANGE = 47,
+    SHOWN_MELEE_ARMOR = 48,
+    NAME_ID = 50,
+    DESCRIPTION_ID = 51,
+    TERRAIN_RESTRICTION = 53,
+    DEATH_SPAWN_OBJECT = 57,
+    HOTKEY_ID = 58,
+    RESOURCE_COST = 100,
+    CREATION_TIME = 101,
+    GARRISON_ARROWS = 102,
+    FOOD_COST = 103,
+    WOOD_COST = 104,
+    GOLD_COST = 105,
+    STONE_COST = 106,
+    MAX_DUP_MISSILES = 107,
+    GARRISON_HEAL_RATE = 108,
+    REGENERATION_RATE = 109
+}
+
 ---@enum UnitCombatStance
 UnitCombatStance = {
     AGGRESSIVE = 0,
@@ -1002,6 +1079,102 @@ FactId = {
     TREATY_TIME = 54,
     BATTLE_ROYALE_TIME = 55,
     IDLE_PASTURE_COUNT = 56
+}
+
+---@enum ObjectData
+ObjectData = {
+    INDEX = -1,
+    ID = 0,
+    TYPE = 1,
+    CLASS = 2,
+    CATEGORY = 3,
+    CMDID = 4,
+    ACTION = 5,
+    ORDER = 6,
+    TARGET = 7,
+    POINT_X = 8,
+    POINT_Y = 9,
+    HITPOINTS = 10,
+    MAXHP = 11,
+    RANGE = 12,
+    SPEED = 13,
+    DROPSITE = 14,
+    RESOURCE = 15,
+    CARRY = 16,
+    GARRISONED = 17,
+    GARRISON_COUNT = 18,
+    STATUS = 19,
+    PLAYER = 20,
+    ATTACK_STANCE = 21,
+    ACTION_TIME = 22,
+    TARGET_ID = 23,
+    FORMATION_ID = 24,
+    PATROLLING = 25,
+    STRIKE_ARMOR = 26,
+    PIERCE_ARMOR = 27,
+    BASE_ATTACK = 28,
+    LOCKED = 29,
+    GARRISON_ID = 30,
+    TRAIN_COUNT = 31,
+    TASKS_COUNT = 32,
+    ATTACKER_COUNT = 33,
+    ATTACKER_ID = 34,
+    UNDER_ATTACK = 35,
+    ATTACK_TIMER = 36,
+    POINT_Z = 37,
+    PRECISE_X = 38,
+    PRECISE_Y = 39,
+    PRECISE_Z = 40,
+    RESEARCHING = 41,
+    TILE_POSITION = 42,
+    TILE_INVERSE = 43,
+    DISTANCE = 44,
+    PRECISE_DISTANCE = 45,
+    FULL_DISTANCE = 46,
+    MAP_ZONE_ID = 47,
+    ON_MAINLAND = 48,
+    IDLING = 49,
+    MOVE_X = 50,
+    MOVE_Y = 51,
+    PRECISE_MOVE_X = 52,
+    PRECISE_MOVE_Y = 53,
+    RELOAD_TIME = 54,
+    NEXT_ATTACK = 55,
+    TRAIN_SITE = 56,
+    TRAIN_TIME = 57,
+    BLAST_RADIUS = 58,
+    BLAST_LEVEL = 59,
+    PROGRESS_TYPE = 60,
+    PROGRESS_VALUE = 61,
+    MIN_RANGE = 62,
+    TARGET_TIME = 63,
+    HERESY = 64,
+    FAITH = 65,
+    REDEMPTION = 66,
+    ATONEMENT = 67,
+    THEOCRACY = 68,
+    SPIES = 69,
+    BALLISTICS = 70,
+    GATHER_TYPE = 71,
+    LANGUAGE_ID = 72,
+    GROUP_FLAG = 73,
+    HERO_FLAGS = 74,
+    HERO = 75,
+    AUTO_HEAL = 76,
+    NO_CONVERT = 77,
+    FRAME_DELAY = 78,
+    ATTACK_COUNT = 79,
+    TO_PRECISE = 80,
+    BASE_TYPE = 81,
+    UPGRADE_TYPE = 82,
+    OWNERSHIP = 83,
+    CAPTURE_FLAG = 84,
+    CHARGE_ATTACK_TYPE = 85,
+    CHARGE_ATTACK_MAX = 86,
+    CHARGE_ATTACK_AMOUNT = 87,
+    CHARGE_ATTACK_REGENERATION_RATE = 88,
+    CHARGE_ATTACK_EVENT_TYPE = 89,
+    ATTACK_DELAY = 90
 }
 
 ---@enum UnitClass
