@@ -90,6 +90,34 @@ function Color.Parse(hexStr) end
 ---@return Color
 function Color.HSV(h, s, v) end
 
+---@class MapTile
+---Map tile from GetMapTile or GetAllMapTiles.
+MapTile = {}
+
+---@return integer
+function MapTile:GetPosX() end
+
+---@return integer
+function MapTile:GetPosY() end
+
+---@return Terrain
+function MapTile:GetTerrain() end
+
+---@return integer
+function MapTile:GetElevation() end
+
+---@return TileVisibility
+function MapTile:GetTileVisibility() end
+
+---@return boolean
+function MapTile:IsWalkable() end
+
+---@return integer
+function MapTile:GetObjectCount() end
+
+---@return Object[]
+function MapTile:GetObjects() end
+
 ---@class Object
 ---Unit or building from GetObjectsByType, GetObjectsByClass, GetObjectById.
 Object = {}
@@ -117,6 +145,9 @@ function Object:GetDirection() end
 
 ---@return Vector3
 function Object:GetPosition() end
+
+---@return MapTile|nil
+function Object:GetCurrentMapTile() end
 
 ---@return number
 function Object:GetHitpoints() end
@@ -446,6 +477,20 @@ function GetPlayerById(id) end
 ---@return integer
 function GetPlayerCount() end
 
+---@return integer
+function GetMapWidth() end
+
+---@return integer
+function GetMapHeight() end
+
+---@param x integer
+---@param y integer
+---@return MapTile|nil
+function GetMapTile(x, y) end
+
+---@return MapTile[]
+function GetAllMapTiles() end
+
 ---@param player Player
 ---@return boolean
 function IsEnemyPlayer(player) end
@@ -762,6 +807,132 @@ Age = {
     FEUDAL_AGE = 1,
     CASTLE_AGE = 2,
     IMPERIAL_AGE = 3
+}
+
+---@enum Terrain
+Terrain = {
+    UNKNOWN = -1,
+    GRASS = 0,
+    WATER = 1,
+    WATER_BEACH = 2,
+    DIRT_3 = 3,
+    SHALLOWS = 4,
+    LEAVES = 5,
+    DIRT = 6,
+    FARM = 7,
+    FARM_DEAD = 8,
+    GRASS_3 = 9,
+    FOREST = 10,
+    DIRT_2 = 11,
+    GRASS_2 = 12,
+    FOREST_PALM = 13,
+    DESERT = 14,
+    WATER_OLD = 15,
+    GRASS_OLD = 16,
+    FOREST_JUNGLE = 17,
+    FOREST_BAMBOO = 18,
+    FOREST_PINE = 19,
+    FOREST_OAK = 20,
+    FOREST_SNOW = 21,
+    WATER_DEEP = 22,
+    WATER_MEDIUM = 23,
+    ROAD = 24,
+    ROAD_BROKEN = 25,
+    ICE = 26,
+    FOUNDATION = 27,
+    WATER_BRIDGE = 28,
+    FARM_1 = 29,
+    FARM_2 = 30,
+    FARM_3 = 31,
+    SNOW = 32,
+    DIRT_SNOW = 33,
+    GRASS_SNOW = 34,
+    ICE_2 = 35,
+    FOUNDATION_SNOW = 36,
+    ICE_BEACH = 37,
+    ROAD_SNOW = 38,
+    ROAD_FUNGUS = 39,
+    KOH = 40,
+    SAVANNAH_DIRT = 41,
+    DIRT_4 = 42,
+    DESERT_CRACKED = 45,
+    DESERT_QUICKSAND = 46,
+    BLACK = 47,
+    FOREST_DRAGON_TREE = 48,
+    FOREST_BAOBAB = 49,
+    FOREST_ACACIA = 50,
+    BEACH_VEGETATION_WHITE = 51,
+    BEACH_VEGETATION = 52,
+    BEACH_WHITE = 53,
+    SHALLOWS_MANGROVE = 54,
+    FOREST_MANGROVE = 55,
+    FOREST_RAINFOREST = 56,
+    WATER_DEEP_OCEAN = 57,
+    WATER_AZURE = 58,
+    SHALLOWS_AZURE = 59,
+    GRASS_JUNGLE = 60,
+    FARM_RICE = 63,
+    FARM_RICE_DEAD = 64,
+    FARM_RICE_1 = 65,
+    FARM_RICE_2 = 66,
+    FARM_RICE_3 = 67,
+    CORRUPTION = 69,
+    GRAVEL = 70,
+    UNDERBRUSH_LEAVES = 71,
+    UNDERBRUSH_SNOW = 72,
+    SNOW_LIGHT = 73,
+    SNOW_STRONG = 74,
+    ROAD_FUNGUS_DE = 75,
+    DIRT_MUD = 76,
+    UNDERBRUSH_JUNGLE = 77,
+    ROAD_GRAVEL = 78,
+    BEACH_NOT_NAVIGABLE = 79,
+    BEACH_WET_SAND_NOT_NAVIGABLE = 80,
+    BEACH_WET_GRAVEL_NOT_NAVIGABLE = 81,
+    BEACH_WET_ROCK_NOT_NAVIGABLE = 82,
+    GRASS_RAINFOREST = 83,
+    FOREST_MEDITERRANEAN = 88,
+    FOREST_BUSH = 89,
+    FOREST_REEDS_SHALLOWS = 90,
+    FOREST_REEDS_BEACH = 91,
+    FOREST_REEDS = 92,
+    WATER_GREEN = 95,
+    WATER_BROWN = 96,
+    GRASS_DRY = 100,
+    SWAMP_BOGLAND = 101,
+    GRAVEL_DESERT = 102,
+    FOREST_AUTUMN = 104,
+    FOREST_AUTUMN_SNOW = 105,
+    FOREST_DEAD = 106,
+    BEACH_WET = 107,
+    BEACH_WET_GRAVEL = 108,
+    BEACH_WET_ROCK = 109,
+    FOREST_BIRCH = 110,
+    SWAMP_SHALLOWS = 111,
+    FOREST_PALM_GRASS = 112,
+    FOREST_LUSH_BAMBOO = 113,
+    WATER_YELLOW = 114,
+    SHALLOWS_YELLOW = 115,
+    WATER_YELLOW_DEEP = 116,
+    PASTURE = 117,
+    PASTURE_DEAD = 118,
+    PASTURE_1 = 119,
+    PASTURE_2 = 120,
+    PASTURE_3 = 121,
+    GRASS_FLOWERS_1 = 122,
+    GRASS_FLOWERS_2 = 123,
+    SNOW_SOFT = 124,
+    SNOW_SOFT_LIGHT = 125,
+    SNOW_SOFT_STRONG = 126,
+    ICE_SOFT = 127,
+    BLACK_WALKABLE = 129
+}
+
+---@enum TileVisibility
+TileVisibility = {
+    UNEXPLORED = 0,
+    VISIBLE = 15,
+    EXPLORED = 128
 }
 
 ---@enum UnitCombatStance
