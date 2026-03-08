@@ -15,7 +15,7 @@
 			"    $0",
 			"end"
 		],
-		"description": "CONTROL lifecycle: Called when game is ready. Use for one-time setup (IPC.StartServer, ChatMessage)."
+		"description": "CONTROL lifecycle: Called when game is ready. Use for one-time setup and read-only initialization."
 	},
 	"Update callback": {
 		"prefix": "Update",
@@ -24,7 +24,7 @@
 			"    $0",
 			"end"
 		],
-		"description": "CONTROL lifecycle: Called at configurable interval. Use for main game logic and commands."
+		"description": "CONTROL lifecycle: Called at configurable interval. Use for main game logic and game commands."
 	},
 	"Render callback": {
 		"prefix": "Render",
@@ -33,7 +33,7 @@
 			"    $0",
 			"end"
 		],
-		"description": "CONTROL lifecycle: Called every frame. Use for drawing overlays."
+		"description": "CONTROL lifecycle: Called every frame. Use for drawing overlays and read-only queries; avoid game commands."
 	},
 	"End callback": {
 		"prefix": "End",
@@ -62,17 +62,17 @@
 			"end",
 			"",
 			"function Init()",
-			"    -- One-time setup when game is ready.",
+			"    -- One-time setup when game is ready. Prefer read-only initialization here.",
 			"    $2",
 			"end",
 			"",
 			"function Update()",
-			"    -- Main game logic. Called at configurable interval.",
+			"    -- Main game logic. Put game commands here for Tournament Mode compatibility.",
 			"    $3",
 			"end",
 			"",
 			"function Render()",
-			"    -- Drawing overlays. Called every frame.",
+			"    -- Drawing overlays and read-only queries. Avoid game commands here.",
 			"    $4",
 			"end",
 			"",
@@ -87,5 +87,18 @@
 			"end"
 		],
 		"description": "CONTROL module template with all lifecycle callbacks."
+	},
+	"IPC drain loop": {
+		"prefix": "ipc-drain",
+		"body": [
+			"if IPC.HasMessages() then",
+			"    local messages = IPC.GetMessages()",
+			"    for _, message in ipairs(messages) do",
+			"        local payload = ParseJSON(message)",
+			"        $0",
+			"    end",
+			"end"
+		],
+		"description": "Drain queued IPC messages only when IPC.HasMessages() reports available data."
 	}
 }

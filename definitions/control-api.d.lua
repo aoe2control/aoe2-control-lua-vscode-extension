@@ -12,12 +12,15 @@
 function Load(assignedPlayerId) end
 
 ---Called when game is ready, world changed, module reloaded, or AI enabled. One-time setup.
+---Prefer read-only initialization here; Tournament Mode can block game commands outside Update().
 function Init() end
 
 ---Called at configurable interval (default 1.0s) while game runs. Main game logic.
+---Use this callback for game commands, especially when Tournament Mode is enabled.
 function Update() end
 
----Called every frame while game runs. Use for drawing overlays.
+---Called every frame while game runs. Use for drawing overlays and read-only facts.
+---Avoid game commands here; Tournament Mode can block them outside Update().
 function Render() end
 
 ---Called once when game ends.
@@ -287,7 +290,9 @@ function Player:IsAlliedWith(player) end
 function Player:IsEnemyTo(player) end
 
 -- =============================================================================
--- COMMANDS (Game API — Actions) — Call from Init, Update, or Render
+-- COMMANDS (Game API — Actions)
+-- Usually callable from Init(), Update(), or Render().
+-- Tournament Mode can block these outside Update().
 -- =============================================================================
 
 ---Write message to log window.
@@ -412,7 +417,8 @@ function SetUnitStanceSeekShelter(units) end
 function SetUnitCombatStance(units, stance) end
 
 -- =============================================================================
--- FACTS (Game API — Read State) — Call from Init, Update, or Render
+-- FACTS (Game API — Read State) — Safe from Init(), Update(), or Render().
+-- Tournament Mode restrictions apply to commands, not these read-only queries.
 -- =============================================================================
 
 ---Get fact value (population, resources, etc.). parameter often 0.
@@ -516,7 +522,7 @@ function GetObjectTypeData(objectTypeId, objectData) end
 ---@param attribute ObjectAttribute
 ---@param damageType integer
 ---@return number
-function GetObjectAttribute(objectTypeId, attribute, damageType) end
+function GetObjectTypeAttribute(objectTypeId, attribute, damageType) end
 
 ---@param player Player
 ---@return boolean
@@ -775,6 +781,10 @@ function IPC.StopServer() end
 ---@param message string|table
 ---@return boolean
 function IPC.Send(message) end
+
+---Return true if queued IPC messages are available without draining them.
+---@return boolean
+function IPC.HasMessages() end
 
 ---@return string[]
 function IPC.GetMessages() end

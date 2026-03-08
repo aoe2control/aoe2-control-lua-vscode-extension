@@ -6,4 +6,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
-- Initial release
+- Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
+- Renamed `GetObjectAttribute(...)` to `GetObjectTypeAttribute(...)`
+- Updated lifecycle and callback guidance for Tournament Mode command restrictions
