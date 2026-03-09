@@ -7,6 +7,8 @@
 -- LIFECYCLE CALLBACKS (optional; implement only what you need)
 -- =============================================================================
 
+---When a module is assigned to a player, native AI actions for that player are suppressed.
+
 ---Called when module is selected or AI is enabled. Use for Settings.Add* only. Do NOT call game API.
 ---@param assignedPlayerId integer Player assigned to this module instance.
 function Load(assignedPlayerId) end
@@ -37,8 +39,15 @@ function Unload() end
 ---@class Vector2
 ---@field x number
 ---@field y number
+---@field new fun(x: number, y: number): Vector2
 Vector2 = {}
 
+---@param x number
+---@param y number
+---@return Vector2
+function Vector2.new(x, y) end
+
+---@deprecated Use `Vector2.new(...)`.
 ---@param x number
 ---@param y number
 ---@return Vector2
@@ -48,8 +57,16 @@ function Vector2(x, y) end
 ---@field x number
 ---@field y number
 ---@field z number
+---@field new fun(x: number, y: number, z: number): Vector3
 Vector3 = {}
 
+---@param x number
+---@param y number
+---@param z number
+---@return Vector3
+function Vector3.new(x, y, z) end
+
+---@deprecated Use `Vector3.new(...)`.
 ---@param x number
 ---@param y number
 ---@param z number
@@ -61,8 +78,17 @@ function Vector3(x, y, z) end
 ---@field y number
 ---@field z number
 ---@field w number
+---@field new fun(x: number, y: number, z: number, w: number): Vector4
 Vector4 = {}
 
+---@param x number
+---@param y number
+---@param z number
+---@param w number
+---@return Vector4
+function Vector4.new(x, y, z, w) end
+
+---@deprecated Use `Vector4.new(...)`.
 ---@param x number
 ---@param y number
 ---@param z number
@@ -71,6 +97,9 @@ Vector4 = {}
 function Vector4(x, y, z, w) end
 
 ---@class Color
+---@field new fun(r: number, g: number, b: number, a?: number): Color
+---@field Parse fun(hexStr: string): Color
+---@field HSV fun(h: number, s: number, v: number): Color
 Color = {}
 
 ---Create color. Values 0-255.
@@ -109,6 +138,7 @@ function MapTile:GetElevation() end
 ---@return TileVisibility
 function MapTile:GetTileVisibility() end
 
+---Returns whether the tile is walkable after terrain and collision checks.
 ---@return boolean
 function MapTile:IsWalkable() end
 
@@ -176,6 +206,10 @@ function Object:GetAttribute(attribute, damageType) end
 ---@return integer
 function Object:GetObjectData(objectData) end
 
+---Get this object's current native path as world positions.
+---@return Vector3[]
+function Object:GetPath() end
+
 ---@return boolean
 function Object:IsIdle() end
 
@@ -190,6 +224,8 @@ function Object:IsVisible() end
 
 ---@class Player
 ---Player from GetAssignedPlayer, GetPlayerById.
+---Access to other players' facts, attributes, tech, and object queries may be limited
+---when "Modules See Everything" is disabled.
 Player = {}
 
 ---@return integer
@@ -233,7 +269,7 @@ function Player:GetAttribute(attribute) end
 ---@return integer
 function Player:GetUnitTypeCount(unitId) end
 
----@param factId FactId
+---@param factId Fact
 ---@param parameter? integer
 ---@return number
 function Player:GetFact(factId, parameter) end
@@ -422,7 +458,7 @@ function SetUnitCombatStance(units, stance) end
 -- =============================================================================
 
 ---Get fact value (population, resources, etc.). parameter often 0.
----@param factId FactId
+---@param factId Fact
 ---@param parameter? integer
 ---@return number
 function GetFact(factId, parameter) end
@@ -442,6 +478,11 @@ function GetAttribute(attribute) end
 ---@param isBuilding? boolean
 ---@return boolean
 function CanAfford(unitId, isBuilding) end
+
+---Whether the assigned player can currently access the requested object type.
+---@param unitObjectType UnitObjectType
+---@return boolean
+function IsObjectAvailable(unitObjectType) end
 
 ---Can research technology.
 ---@param technology Technology
@@ -469,6 +510,16 @@ function GetObjectsByClass(unitClass) end
 ---@return number
 function GetGameTime() end
 
+---Calculate a native path between two world positions.
+---@param from Vector3
+---@param to Vector3
+---@return boolean
+function CalculatePath(from, to) end
+
+---Get the last calculated native path as world positions.
+---@return Vector3[]
+function GetPath() end
+
 ---@return Player
 function GetAssignedPlayer() end
 
@@ -476,6 +527,8 @@ function GetAssignedPlayer() end
 ---@return integer
 function GetAssignedPlayerId() end
 
+---May return a Player handle for any slot, but data access can be restricted for
+---non-assigned players when "Modules See Everything" is disabled.
 ---@param id integer
 ---@return Player
 function GetPlayerById(id) end
@@ -1030,8 +1083,8 @@ UnitCombatStance = {
     STAND_GROUND = 3
 }
 
----@enum FactId
-FactId = {
+---@enum Fact
+Fact = {
     GAME_TIME = 0,
     POPULATION_CAP = 1,
     POPULATION_HEADROOM = 2,

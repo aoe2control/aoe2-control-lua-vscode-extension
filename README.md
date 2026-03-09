@@ -5,7 +5,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 ## Features
 
 - **IntelliSense** — Full API definitions for lifecycle callbacks (`Load`, `Init`, `Update`, `Render`, `End`), game commands, facts, render API, settings, IPC, and types
-- **Updated engine surface** — Includes `IPC.HasMessages()` and the renamed `GetObjectTypeAttribute(...)`
+- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectAvailable(...)`, native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
 - **Tournament Mode aware guidance** — Snippets and callback docs steer game commands into `Update()` while keeping read-only queries available in `Init()` and `Render()`
 - **Code snippets** — Quick insert for common CONTROL patterns
 - **Lua Language Server integration** — Optional auto-injection of definitions into the workspace library
@@ -25,7 +25,12 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 ### Unreleased
 
 - Added IntelliSense for `IPC.HasMessages()`
+- Added IntelliSense for `IsObjectAvailable(...)`, `CalculatePath(...)`, and `GetPath()`
 - Renamed the global object-type attribute helper to `GetObjectTypeAttribute(...)`
+- Renamed enum `FactId` to `Fact`
+- Updated `MapTile:IsWalkable()` documentation to reflect collision-aware checks
+- Documented restricted cross-player data access when "Modules See Everything" is disabled
+- Documented that assigning a module suppresses native AI actions for that player
 - Updated lifecycle/snippet guidance for Tournament Mode command restrictions
 
 ### 0.0.1

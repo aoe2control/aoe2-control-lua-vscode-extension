@@ -100,5 +100,23 @@
 			"end"
 		],
 		"description": "Drain queued IPC messages only when IPC.HasMessages() reports available data."
+	},
+	"Native pathfinding": {
+		"prefix": "calc-path",
+		"body": [
+			"if CalculatePath(${1:fromPosition}, ${2:toPosition}) then",
+			"    local path = GetPath()",
+			"    $0",
+			"end"
+		],
+		"description": "Calculate a native path and read back the resulting waypoint list."
+	},
+	"Object path": {
+		"prefix": "object-path",
+		"body": [
+			"local path = ${1:object}:GetPath()",
+			"$0"
+		],
+		"description": "Read the current native path waypoint list from an object."
 	}
 }
