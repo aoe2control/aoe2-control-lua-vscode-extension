@@ -279,6 +279,10 @@ function Player:GetFact(factId, parameter) end
 ---@return boolean
 function Player:CanAfford(unitId, isBuilding) end
 
+---@param unitObjectType UnitObjectType
+---@return boolean
+function Player:IsObjectTypeAvailable(unitObjectType) end
+
 ---@param technology Technology
 ---@return ResearchState
 function Player:GetResearchState(technology) end
@@ -482,7 +486,7 @@ function CanAfford(unitId, isBuilding) end
 ---Whether the assigned player can currently access the requested object type.
 ---@param unitObjectType UnitObjectType
 ---@return boolean
-function IsObjectAvailable(unitObjectType) end
+function IsObjectTypeAvailable(unitObjectType) end
 
 ---Can research technology.
 ---@param technology Technology

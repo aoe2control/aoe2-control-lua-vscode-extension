@@ -7,7 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
-- Added `IsObjectAvailable(...)`, `CalculatePath(...)`, and `GetPath()` to the CONTROL API definitions
+- Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `GetPath()` to the CONTROL API definitions
 - Renamed `GetObjectAttribute(...)` to `GetObjectTypeAttribute(...)`
 - Renamed enum `FactId` to `Fact`
 - Updated `MapTile:IsWalkable()` docs to reflect collision-aware checks
