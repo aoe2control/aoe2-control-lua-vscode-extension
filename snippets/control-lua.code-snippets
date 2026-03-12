@@ -42,7 +42,7 @@
 			"    $0",
 			"end"
 		],
-		"description": "CONTROL lifecycle: Called once when game ends. hasWon is boolean."
+		"description": "CONTROL lifecycle: Called once when game ends or is exited manually. hasWon is false on manual exit."
 	},
 	"Unload callback": {
 		"prefix": "Unload",
@@ -77,7 +77,7 @@
 			"end",
 			"",
 			"function End(hasWon)",
-			"    -- Cleanup when game ends.",
+			"    -- Cleanup when the game ends or is exited manually. hasWon is false on manual exit.",
 			"    $5",
 			"end",
 			"",
@@ -87,6 +87,24 @@
 			"end"
 		],
 		"description": "CONTROL module template with all lifecycle callbacks."
+	},
+	"New chat messages": {
+		"prefix": "new-chat",
+		"body": [
+			"for _, message in ipairs(GetNewChatMessages()) do",
+			"    $0",
+			"end"
+		],
+		"description": "Iterate chat messages that appeared since the previous call for this module instance."
+	},
+	"Menu open check": {
+		"prefix": "menu-open",
+		"body": [
+			"if IsMenuOpen() then",
+			"    $0",
+			"end"
+		],
+		"description": "Guard logic when an in-game menu is open."
 	},
 	"IPC drain loop": {
 		"prefix": "ipc-drain",

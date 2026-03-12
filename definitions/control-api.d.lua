@@ -25,7 +25,8 @@ function Update() end
 ---Avoid game commands here; Tournament Mode can block them outside Update().
 function Render() end
 
----Called once when game ends.
+---Called once when game ends or the match is exited manually.
+---On manual exit, `hasWon` is `false`.
 ---@param hasWon boolean Whether the assigned player won.
 function End(hasWon) end
 
@@ -333,6 +334,7 @@ function Player:IsEnemyTo(player) end
 -- COMMANDS (Game API — Actions)
 -- Usually callable from Init(), Update(), or Render().
 -- Tournament Mode can block these outside Update().
+-- Command bindings remain available when CONTROL's "Spectator Mode" option is enabled.
 -- =============================================================================
 
 ---Write message to log window.
@@ -343,13 +345,17 @@ function Log(message) end
 ---@param multiplier number
 function SetGameSpeedMultiplier(multiplier) end
 
+---Returns whether an in-game menu is currently open.
+---@return boolean
+function IsMenuOpen() end
+
 ---Move camera to position.
 ---@param position Vector2
 function SetCameraPosition(position) end
 
 ---Send message to local chat.
 ---@param message string
-function ChatMessage(message) end
+function SendChatMessage(message) end
 
 ---Train units at specified buildings. trainSources = table of UnitObjectType (buildings), amount defaults to 1.
 ---@param trainSources UnitObjectType[]|Object[] Buildings that can train (e.g. {UnitObjectType.TOWN_CENTER_FEUDAL_AGE})
@@ -513,6 +519,19 @@ function GetObjectsByClass(unitClass) end
 ---Current game time in seconds.
 ---@return number
 function GetGameTime() end
+
+---Get all currently retained chat messages from the in-game chat buffer.
+---@return string[]
+function GetAllChatMessages() end
+
+---Get the most recent chat message, if one exists.
+---@return string|nil
+function GetLastChatMessage() end
+
+---Get chat messages that appeared since the previous call for this module instance.
+---The first call returns the current retained chat buffer.
+---@return string[]
+function GetNewChatMessages() end
 
 ---Calculate a native path between two world positions.
 ---@param from Vector3
