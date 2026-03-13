@@ -5,7 +5,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 ## Features
 
 - **IntelliSense** — Full API definitions for lifecycle callbacks (`Load`, `Init`, `Update`, `Render`, `End`), game commands, facts, render API, settings, IPC, and types
-- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `IsMenuOpen()`, native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
+- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `IsMenuOpen()`, `ResourceType`, `GetTechCost(...)`, `GetObjectCost(...)`, native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
 - **Tournament Mode aware guidance** — Snippets and callback docs steer game commands into `Update()` while keeping read-only queries available in `Init()` and `Render()`
 - **Spectator Mode note** — Command guidance reflects that controls remain available when CONTROL's `"Spectator Mode"` option is enabled
 - **Code snippets** — Quick insert for common CONTROL patterns
@@ -28,6 +28,8 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 - Added IntelliSense for `IPC.HasMessages()`
 - Added IntelliSense for `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `GetPath()`
 - Added IntelliSense for `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()`
+- Added IntelliSense for `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` on both globals and `Player`
+- Added a snippet for iterating `ResourceCost` results from the new cost helpers
 - Renamed the global object-type attribute helper to `GetObjectTypeAttribute(...)`
 - Renamed enum `FactId` to `Fact`
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding

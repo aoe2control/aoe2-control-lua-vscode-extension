@@ -123,6 +123,12 @@ function Color.Parse(hexStr) end
 ---@return Color
 function Color.HSV(h, s, v) end
 
+---@class ResourceCost
+---@field [1] ResourceType
+---@field [2] integer
+---@field resourceId ResourceType
+---@field amount integer
+
 ---@class MapTile
 ---Map tile from GetMapTile or GetAllMapTiles.
 MapTile = {}
@@ -279,6 +285,17 @@ function Player:GetFact(factId, parameter) end
 ---@param isBuilding? boolean
 ---@return boolean
 function Player:CanAfford(unitId, isBuilding) end
+
+---Get the current research cost for this player.
+---@param technology Technology
+---@return ResourceCost[]
+function Player:GetTechCost(technology) end
+
+---Get the current object cost for this player.
+---@param unitObjectType UnitObjectType
+---@param costMultiplier? number
+---@return ResourceCost[]
+function Player:GetObjectCost(unitObjectType, costMultiplier) end
 
 ---@param unitObjectType UnitObjectType
 ---@return boolean
@@ -488,6 +505,17 @@ function GetAttribute(attribute) end
 ---@param isBuilding? boolean
 ---@return boolean
 function CanAfford(unitId, isBuilding) end
+
+---Get the current research cost for the assigned player.
+---@param technology Technology
+---@return ResourceCost[]
+function GetTechCost(technology) end
+
+---Get the current object cost for the assigned player.
+---@param unitObjectType UnitObjectType
+---@param costMultiplier? number
+---@return ResourceCost[]
+function GetObjectCost(unitObjectType, costMultiplier) end
 
 ---Whether the assigned player can currently access the requested object type.
 ---@param unitObjectType UnitObjectType
@@ -901,6 +929,15 @@ ResearchState = {
     RESEARCHABLE = 1,
     RESEARCHING = 2,
     RESEARCHED = 3
+}
+
+---@enum ResourceType
+ResourceType = {
+    FOOD = 0,
+    WOOD = 1,
+    STONE = 2,
+    GOLD = 3,
+    POPULATION = 4
 }
 
 ---@enum PlayerAttribute

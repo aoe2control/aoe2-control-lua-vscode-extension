@@ -9,6 +9,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
 - Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `GetPath()` to the CONTROL API definitions
 - Added `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()` to the CONTROL API definitions
+- Added `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` to the CONTROL API definitions
+- Added `GetTechCost(...)` and `GetObjectCost(...)` as `Player` methods in the CONTROL API definitions
+- Added a snippet for iterating `ResourceCost` results
 - Renamed `GetObjectAttribute(...)` to `GetObjectTypeAttribute(...)`
 - Renamed enum `FactId` to `Fact`
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding

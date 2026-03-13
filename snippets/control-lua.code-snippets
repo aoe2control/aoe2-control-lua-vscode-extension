@@ -136,5 +136,16 @@
 			"$0"
 		],
 		"description": "Read the current native path waypoint list from an object."
+	},
+	"Cost loop": {
+		"prefix": "cost-loop",
+		"body": [
+			"for _, cost in ipairs(${1:GetObjectCost(UnitObjectType.MILITIA)}) do",
+			"    local resourceId = cost.resourceId",
+			"    local amount = cost.amount",
+			"    $0",
+			"end"
+		],
+		"description": "Iterate ResourceCost entries returned by GetTechCost(...) or GetObjectCost(...)."
 	}
 }
