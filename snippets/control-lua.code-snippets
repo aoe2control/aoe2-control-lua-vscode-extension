@@ -160,6 +160,15 @@
 		],
 		"description": "Iterate all currently visible projectile objects."
 	},
+	"Projectile type loop": {
+		"prefix": "projectile-type",
+		"body": [
+			"for _, projectile in ipairs(GetProjectilesByType(${1:ProjectileType.ARC})) do",
+			"    $0",
+			"end"
+		],
+		"description": "Iterate visible projectiles filtered by ProjectileType."
+	},
 	"Cost loop": {
 		"prefix": "cost-loop",
 		"body": [

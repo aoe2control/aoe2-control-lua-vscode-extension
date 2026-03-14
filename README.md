@@ -5,7 +5,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 ## Features
 
 - **IntelliSense** — Full API definitions for lifecycle callbacks (`Load`, `Init`, `Update`, `Render`, `End`), game commands, facts, render API, settings, IPC, and types
-- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `IsMenuOpen()`, `ResourceType`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
+- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `IsMenuOpen()`, `ResourceType`, `ProjectileType`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
 - **Tournament Mode aware guidance** — Snippets and callback docs steer game commands into `Update()` while keeping read-only queries available in `Init()` and `Render()`
 - **Spectator Mode note** — Command guidance reflects that controls remain available when CONTROL's `"Spectator Mode"` option is enabled
 - **Code snippets** — Quick insert for common CONTROL patterns
@@ -30,7 +30,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 - Added IntelliSense for `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()`
 - Added IntelliSense for `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` on both globals and `Player`
 - Added a snippet for iterating `ResourceCost` results from the new cost helpers
-- Added IntelliSense for `GetProjectileById()`, `GetAllProjectiles()`, `Object:GetName()`, `Object:GetInternalName()`, and `Object:GetMasterName()`
+- Added IntelliSense for `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `ProjectileType`, `Object:GetName()`, `Object:GetInternalName()`, and `Object:GetMasterName()`
 - Added IntelliSense for `Object:CalculatePath(...)`
 - Added the auto-source `TrainUnit(unitId, amount?)` overload
 - Renamed the global object-type attribute helper to `GetObjectTypeAttribute(...)`
