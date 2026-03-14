@@ -122,12 +122,10 @@
 	"Native pathfinding": {
 		"prefix": "calc-path",
 		"body": [
-			"if CalculatePath(${1:fromPosition}, ${2:toPosition}) then",
-			"    local path = GetPath()",
-			"    $0",
-			"end"
+			"local path = CalculatePath(${1:fromPosition}, ${2:toPosition})",
+			"$0"
 		],
-		"description": "Calculate a native path and read back the resulting waypoint list."
+		"description": "Calculate a native path between Vector3 positions and get the waypoint list directly."
 	},
 	"Object path": {
 		"prefix": "object-path",
@@ -136,6 +134,31 @@
 			"$0"
 		],
 		"description": "Read the current native path waypoint list from an object."
+	},
+	"Object calculate path": {
+		"prefix": "object-calc-path",
+		"body": [
+			"local path = ${1:object}:CalculatePath(${2:targetPosition})",
+			"$0"
+		],
+		"description": "Calculate a path from an object's current position to a target Vector3."
+	},
+	"Train unit auto-source": {
+		"prefix": "train-unit",
+		"body": [
+			"local queued = TrainUnit(${1:UnitObjectType.MILITIA}, ${2:1})",
+			"$0"
+		],
+		"description": "Train a unit while letting CONTROL choose a valid training source automatically."
+	},
+	"Projectile loop": {
+		"prefix": "projectiles",
+		"body": [
+			"for _, projectile in ipairs(GetAllProjectiles()) do",
+			"    $0",
+			"end"
+		],
+		"description": "Iterate all currently visible projectile objects."
 	},
 	"Cost loop": {
 		"prefix": "cost-loop",

@@ -7,11 +7,16 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
-- Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `GetPath()` to the CONTROL API definitions
+- Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()` to the CONTROL API definitions
 - Added `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()` to the CONTROL API definitions
 - Added `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` to the CONTROL API definitions
 - Added `GetTechCost(...)` and `GetObjectCost(...)` as `Player` methods in the CONTROL API definitions
 - Added a snippet for iterating `ResourceCost` results
+- Added `GetProjectileById()`, `GetAllProjectiles()`, `Object:GetName()`, `Object:GetInternalName()`, and `Object:GetMasterName()` to the CONTROL API definitions
+- Added `Object:CalculatePath(...)` to the CONTROL API definitions and snippets
+- Added the auto-source `TrainUnit(unitId, amount?)` overload to the CONTROL API definitions and snippets
+- Updated `CalculatePath(...)` to use `Vector3` and return waypoint lists directly
+- Added `ObjectType` to the CONTROL API definitions
 - Renamed `GetObjectAttribute(...)` to `GetObjectTypeAttribute(...)`
 - Renamed enum `FactId` to `Fact`
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding

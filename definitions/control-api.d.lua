@@ -159,11 +159,20 @@ function MapTile:GetObjectCount() end
 function MapTile:GetObjects() end
 
 ---@class Object
----Unit or building from GetObjectsByType, GetObjectsByClass, GetObjectById.
+---Unit, building, or projectile from object and projectile query helpers.
 Object = {}
 
 ---@return integer
 function Object:GetId() end
+
+---@return string
+function Object:GetName() end
+
+---@return string
+function Object:GetInternalName() end
+
+---@return string
+function Object:GetMasterName() end
 
 ---@return ObjectType
 function Object:GetObjectType() end
@@ -216,6 +225,11 @@ function Object:GetObjectData(objectData) end
 ---Get this object's current native path as world positions.
 ---@return Vector3[]
 function Object:GetPath() end
+
+---Calculate a path from this object's current position to a target world position.
+---@param targetPos Vector3
+---@return Vector3[]
+function Object:CalculatePath(targetPos) end
 
 ---@return boolean
 function Object:IsIdle() end
@@ -374,8 +388,10 @@ function SetCameraPosition(position) end
 ---@param message string
 function SendChatMessage(message) end
 
----Train units at specified buildings. trainSources = table of UnitObjectType (buildings), amount defaults to 1.
----@param trainSources UnitObjectType[]|Object[] Buildings that can train (e.g. {UnitObjectType.TOWN_CENTER_FEUDAL_AGE})
+---Train units while automatically selecting a valid source for the assigned player.
+---@overload fun(unitId: UnitObjectType, amount?: integer): boolean
+---Train units at specified building types. amount defaults to 1.
+---@param trainSources UnitObjectType[] Buildings that can train (e.g. {UnitObjectType.TOWN_CENTER_FEUDAL_AGE})
 ---@param unitId UnitObjectType Unit type to train
 ---@param amount? integer Amount to train (default 1)
 ---@return boolean
@@ -564,12 +580,9 @@ function GetNewChatMessages() end
 ---Calculate a native path between two world positions.
 ---@param from Vector3
 ---@param to Vector3
----@return boolean
-function CalculatePath(from, to) end
-
----Get the last calculated native path as world positions.
+---@param collisionRadius? number
 ---@return Vector3[]
-function GetPath() end
+function CalculatePath(from, to, collisionRadius) end
 
 ---@return Player
 function GetAssignedPlayer() end
@@ -635,6 +648,13 @@ function IsEnemyPlayer(player) end
 ---@param id integer
 ---@return Object|nil
 function GetObjectById(id) end
+
+---@param id integer
+---@return Object|nil
+function GetProjectileById(id) end
+
+---@return Object[]
+function GetAllProjectiles() end
 
 ---@return VictoryCondition
 function GetVictoryCondition() end
@@ -957,6 +977,16 @@ Age = {
     FEUDAL_AGE = 1,
     CASTLE_AGE = 2,
     IMPERIAL_AGE = 3
+}
+
+---@enum ObjectType
+ObjectType = {
+    RESOURCE_OR_EYE_CANDY = 10,
+    ANIMATED_MAP_OBJECT = 20,
+    DEAD_OR_FISH = 30,
+    PROJECTILE = 60,
+    NPC = 70,
+    BUILDING = 80
 }
 
 ---@enum Terrain
