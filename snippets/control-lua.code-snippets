@@ -143,6 +143,16 @@
 		],
 		"description": "Calculate a path from an object's current position to a target Vector3."
 	},
+	"Action target position": {
+		"prefix": "action-target",
+		"body": [
+			"local impactPos = ${1:object}:GetActionTargetPosition()",
+			"if impactPos then",
+			"    $0",
+			"end"
+		],
+		"description": "Read the current action target position, such as a projectile impact position."
+	},
 	"Train unit auto-source": {
 		"prefix": "train-unit",
 		"body": [

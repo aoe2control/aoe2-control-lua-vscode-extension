@@ -186,6 +186,9 @@ function Object:GetGarrisonObject() end
 ---@return Vector3
 function Object:GetTargetPosition() end
 
+---@return Vector3|nil
+function Object:GetActionTargetPosition() end
+
 ---@return Object|nil
 function Object:GetTargetObject() end
 
