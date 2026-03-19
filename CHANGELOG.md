@@ -22,6 +22,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Renamed enum `FactId` to `Fact`
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding
 - Updated `MapTile:IsWalkable()` docs to reflect collision-aware checks
+- Clarified that vector coordinate fields use lowercase names (`x`, `y`, `z`, `w`) and added lowercase vector constructor snippets
 - Documented restricted access to other-player data when "Modules See Everything" is disabled
 - Documented that assigning a module suppresses native AI actions for that player
 - Updated lifecycle and callback guidance for Tournament Mode command restrictions

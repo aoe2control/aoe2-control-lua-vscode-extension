@@ -38,8 +38,8 @@ function Unload() end
 -- =============================================================================
 
 ---@class Vector2
----@field x number
----@field y number
+---@field x number X coordinate. Use lowercase field names for vector components.
+---@field y number Y coordinate. Use lowercase field names for vector components.
 ---@field new fun(x: number, y: number): Vector2
 Vector2 = {}
 
@@ -55,9 +55,9 @@ function Vector2.new(x, y) end
 function Vector2(x, y) end
 
 ---@class Vector3
----@field x number
----@field y number
----@field z number
+---@field x number X coordinate. Use lowercase field names for vector components.
+---@field y number Y coordinate. Use lowercase field names for vector components.
+---@field z number Z coordinate. Use lowercase field names for vector components.
 ---@field new fun(x: number, y: number, z: number): Vector3
 Vector3 = {}
 
@@ -75,10 +75,10 @@ function Vector3.new(x, y, z) end
 function Vector3(x, y, z) end
 
 ---@class Vector4
----@field x number
----@field y number
----@field z number
----@field w number
+---@field x number X coordinate. Use lowercase field names for vector components.
+---@field y number Y coordinate. Use lowercase field names for vector components.
+---@field z number Z coordinate. Use lowercase field names for vector components.
+---@field w number W coordinate. Use lowercase field names for vector components.
 ---@field new fun(x: number, y: number, z: number, w: number): Vector4
 Vector4 = {}
 

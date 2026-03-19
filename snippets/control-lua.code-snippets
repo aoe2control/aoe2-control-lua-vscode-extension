@@ -153,6 +153,27 @@
 		],
 		"description": "Read the current action target position, such as a projectile impact position."
 	},
+	"Vector2 constructor": {
+		"prefix": "vec2",
+		"body": [
+			"Vector2.new(${1:x}, ${2:y})"
+		],
+		"description": "Create a Vector2 using lowercase coordinate names x and y."
+	},
+	"Vector3 constructor": {
+		"prefix": "vec3",
+		"body": [
+			"Vector3.new(${1:x}, ${2:y}, ${3:z})"
+		],
+		"description": "Create a Vector3 using lowercase coordinate names x, y, and z."
+	},
+	"Vector4 constructor": {
+		"prefix": "vec4",
+		"body": [
+			"Vector4.new(${1:x}, ${2:y}, ${3:z}, ${4:w})"
+		],
+		"description": "Create a Vector4 using lowercase coordinate names x, y, z, and w."
+	},
 	"Train unit auto-source": {
 		"prefix": "train-unit",
 		"body": [
