@@ -1805,48 +1805,58 @@ function ConstructionPlacement(villagerOccupation) end
 
 function ConstructionPlacement:Update() end
 
----@param structureId UnitObjectType
+---Build a structure with a specific builder, deriving placement size from the structure type.
+---@overload fun(structureType: UnitObjectType, builderUnitId: integer, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(structureType: UnitObjectType, targetPos: Vector3, direction: PlacementDirection, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(structureType: UnitObjectType, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@param structureType UnitObjectType
 ---@param builderUnitId integer
----@param buildingSize integer
 ---@param targetPos Vector3
 ---@param direction PlacementDirection|Vector3
 ---@param padding? integer
 ---@param bypassTownCenterPadding? boolean
 ---@return boolean
-function ConstructionPlacement:TryBuildStructure(structureId, builderUnitId, buildingSize, targetPos, direction, padding, bypassTownCenterPadding) end
+function ConstructionPlacement:BuildStructure(structureType, builderUnitId, targetPos, direction, padding, bypassTownCenterPadding) end
 
----@param buildingSize integer
+---Build a structure relative to the town center, auto-selecting a builder villager.
+---@overload fun(structureType: UnitObjectType, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@param structureType UnitObjectType
+---@param targetPos Vector3
+---@param padding? integer
+---@param bypassTownCenterPadding? boolean
+---@return boolean
+function ConstructionPlacement:BuildStructureAtTown(structureType, targetPos, padding, bypassTownCenterPadding) end
+
+---@param structureType UnitObjectType
 ---@param targetPos Vector3
 ---@param direction PlacementDirection
 ---@param padding integer
 ---@param bypassTownCenterPadding? boolean
 ---@return Vector3
-function ConstructionPlacement:FindBestPosition(buildingSize, targetPos, direction, padding, bypassTownCenterPadding) end
+function ConstructionPlacement:FindBestPosition(structureType, targetPos, direction, padding, bypassTownCenterPadding) end
 
----@param structureId UnitObjectType
----@param buildingSize integer
+---@param structureType UnitObjectType
 ---@param targetPosition Vector3
 ---@param priority? BuildingRequestPriority
 ---@param padding? integer
 ---@param bypassTownCenterPadding? boolean
 ---@param builderUnitId? integer
 ---@param requireScouting? boolean
-function ConstructionPlacement:QueueBuildingRequest(structureId, buildingSize, targetPosition, priority, padding, bypassTownCenterPadding, builderUnitId, requireScouting) end
+function ConstructionPlacement:QueueBuildingRequest(structureType, targetPosition, priority, padding, bypassTownCenterPadding, builderUnitId, requireScouting) end
 
----@param structureId UnitObjectType
----@param buildingSize integer
+---@param structureType UnitObjectType
 ---@param priority? BuildingRequestPriority
 ---@param padding? integer
 ---@param bypassTownCenterPadding? boolean
 ---@param builderUnitId? integer
 ---@param requireScouting? boolean
-function ConstructionPlacement:QueueBuildingRequestAtTown(structureId, buildingSize, priority, padding, bypassTownCenterPadding, builderUnitId, requireScouting) end
+function ConstructionPlacement:QueueBuildingRequestAtTown(structureType, priority, padding, bypassTownCenterPadding, builderUnitId, requireScouting) end
 
 function ConstructionPlacement:ProcessBuildingRequests() end
 
----@param structureId UnitObjectType
+---@param structureType UnitObjectType
 ---@return boolean
-function ConstructionPlacement:IsStructureTypeQueued(structureId) end
+function ConstructionPlacement:IsStructureTypeQueued(structureType) end
 
 ---@param unitId integer
 ---@return boolean

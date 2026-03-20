@@ -21,6 +21,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Renamed `GetObjectAttribute(...)` to `GetObjectTypeAttribute(...)`
 - Renamed enum `FactId` to `Fact`
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding
+- Updated `ConstructionPlacement` for the renamed `BuildStructure(...)` helpers and new `BuildStructureAtTown(...)` overloads
+- Updated `FindBestPosition(...)`, `QueueBuildingRequest(...)`, `QueueBuildingRequestAtTown(...)`, and `IsStructureTypeQueued(...)` to use `UnitObjectType`-based signatures
 - Updated `MapTile:IsWalkable()` docs to reflect collision-aware checks
 - Clarified that vector coordinate fields use lowercase names (`x`, `y`, `z`, `w`) and added lowercase vector constructor snippets
 - Documented restricted access to other-player data when "Modules See Everything" is disabled

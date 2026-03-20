@@ -6,6 +6,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 
 - **IntelliSense** — Full API definitions for lifecycle callbacks (`Load`, `Init`, `Update`, `Render`, `End`), game commands, facts, render API, settings, IPC, and types
 - **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `IsMenuOpen()`, `ResourceType`, `ProjectileType`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, `Object:GetActionTargetPosition()`, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
+- **Current construction helpers** — Reflects the renamed `BuildStructure(...)` API, the new `BuildStructureAtTown(...)` helpers, and the `UnitObjectType`-based placement/queue signatures
 - **Tournament Mode aware guidance** — Snippets and callback docs steer game commands into `Update()` while keeping read-only queries available in `Init()` and `Render()`
 - **Spectator Mode note** — Command guidance reflects that controls remain available when CONTROL's `"Spectator Mode"` option is enabled
 - **Code snippets** — Quick insert for common CONTROL patterns
@@ -37,6 +38,8 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 - Renamed the global object-type attribute helper to `GetObjectTypeAttribute(...)`
 - Renamed enum `FactId` to `Fact`
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding
+- Updated `ConstructionPlacement` docs for the renamed `BuildStructure(...)` helpers and `BuildStructureAtTown(...)`
+- Updated `FindBestPosition(...)`, building queue helpers, and `IsStructureTypeQueued(...)` to use `UnitObjectType` instead of manual building size or raw ids
 - Updated `CalculatePath(...)` docs and snippets to use `Vector3` and return the waypoint list directly
 - Updated `MapTile:IsWalkable()` documentation to reflect collision-aware checks
 - Documented restricted cross-player data access when "Modules See Everything" is disabled
