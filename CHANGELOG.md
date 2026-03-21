@@ -9,6 +9,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
 - Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()` to the CONTROL API definitions
 - Added `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()` to the CONTROL API definitions
+- Added replay helpers `IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`, and enum `ReplaySpeed` to the CONTROL API definitions
 - Added `GetObjectsByClasses(...)` as both a global helper and a `Player` method in the CONTROL API definitions
 - Added `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` to the CONTROL API definitions
 - Added `GetTechCost(...)` and `GetObjectCost(...)` as `Player` methods in the CONTROL API definitions
@@ -33,4 +34,4 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Documented that assigning a module suppresses native AI actions for that player
 - Updated lifecycle and callback guidance for Tournament Mode command restrictions
 - Documented that command bindings remain available when `"Spectator Mode"` is enabled
-- Documented that `End(hasWon)` also fires on manual exit and reports `false` then
+- Documented that `End(hasWon)` also fires when a replay ends, and still reports `false` on manual exit

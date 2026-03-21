@@ -25,7 +25,7 @@ function Update() end
 ---Avoid game commands here; Tournament Mode can block them outside Update().
 function Render() end
 
----Called once when game ends or the match is exited manually.
+---Called once when game ends, a replay ends, or the match is exited manually.
 ---On manual exit, `hasWon` is `false`.
 ---@param hasWon boolean Whether the assigned player won.
 function End(hasWon) end
@@ -591,6 +591,22 @@ function GetLastChatMessage() end
 ---@return string[]
 function GetNewChatMessages() end
 
+---Whether replay playback is currently paused.
+---@return boolean
+function IsGamePaused() end
+
+---Pause or unpause replay playback.
+---@param paused boolean
+function SetGamePaused(paused) end
+
+---Set replay playback speed.
+---@param speed ReplaySpeed
+function SetReplaySpeed(speed) end
+
+---Get the current replay file name.
+---@return string
+function GetCurrentReplayFileName() end
+
 ---Calculate a native path between two world positions.
 ---@param from Vector3
 ---@param to Vector3
@@ -958,6 +974,14 @@ VictoryCondition = {
     TIME_LIMIT = 2,
     SCORE = 3,
     CUSTOM = 4
+}
+
+---@enum ReplaySpeed
+ReplaySpeed = {
+    SLOW = 0,
+    NORMAL = 1,
+    FAST = 2,
+    FASTEST = 3
 }
 
 ---@enum ResearchState

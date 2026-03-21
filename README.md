@@ -5,7 +5,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 ## Features
 
 - **IntelliSense** — Full API definitions for lifecycle callbacks (`Load`, `Init`, `Update`, `Render`, `End`), game commands, facts, render API, settings, IPC, and types
-- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `IsMenuOpen()`, `GetObjectsByClasses(...)`, `ResourceType`, `ProjectileType`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, `Object:GetActionTargetPosition()`, `Object:IsExplored()`, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
+- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `IsMenuOpen()`, replay helpers (`IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`), `GetObjectsByClasses(...)`, `ResourceType`, `ProjectileType`, `ReplaySpeed`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, `Object:GetActionTargetPosition()`, `Object:IsExplored()`, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
 - **Current construction helpers** — Reflects the renamed `BuildStructure(...)` API, the new `BuildStructureAtTown(...)` helpers, and the `UnitObjectType`-based placement/queue signatures
 - **Tournament Mode aware guidance** — Snippets and callback docs steer game commands into `Update()` while keeping read-only queries available in `Init()` and `Render()`
 - **Spectator Mode note** — Command guidance reflects that controls remain available when CONTROL's `"Spectator Mode"` option is enabled
@@ -29,6 +29,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 - Added IntelliSense for `IPC.HasMessages()`
 - Added IntelliSense for `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()`
 - Added IntelliSense for `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()`
+- Added IntelliSense for replay helpers `IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`, and enum `ReplaySpeed`
 - Added IntelliSense for `GetObjectsByClasses(...)` on both globals and `Player`
 - Added IntelliSense for `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` on both globals and `Player`
 - Added a snippet for iterating `ResourceCost` results from the new cost helpers
@@ -50,7 +51,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 - Documented that assigning a module suppresses native AI actions for that player
 - Updated lifecycle/snippet guidance for Tournament Mode command restrictions
 - Documented that command bindings remain available when `"Spectator Mode"` is enabled
-- Documented that `End(hasWon)` also fires on manual game exit and reports `false` in that case
+- Documented that `End(hasWon)` also fires when a replay ends, and still reports `false` on manual game exit
 
 ### 0.0.1
 

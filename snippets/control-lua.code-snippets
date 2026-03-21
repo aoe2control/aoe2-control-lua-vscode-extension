@@ -42,7 +42,7 @@
 			"    $0",
 			"end"
 		],
-		"description": "CONTROL lifecycle: Called once when game ends or is exited manually. hasWon is false on manual exit."
+		"description": "CONTROL lifecycle: Called once when the game ends, a replay ends, or the match is exited manually. hasWon is false on manual exit."
 	},
 	"Unload callback": {
 		"prefix": "Unload",
@@ -77,7 +77,7 @@
 			"end",
 			"",
 			"function End(hasWon)",
-			"    -- Cleanup when the game ends or is exited manually. hasWon is false on manual exit.",
+			"    -- Cleanup when the game ends, a replay ends, or the match is exited manually. hasWon is false on manual exit.",
 			"    $5",
 			"end",
 			"",
