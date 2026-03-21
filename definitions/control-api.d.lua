@@ -246,6 +246,9 @@ function Object:IsScouting() end
 ---@return boolean
 function Object:IsVisible() end
 
+---@return boolean
+function Object:IsExplored() end
+
 ---@class Player
 ---Player from GetAssignedPlayer, GetPlayerById.
 ---Access to other players' facts, attributes, tech, and object queries may be limited
@@ -345,6 +348,10 @@ function Player:GetObjectsByMostCommonType(unitTypes) end
 ---@param unitClass UnitClass
 ---@return Object[]
 function Player:GetObjectsByClass(unitClass) end
+
+---@param unitClasses UnitClass[]
+---@return Object[]
+function Player:GetObjectsByClasses(unitClasses) end
 
 ---@param unitClass UnitClass
 ---@return Object[]
@@ -562,6 +569,10 @@ function GetObjectsByTypes(unitTypes) end
 ---@param unitClass UnitClass
 ---@return Object[]
 function GetObjectsByClass(unitClass) end
+
+---@param classes UnitClass[]
+---@return Object[]
+function GetObjectsByClasses(classes) end
 
 ---Current game time in seconds.
 ---@return number
@@ -1726,7 +1737,11 @@ Key = {
 ---@return ResourceTracker
 function ResourceTracker() end
 
+---Refresh tracked resource sets so repopulated resources can be discovered again.
 function ResourceTracker:Update() end
+
+---Remove cached resources that are visibly gone from the world.
+function ResourceTracker:Cleanup() end
 
 ---@param position Vector3
 ---@param radius number
