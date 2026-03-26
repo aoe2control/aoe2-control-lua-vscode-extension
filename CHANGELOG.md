@@ -10,10 +10,13 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()` to the CONTROL API definitions
 - Added `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()` to the CONTROL API definitions
 - Added replay helpers `IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`, and enum `ReplaySpeed` to the CONTROL API definitions
+- Added `DispatchStartGame()`, `DispatchRestartGame()`, `DispatchResignGame()`, `DispatchQuitGame()`, `DispatchLoadGame(...)`, `GetAvailableSaveFiles()`, `GetCurrentGameOptions()`, `SetEngineUIVisibility(...)`, and `UnloadEngine()` to the CONTROL API definitions
+- Added `GameOptions` and enums `OptionsAIDifficulty`, `OptionsCivilizationSet`, `OptionsGameMode`, `OptionsMapSize`, `OptionsAge`, `OptionsRevealMap`, `OptionsVictory`, `OptionsResources`, `OptionsLocation`, and `OptionsCivilization` to the CONTROL API definitions
 - Added `GetObjectsByClasses(...)` as both a global helper and a `Player` method in the CONTROL API definitions
 - Added `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` to the CONTROL API definitions
 - Added `GetTechCost(...)` and `GetObjectCost(...)` as `Player` methods in the CONTROL API definitions
 - Added a snippet for iterating `ResourceCost` results
+- Added snippets for `GetCurrentGameOptions()`, `DispatchStartGame()`, and `DispatchLoadGame(...)`
 - Added `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `ProjectileType`, `Object:GetName()`, `Object:GetInternalName()`, and `Object:GetMasterName()` to the CONTROL API definitions
 - Added `Object:GetActionTargetPosition()` to the CONTROL API definitions and snippets
 - Added `Object:IsExplored()` to the CONTROL API definitions

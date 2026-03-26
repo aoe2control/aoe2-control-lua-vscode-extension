@@ -129,6 +129,215 @@ function Color.HSV(h, s, v) end
 ---@field resourceId ResourceType
 ---@field amount integer
 
+---@class GameOptions
+---Lobby and pre-game configuration handle returned by `GetCurrentGameOptions()`.
+---Setter methods return `false` when called while already in game.
+GameOptions = {}
+
+---@return OptionsAIDifficulty
+function GameOptions:GetAIDifficulty() end
+
+---@param difficulty OptionsAIDifficulty
+---@return boolean
+function GameOptions:SetAIDifficulty(difficulty) end
+
+---@return OptionsCivilizationSet
+function GameOptions:GetCivilizationSet() end
+
+---@param civilizationSet OptionsCivilizationSet
+---@return boolean
+function GameOptions:SetCivilizationSet(civilizationSet) end
+
+---@return OptionsGameMode
+function GameOptions:GetGameMode() end
+
+---@param gameMode OptionsGameMode
+---@return boolean
+function GameOptions:SetGameMode(gameMode) end
+
+---@return OptionsMapSize
+function GameOptions:GetMapSize() end
+
+---@param mapSize OptionsMapSize
+---@return boolean
+function GameOptions:SetMapSize(mapSize) end
+
+---@return OptionsAge
+function GameOptions:GetStartingAge() end
+
+---@param age OptionsAge
+---@return boolean
+function GameOptions:SetStartingAge(age) end
+
+---@return OptionsAge
+function GameOptions:GetEndingAge() end
+
+---@param age OptionsAge
+---@return boolean
+function GameOptions:SetEndingAge(age) end
+
+---@return number
+function GameOptions:GetGameSpeed() end
+
+---@param gameSpeed number
+---@return boolean
+function GameOptions:SetGameSpeed(gameSpeed) end
+
+---@return OptionsRevealMap
+function GameOptions:GetRevealMap() end
+
+---@param revealMap OptionsRevealMap
+---@return boolean
+function GameOptions:SetRevealMap(revealMap) end
+
+---@return OptionsVictory
+function GameOptions:GetVictory() end
+
+---@param victory OptionsVictory
+---@return boolean
+function GameOptions:SetVictory(victory) end
+
+---@return integer
+function GameOptions:GetVictoryLimit() end
+
+---@param victoryLimit integer
+---@return boolean
+function GameOptions:SetVictoryLimit(victoryLimit) end
+
+---@return OptionsResources
+function GameOptions:GetResources() end
+
+---@param resources OptionsResources
+---@return boolean
+function GameOptions:SetResources(resources) end
+
+---@return integer
+function GameOptions:GetPopulation() end
+
+---@param population integer
+---@return boolean
+function GameOptions:SetPopulation(population) end
+
+---@return boolean
+function GameOptions:GetTeamsNotTogether() end
+
+---@param teamsNotTogether boolean
+---@return boolean
+function GameOptions:SetTeamsNotTogether(teamsNotTogether) end
+
+---@return boolean
+function GameOptions:GetRecordGame() end
+
+---@param recordGame boolean
+---@return boolean
+function GameOptions:SetRecordGame(recordGame) end
+
+---@return boolean
+function GameOptions:GetTeamPositions() end
+
+---@param teamPositions boolean
+---@return boolean
+function GameOptions:SetTeamPositions(teamPositions) end
+
+---@return boolean
+function GameOptions:GetFullTechTree() end
+
+---@param fullTechTree boolean
+---@return boolean
+function GameOptions:SetFullTechTree(fullTechTree) end
+
+---@return boolean
+function GameOptions:GetLockTeams() end
+
+---@param lockTeams boolean
+---@return boolean
+function GameOptions:SetLockTeams(lockTeams) end
+
+---@return boolean
+function GameOptions:GetLockSpeed() end
+
+---@param lockSpeed boolean
+---@return boolean
+function GameOptions:SetLockSpeed(lockSpeed) end
+
+---@return boolean
+function GameOptions:GetTurboMode() end
+
+---@param turboMode boolean
+---@return boolean
+function GameOptions:SetTurboMode(turboMode) end
+
+---@return boolean
+function GameOptions:GetAntiquityMode() end
+
+---@param antiquityMode boolean
+---@return boolean
+function GameOptions:SetAntiquityMode(antiquityMode) end
+
+---@return OptionsLocation
+function GameOptions:GetLocation() end
+
+---@param location OptionsLocation
+---@return boolean
+function GameOptions:SetLocation(location) end
+
+---@return integer
+function GameOptions:GetPlayersCount() end
+
+---@param playersCount integer
+---@return boolean
+function GameOptions:SetPlayersCount(playersCount) end
+
+---@return integer
+function GameOptions:GetTreatyLength() end
+
+---@param treatyLength integer
+---@return boolean
+function GameOptions:SetTreatyLength(treatyLength) end
+
+---@return boolean
+function GameOptions:GetHandicap() end
+
+---@param handicap boolean
+---@return boolean
+function GameOptions:SetHandicap(handicap) end
+
+---@param playerIndex integer
+---@return integer
+function GameOptions:GetPlayerTeam(playerIndex) end
+
+---@param playerIndex integer
+---@param team integer
+---@return boolean
+function GameOptions:SetPlayerTeam(playerIndex, team) end
+
+---@param playerIndex integer
+---@return integer
+function GameOptions:GetPlayerHandicapPercentage(playerIndex) end
+
+---@param playerIndex integer
+---@param handicapPercentage integer
+---@return boolean
+function GameOptions:SetPlayerHandicapPercentage(playerIndex, handicapPercentage) end
+
+---@param playerIndex integer
+---@return integer
+function GameOptions:GetPlayerColor(playerIndex) end
+
+---@param playerIndex integer
+---@param color integer
+---@return boolean
+function GameOptions:SetPlayerColor(playerIndex, color) end
+
+---@param playerIndex integer
+---@return OptionsCivilization
+function GameOptions:GetPlayerCivilization(playerIndex) end
+
+---@param playerIndex integer
+---@param civilization OptionsCivilization
+---@return boolean
+function GameOptions:SetPlayerCivilization(playerIndex, civilization) end
+
 ---@class MapTile
 ---Map tile from GetMapTile or GetAllMapTiles.
 MapTile = {}
@@ -382,6 +591,13 @@ function Player:IsEnemyTo(player) end
 ---@param message string
 function Log(message) end
 
+---Show or hide the engine's UI state.
+---@param visible boolean
+function SetEngineUIVisibility(visible) end
+
+---Request the CONTROL engine to unload itself.
+function UnloadEngine() end
+
 ---Set game speed multiplier (e.g. 1.5, 30).
 ---@param multiplier number
 function SetGameSpeedMultiplier(multiplier) end
@@ -389,6 +605,35 @@ function SetGameSpeedMultiplier(multiplier) end
 ---Returns whether an in-game menu is currently open.
 ---@return boolean
 function IsMenuOpen() end
+
+---Dispatch the menu action that starts the currently configured match.
+---@return boolean
+function DispatchStartGame() end
+
+---Dispatch the action that restarts the current or recently ended match.
+---@return boolean
+function DispatchRestartGame() end
+
+---Dispatch the in-game resign action.
+---@return boolean
+function DispatchResignGame() end
+
+---Dispatch the in-game quit action.
+---@return boolean
+function DispatchQuitGame() end
+
+---Load a save file by filename from the game's save list.
+---@param saveGameFileName string
+---@return boolean
+function DispatchLoadGame(saveGameFileName) end
+
+---Get the currently available save filenames from the game UI.
+---@return string[]
+function GetAvailableSaveFiles() end
+
+---Get the current lobby or profile-backed game options handle, if available.
+---@return GameOptions|nil
+function GetCurrentGameOptions() end
 
 ---Move camera to position.
 ---@param position Vector2
@@ -982,6 +1227,348 @@ ReplaySpeed = {
     NORMAL = 1,
     FAST = 2,
     FASTEST = 3
+}
+
+---@enum OptionsAIDifficulty
+OptionsAIDifficulty = {
+    EXTREME = -1,
+    HARDEST = 0,
+    HARD = 1,
+    MODERATE = 2,
+    STANDARD = 3,
+    EASIEST = 4
+}
+
+---@enum OptionsCivilizationSet
+OptionsCivilizationSet = {
+    ALL = 0,
+    AGE_OF_EMPIRES_II = 0
+}
+
+---@enum OptionsGameMode
+OptionsGameMode = {
+    RANDOM_MAP = 0,
+    REGICIDE = 1,
+    DEATH_MATCH = 2,
+    SCENARIO = 3,
+    KING_OF_THE_HILL = 5,
+    WONDER_RACE = 6,
+    DEFEND_THE_WONDER = 7,
+    TURBO_RANDOM_MAP = 8,
+    CAPTURE_THE_RELIC = 10,
+    SUDDEN_DEATH = 11,
+    BATTLE_ROYALE = 12,
+    EMPIRE_WARS = 13
+}
+
+---@enum OptionsMapSize
+OptionsMapSize = {
+    TINY = 120,
+    SMALL = 144,
+    MEDIUM = 168,
+    NORMAL = 200,
+    LARGE = 220,
+    HUGE = 240,
+    LUDICROUS = 480
+}
+
+---@enum OptionsAge
+OptionsAge = {
+    STANDARD = 0,
+    DARK_AGE = 2,
+    FEUDAL_AGE = 3,
+    CASTLE_AGE = 4,
+    IMPERIAL_AGE = 5,
+    POST_IMPERIAL_AGE = 6
+}
+
+---@enum OptionsRevealMap
+OptionsRevealMap = {
+    NORMAL = 0,
+    EXPLORED = 1,
+    ALL_VISIBLE = 2
+}
+
+---@enum OptionsVictory
+OptionsVictory = {
+    STANDARD = 9,
+    CONQUEST = 1,
+    TIME_LIMIT = 7,
+    SCORE = 8,
+    LAST_MAN_STANDING = 11
+}
+
+---@enum OptionsResources
+OptionsResources = {
+    STANDARD = 0,
+    LOW = 1,
+    MEDIUM = 2,
+    HIGH = 3,
+    ULTRA_HIGH = 4,
+    INFINITE_ = 5,
+    RANDOM = 6
+}
+
+---@enum OptionsLocation
+OptionsLocation = {
+    SCENARIO_MAP = -1,
+    ARABIA = 9,
+    ARCHIPELAGO = 10,
+    BALTIC = 11,
+    BLACK_FOREST = 12,
+    COASTAL = 13,
+    CONTINENTAL = 14,
+    CRATER_LAKE = 15,
+    FORTRESS = 16,
+    GOLD_RUSH = 17,
+    HIGHLAND = 18,
+    ISLANDS = 19,
+    MEDITERRANEAN = 20,
+    MIGRATION = 21,
+    RIVERS = 22,
+    TEAM_ISLANDS = 23,
+    SCANDANAVIA = 25,
+    MONGOLIA = 26,
+    YUCATAN = 27,
+    SALT_MARSH = 28,
+    ARENA = 29,
+    KING_OF_THE_HILL = 30,
+    OASIS = 31,
+    GHOST_LAKE = 32,
+    NOMAD = 33,
+    CANALS = 34,
+    CAPRICIOUS = 35,
+    DINGOS = 36,
+    GRAVEYARDS = 37,
+    METROPOLIS = 38,
+    MOATS = 39,
+    PARADISE_ISLAND = 40,
+    PILGRIMS = 41,
+    PRAIRIE = 42,
+    SEASONS = 43,
+    SHERWOOD_FOREST = 44,
+    SHIPWRECK = 46,
+    TEAM_GLACIERS = 47,
+    REAL_WORLD_SPAIN = 49,
+    REAL_WORLD_ENGLAND = 50,
+    REAL_WORLD_MIDEAST = 51,
+    REAL_WORLD_TEXAS = 52,
+    REAL_WORLD_ITALY = 53,
+    REAL_WORLD_CARIBBEAN = 54,
+    REAL_WORLD_FRANCE = 55,
+    REAL_WORLD_JUTLAND = 56,
+    REAL_WORLD_NIPPON = 57,
+    REAL_WORLD_BYZANTIUM = 58,
+    CUSTOM_MAP = 59,
+    ACROPOLIS = 67,
+    BUDAPEST = 68,
+    CENOTES = 69,
+    CITYOFLAKES = 70,
+    GOLDENPIT = 71,
+    HIDEOUT = 72,
+    HILLFORT = 73,
+    LOMBARDIA = 74,
+    STEPPE = 75,
+    VALLEY = 76,
+    MEGARANDOM = 77,
+    HAMBURGER = 78,
+    CTR_RANDOM = 79,
+    CTR_MONSOON = 80,
+    CTR_PYRAMID_DESCENT = 81,
+    CTR_SPIRAL = 82,
+    KILIMANJARO = 83,
+    MOUNTAIN_PASS = 84,
+    NILE_DELTA = 85,
+    SERENGETI = 86,
+    SOCOTRA = 87,
+    REAL_WORLD_AMAZON = 88,
+    REAL_WORLD_CHINA = 89,
+    REAL_WORLD_HORN_OF_AFRICA = 90,
+    REAL_WORLD_INDIA = 91,
+    REAL_WORLD_MADAGASCAR = 92,
+    REAL_WORLD_WEST_AFRICA = 93,
+    REAL_WORLD_BOHEMIA = 94,
+    REAL_WORLD_EARTH = 95,
+    SPECIAL_MAP_CANYONS = 96,
+    SPECIAL_MAP_ARCHIPELAGO = 97,
+    SPECIAL_MAP_ENEMY_ISLANDS = 98,
+    SPECIAL_MAP_FAR_OUT = 99,
+    SPECIAL_MAP_FRONT_LINE = 100,
+    SPECIAL_MAP_INNER_CIRCLE = 101,
+    SPECIAL_MAP_MOTHERLAND = 102,
+    SPECIAL_MAP_OPEN_PLAINS = 103,
+    SPECIAL_MAP_RING_OF_WATER = 104,
+    SPECIAL_MAP_SNAKE_PIT = 105,
+    SPECIAL_MAP_THE_EYE = 106,
+    REAL_WORLD_AUSTRALIA = 107,
+    REAL_WORLD_INDOCHINA = 108,
+    REAL_WORLD_INDONESIA = 109,
+    REAL_WORLD_MALACCA = 110,
+    REAL_WORLD_PHILIPPINES = 111,
+    BOG_ISLANDS = 112,
+    MANGROVE_JUNGLE = 113,
+    PACIFIC_ISLANDS = 114,
+    SANDBANK = 115,
+    WATER_NOMAD = 116,
+    SPECIAL_MAP_JUNGLE_ISLANDS = 117,
+    SPECIAL_MAP_HOLY_LINE = 118,
+    SPECIAL_MAP_BORDER_STONES = 119,
+    SPECIAL_MAP_YIN_YANG = 120,
+    SPECIAL_MAP_JUNGLE_LANES = 121,
+    ALPINE_LAKES = 122,
+    BOGLAND = 123,
+    MOUNTAIN_RIDGE = 124,
+    RAVINES = 125,
+    WOLF_HILL = 126,
+    SPECIAL_MAP_SWIRLING_RIVER = 127,
+    SPECIAL_MAP_TWIN_FORESTS = 128,
+    SPECIAL_MAP_JOURNEY_SOUTH = 129,
+    SPECIAL_MAP_SNAKE_FOREST = 130,
+    SPECIAL_MAP_SPRAWLING_STREAMS = 131,
+    REAL_WORLD_ANTARCTICA = 132,
+    REAL_WORLD_ARAL_SEA = 133,
+    REAL_WORLD_BLACK_SEA = 134,
+    REAL_WORLD_CAUCASUS = 135,
+    REAL_WORLD_SIBERIA = 136,
+    GOLDEN_SWAMP = 139,
+    FOUR_LAKES = 140,
+    LAND_NOMAD = 141,
+    BATTLE_ON_THE_ICE = 142,
+    EL_DORADO = 143,
+    FALL_OF_AXUM = 144,
+    FALL_OF_ROME = 145,
+    THE_MAJAPAHIT_EMPIRE = 146,
+    AMAZON_TUNNEL = 147,
+    COASTAL_FOREST = 148,
+    AFRICAN_CLEARING = 149,
+    ATACAMA = 150,
+    SEIZE_THE_MOUNTAIN = 151,
+    CRATER = 152,
+    CROSSROADS = 153,
+    VOLCANIC_ISLAND = 156,
+    ACCLIVITY = 157,
+    ERUPTION = 158,
+    FRIGID_LAKE = 159,
+    GREENLAND = 160,
+    LOWLAND = 161,
+    MARKETPLACE = 162,
+    MEADOW = 163,
+    MOUNTAIN_RANGE = 164,
+    NORTHERN_ISLES = 165,
+    RING_FORTRESS = 166,
+    RUNESTONES = 167,
+    AFTERMATH = 168,
+    ENCLOSED = 169,
+    HABOOB = 170,
+    KAWASAN = 171,
+    LAND_MADNESS = 172,
+    SACRED_SPRINGS = 173,
+    WADE = 174,
+    MORASS = 175,
+    SHOALS = 176,
+    CLIFFBOUND = 177,
+    ISTHMUS = 178,
+    DUNE_SPRINGS = 179,
+    GOLDEN_STREAM = 180,
+    MOUNTAIN_DUNES = 181,
+    RIVER_DIVIDE = 182,
+    SANDRIFT = 183,
+    SHRUBLAND = 184,
+    PASSAGE = 185,
+    HOLLOW_WOODLANDS = 186,
+    KARSTS = 187,
+    GLADE = 188,
+    FORTIFIED_CLEARING = 189,
+    QP_ARABIA = 190,
+    QP_FORTIFIED_CLEARING = 191,
+    QP_GLADE = 192,
+    QP_NOMAD = 193,
+    QP_RUNESTONES = 194,
+    QP_ARENA = 195,
+    QP_BLACK_FOREST = 196,
+    REAL_WORLD_MANCHURIA = 197,
+    BORDER_DISPUTE = 198,
+    GRAUPEL = 199,
+    STRANDED = 200,
+    SARDIS = 201,
+    AQUARENA = 202,
+    SPECIAL_MAP_FOREST_BREACH = 203,
+    CHAOS_PIT = 204,
+    MIRED = 205,
+    MURKWOOD = 206,
+    CROWNWOOD = 207,
+    DOROTHEA_QUARRY = 208,
+    GLACIS = 209,
+    HENGEHOLD = 210,
+    LOCH_NESS = 211,
+    RAMPART = 212,
+    STONEFRONT = 213,
+    THAMES = 214,
+    VULPINE = 215
+}
+
+---@enum OptionsCivilization
+OptionsCivilization = {
+    GAIA = 0,
+    BRITONS = 1,
+    FRANKS = 2,
+    GOTHS = 3,
+    TEUTONS = 4,
+    JAPANESE = 5,
+    CHINESE = 6,
+    BYZANTINES = 7,
+    PERSIANS = 8,
+    SARACENS = 9,
+    TURKS = 10,
+    VIKINGS = 11,
+    MONGOLS = 12,
+    CELTS = 13,
+    SPANISH = 14,
+    AZTECS = 15,
+    MAYANS = 16,
+    HUNS = 17,
+    KOREANS = 18,
+    ITALIANS = 19,
+    HINDUSTANIS = 20,
+    INCAS = 21,
+    MAGYARS = 22,
+    SLAVS = 23,
+    PORTUGUESE = 24,
+    ETHIOPIANS = 25,
+    MALIANS = 26,
+    BERBERS = 27,
+    KHMER = 28,
+    MALAY = 29,
+    BURMESE = 30,
+    VIETNAMESE = 31,
+    BULGARIANS = 32,
+    TATARS = 33,
+    CUMANS = 34,
+    LITHUANIANS = 35,
+    BURGUNDIANS = 36,
+    SICILIANS = 37,
+    POLES = 38,
+    BOHEMIANS = 39,
+    DRAVIDIANS = 40,
+    BENGALIS = 41,
+    GURJARAS = 42,
+    ROMANS = 43,
+    ARMENIANS = 44,
+    GEORGIANS = 45,
+    ACHAEMENIDS = 46,
+    ATHENIANS = 47,
+    SPARTANS = 48,
+    SHU = 49,
+    WU = 50,
+    WEI = 51,
+    JURCHENS = 52,
+    KHITANS = 53,
+    MACEDONIANS = 54,
+    THRACIANS = 55,
+    PURU = 56,
+    MUISCA = 57,
+    MAPUCHE = 58,
+    TUPI = 59
 }
 
 ---@enum ResearchState

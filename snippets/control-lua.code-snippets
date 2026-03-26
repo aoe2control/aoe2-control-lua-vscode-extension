@@ -106,6 +106,33 @@
 		],
 		"description": "Guard logic when an in-game menu is open."
 	},
+	"Current game options": {
+		"prefix": "game-options",
+		"body": [
+			"local gameOptions = GetCurrentGameOptions()",
+			"if gameOptions then",
+			"    $0",
+			"end"
+		],
+		"description": "Fetch the current GameOptions handle when lobby or profile-backed settings are available."
+	},
+	"Dispatch start game": {
+		"prefix": "dispatch-start",
+		"body": [
+			"local started = DispatchStartGame()",
+			"$0"
+		],
+		"description": "Dispatch the start-game menu action for the current game options."
+	},
+	"Dispatch load game": {
+		"prefix": "dispatch-load",
+		"body": [
+			"local saveFiles = GetAvailableSaveFiles()",
+			"local loaded = DispatchLoadGame(${1:saveFiles[1]})",
+			"$0"
+		],
+		"description": "Load a save by filename using the game's current save-file list."
+	},
 	"IPC drain loop": {
 		"prefix": "ipc-drain",
 		"body": [
