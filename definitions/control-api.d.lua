@@ -2432,9 +2432,9 @@ function ConstructionPlacement(villagerOccupation) end
 function ConstructionPlacement:Update() end
 
 ---Build a structure with a specific builder, deriving placement size from the structure type.
----@overload fun(structureType: UnitObjectType, builderUnitId: integer, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
----@overload fun(structureType: UnitObjectType, targetPos: Vector3, direction: PlacementDirection, padding?: integer, bypassTownCenterPadding?: boolean): boolean
----@overload fun(structureType: UnitObjectType, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, builderUnitId: integer, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, direction: PlacementDirection, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
 ---@param structureType UnitObjectType
 ---@param builderUnitId integer
 ---@param targetPos Vector3
@@ -2445,7 +2445,7 @@ function ConstructionPlacement:Update() end
 function ConstructionPlacement:BuildStructure(structureType, builderUnitId, targetPos, direction, padding, bypassTownCenterPadding) end
 
 ---Build a structure relative to the town center, auto-selecting a builder villager.
----@overload fun(structureType: UnitObjectType, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, padding?: integer, bypassTownCenterPadding?: boolean): boolean
 ---@param structureType UnitObjectType
 ---@param targetPos Vector3
 ---@param padding? integer
