@@ -281,6 +281,11 @@ function GameOptions:GetLocation() end
 ---@return boolean
 function GameOptions:SetLocation(location) end
 
+---Set the lobby's random map pool. Passing a single entry behaves like `SetLocation(...)`.
+---@param locations OptionsLocation[]|integer[]
+---@return boolean
+function GameOptions:SetRandomMapPoolLocations(locations) end
+
 ---@return integer
 function GameOptions:GetPlayersCount() end
 
@@ -1430,6 +1435,7 @@ OptionsLocation = {
     REAL_WORLD_BLACK_SEA = 134,
     REAL_WORLD_CAUCASUS = 135,
     REAL_WORLD_SIBERIA = 136,
+    CUSTOM_MAP_POOL = 137,
     GOLDEN_SWAMP = 139,
     FOUR_LAKES = 140,
     LAND_NOMAD = 141,
@@ -2364,6 +2370,7 @@ function ResourceTracker:GetOwnedLivestock() end
 
 ---@param position Vector3
 ---@param radius number
+---Returns tracked dead livestock within range, even though most object queries filter to alive objects.
 ---@return Object[]
 function ResourceTracker:GetDeadLivestock(position, radius) end
 
