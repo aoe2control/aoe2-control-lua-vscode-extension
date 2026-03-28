@@ -11,8 +11,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()` to the CONTROL API definitions
 - Added replay helpers `IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`, and enum `ReplaySpeed` to the CONTROL API definitions
 - Added `DispatchStartGame()`, `DispatchRestartGame()`, `DispatchResignGame()`, `DispatchQuitGame()`, `DispatchLoadGame(...)`, `GetAvailableSaveFiles()`, `GetCurrentGameOptions()`, `SetEngineUIVisibility(...)`, and `UnloadEngine()` to the CONTROL API definitions
+- Added `AssignAndLoadModule(...)` to the CONTROL API definitions
 - Added `GameOptions` and enums `OptionsAIDifficulty`, `OptionsCivilizationSet`, `OptionsGameMode`, `OptionsMapSize`, `OptionsAge`, `OptionsRevealMap`, `OptionsVictory`, `OptionsResources`, `OptionsLocation`, and `OptionsCivilization` to the CONTROL API definitions
 - Added `GameOptions:SetRandomMapPoolLocations(...)` and `OptionsLocation.CUSTOM_MAP_POOL` to the CONTROL API definitions
+- Added `VillagerOccupation:SetLivestockVillagerLimit(...)`, `SetForageVillagerLimit(...)`, `SetFarmMaxTownCenterDistance(...)`, `SetFarmMaxMillDistance(...)`, and `SetProfessionBuildingRange(...)` to the CONTROL API definitions
 - Added `GetObjectsByClasses(...)` as both a global helper and a `Player` method in the CONTROL API definitions
 - Added `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` to the CONTROL API definitions
 - Added `GetTechCost(...)` and `GetObjectCost(...)` as `Player` methods in the CONTROL API definitions
@@ -33,6 +35,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Documented `ResourceTracker:Update()` as the refresh call for repopulated resource tracking
 - Documented `ResourceTracker:Cleanup()` for removing visibly missing cached resources
 - Clarified that `ResourceTracker:GetDeadLivestock(...)` still returns tracked dead livestock even though most object queries filter to alive objects
+- Documented the new villager farming-limit and building-range tuning helpers on `VillagerOccupation`
 - Updated `MapTile:IsWalkable()` docs to reflect collision-aware checks
 - Clarified that vector coordinate fields use lowercase names (`x`, `y`, `z`, `w`) and added lowercase vector constructor snippets
 - Documented restricted access to other-player data when "Modules See Everything" is disabled

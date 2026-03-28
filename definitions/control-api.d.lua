@@ -871,6 +871,12 @@ function GetAssignedPlayer() end
 ---@return integer
 function GetAssignedPlayerId() end
 
+---Assign a module to a player and reload it immediately.
+---@param playerId integer
+---@param moduleName string
+---@return boolean
+function AssignAndLoadModule(playerId, moduleName) end
+
 ---May return a Player handle for any slot, but data access can be restricted for
 ---non-assigned players when "Modules See Everything" is disabled.
 ---@param id integer
@@ -2438,6 +2444,27 @@ function VillagerOccupation:ResetPriorities() end
 ---@param profession VillagerProfession
 ---@param percentage number
 function VillagerOccupation:SetPriorityPercentage(profession, percentage) end
+
+---Limit how many villagers can be assigned to livestock harvesting at once.
+---@param limit integer
+function VillagerOccupation:SetLivestockVillagerLimit(limit) end
+
+---Limit how many villagers can be assigned to forage at once.
+---@param limit integer
+function VillagerOccupation:SetForageVillagerLimit(limit) end
+
+---Set the maximum town-center distance for farm assignment logic.
+---@param distance number
+function VillagerOccupation:SetFarmMaxTownCenterDistance(distance) end
+
+---Set the maximum mill distance for farm assignment logic.
+---@param distance number
+function VillagerOccupation:SetFarmMaxMillDistance(distance) end
+
+---Set the building search range for a profession. Default range is `6`.
+---@param profession VillagerProfession
+---@param range number
+function VillagerOccupation:SetProfessionBuildingRange(profession, range) end
 
 ---@param villagers integer[]|Object[]
 function VillagerOccupation:AssignVillagers(villagers) end
