@@ -61,3 +61,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 ### 0.0.1
 
 Initial release with IntelliSense support and code snippets for the CONTROL Lua engine.
+
+## License
+
+This project is licensed under the MIT License. See [LICENSE](LICENSE).
