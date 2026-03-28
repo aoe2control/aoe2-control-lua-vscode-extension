@@ -2351,6 +2351,13 @@ Key = {
 
 ---@class ResourceTracker
 ---Tracks trees, gold, stone, farms, etc.
+---@field new fun(...): ResourceTracker
+ResourceTracker = {}
+
+---@return ResourceTracker
+function ResourceTracker.new(...) end
+
+---@deprecated Use `ResourceTracker.new()`.
 ---@return ResourceTracker
 function ResourceTracker() end
 
@@ -2391,6 +2398,14 @@ function ResourceTracker:GetFarms() end
 
 ---@class VillagerOccupation
 ---Manages villager assignments.
+---@field new fun(...): VillagerOccupation
+VillagerOccupation = {}
+
+---@param resourceTracker ResourceTracker
+---@return VillagerOccupation
+function VillagerOccupation.new(...) end
+
+---@deprecated Use `VillagerOccupation.new(...)`.
 ---@param resourceTracker ResourceTracker
 ---@return VillagerOccupation
 function VillagerOccupation(resourceTracker) end
@@ -2432,6 +2447,14 @@ function VillagerOccupation:AssignVillager(villager) end
 
 ---@class ConstructionPlacement
 ---Building placement.
+---@field new fun(...): ConstructionPlacement
+ConstructionPlacement = {}
+
+---@param villagerOccupation VillagerOccupation
+---@return ConstructionPlacement
+function ConstructionPlacement.new(...) end
+
+---@deprecated Use `ConstructionPlacement.new(...)`.
 ---@param villagerOccupation VillagerOccupation
 ---@return ConstructionPlacement
 function ConstructionPlacement(villagerOccupation) end
