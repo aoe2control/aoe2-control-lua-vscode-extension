@@ -14,6 +14,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `AssignAndLoadModule(...)` to the CONTROL API definitions
 - Added `GameOptions` and enums `OptionsAIDifficulty`, `OptionsCivilizationSet`, `OptionsGameMode`, `OptionsMapSize`, `OptionsAge`, `OptionsRevealMap`, `OptionsVictory`, `OptionsResources`, `OptionsLocation`, and `OptionsCivilization` to the CONTROL API definitions
 - Added `GameOptions:SetRandomMapPoolLocations(...)` and `OptionsLocation.CUSTOM_MAP_POOL` to the CONTROL API definitions
+- Added `GameOptions:SetAssignedPlayerCivilization(...)` to the CONTROL API definitions
 - Added `VillagerOccupation:SetLivestockVillagerLimit(...)`, `SetForageVillagerLimit(...)`, `SetFarmMaxTownCenterDistance(...)`, `SetFarmMaxMillDistance(...)`, and `SetProfessionBuildingRange(...)` to the CONTROL API definitions
 - Added `GetObjectsByClasses(...)` as both a global helper and a `Player` method in the CONTROL API definitions
 - Added `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` to the CONTROL API definitions
@@ -36,6 +37,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Documented `ResourceTracker:Cleanup()` for removing visibly missing cached resources
 - Clarified that `ResourceTracker:GetDeadLivestock(...)` still returns tracked dead livestock even though most object queries filter to alive objects
 - Documented the new villager farming-limit and building-range tuning helpers on `VillagerOccupation`
+- Updated Tournament Mode guidance to note restrictions on selected engine, render, and `GameOptions` helpers
+- Documented that `Object:GetId()` remains available for explored resources and animals even when other object methods are restricted
 - Updated `MapTile:IsWalkable()` docs to reflect collision-aware checks
 - Clarified that vector coordinate fields use lowercase names (`x`, `y`, `z`, `w`) and added lowercase vector constructor snippets
 - Documented restricted access to other-player data when "Modules See Everything" is disabled

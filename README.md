@@ -5,7 +5,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 ## Features
 
 - **IntelliSense** — Full API definitions for lifecycle callbacks (`Load`, `Init`, `Update`, `Render`, `End`), game commands, facts, render API, settings, IPC, and types
-- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `IsMenuOpen()`, replay helpers (`IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`), menu/game control helpers (`DispatchStartGame()`, `DispatchRestartGame()`, `DispatchResignGame()`, `DispatchQuitGame()`, `DispatchLoadGame(...)`, `GetAvailableSaveFiles()`), engine control helpers (`SetEngineUIVisibility(...)`, `UnloadEngine()`, `AssignAndLoadModule(...)`), `GetCurrentGameOptions()`, `GameOptions`, `GameOptions:SetRandomMapPoolLocations(...)`, `OptionsLocation.CUSTOM_MAP_POOL`, `VillagerOccupation:SetLivestockVillagerLimit(...)`, `VillagerOccupation:SetForageVillagerLimit(...)`, `VillagerOccupation:SetFarmMaxTownCenterDistance(...)`, `VillagerOccupation:SetFarmMaxMillDistance(...)`, `VillagerOccupation:SetProfessionBuildingRange(...)`, the related `Options*` enums, `GetObjectsByClasses(...)`, `ResourceType`, `ProjectileType`, `ReplaySpeed`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, `Object:GetActionTargetPosition()`, `Object:IsExplored()`, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
+- **Updated engine surface** — Includes `IPC.HasMessages()`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `IsMenuOpen()`, replay helpers (`IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`), menu/game control helpers (`DispatchStartGame()`, `DispatchRestartGame()`, `DispatchResignGame()`, `DispatchQuitGame()`, `DispatchLoadGame(...)`, `GetAvailableSaveFiles()`), engine control helpers (`SetEngineUIVisibility(...)`, `UnloadEngine()`, `AssignAndLoadModule(...)`), `GetCurrentGameOptions()`, `GameOptions`, `GameOptions:SetRandomMapPoolLocations(...)`, `GameOptions:SetAssignedPlayerCivilization(...)`, `OptionsLocation.CUSTOM_MAP_POOL`, `VillagerOccupation:SetLivestockVillagerLimit(...)`, `VillagerOccupation:SetForageVillagerLimit(...)`, `VillagerOccupation:SetFarmMaxTownCenterDistance(...)`, `VillagerOccupation:SetFarmMaxMillDistance(...)`, `VillagerOccupation:SetProfessionBuildingRange(...)`, the related `Options*` enums, `GetObjectsByClasses(...)`, `ResourceType`, `ProjectileType`, `ReplaySpeed`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, `Object:GetActionTargetPosition()`, `Object:IsExplored()`, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
 - **Current construction helpers** — Reflects the renamed `BuildStructure(...)` API, the new `BuildStructureAtTown(...)` helpers, and the `UnitObjectType`-based placement/queue signatures
 - **Tournament Mode aware guidance** — Snippets and callback docs steer game commands into `Update()` while keeping read-only queries available in `Init()` and `Render()`
 - **Spectator Mode note** — Command guidance reflects that controls remain available when CONTROL's `"Spectator Mode"` option is enabled
@@ -34,6 +34,7 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 - Added IntelliSense for `AssignAndLoadModule(...)` for dynamic in-module reassignment and reloads
 - Added IntelliSense for `GameOptions` and enums `OptionsAIDifficulty`, `OptionsCivilizationSet`, `OptionsGameMode`, `OptionsMapSize`, `OptionsAge`, `OptionsRevealMap`, `OptionsVictory`, `OptionsResources`, `OptionsLocation`, and `OptionsCivilization`
 - Added IntelliSense for `GameOptions:SetRandomMapPoolLocations(...)` and `OptionsLocation.CUSTOM_MAP_POOL`
+- Added IntelliSense for `GameOptions:SetAssignedPlayerCivilization(...)`
 - Added IntelliSense for `VillagerOccupation:SetLivestockVillagerLimit(...)`, `SetForageVillagerLimit(...)`, `SetFarmMaxTownCenterDistance(...)`, `SetFarmMaxMillDistance(...)`, and `SetProfessionBuildingRange(...)`
 - Added IntelliSense for `GetObjectsByClasses(...)` on both globals and `Player`
 - Added IntelliSense for `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` on both globals and `Player`
@@ -57,8 +58,9 @@ VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empi
 - Updated `MapTile:IsWalkable()` documentation to reflect collision-aware checks
 - Documented restricted cross-player data access when "Modules See Everything" is disabled
 - Documented that assigning a module suppresses native AI actions for that player
-- Updated lifecycle/snippet guidance for Tournament Mode command restrictions
+- Updated lifecycle/snippet guidance for Tournament Mode command restrictions, including selected engine, render, and GameOptions helpers
 - Documented that command bindings remain available when `"Spectator Mode"` is enabled
+- Documented that `Object:GetId()` remains available for explored resources and animals even when other object methods are restricted
 - Documented that `End(hasWon)` also fires when a replay ends, and still reports `false` on manual game exit
 
 ### 0.0.1

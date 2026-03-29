@@ -14,7 +14,8 @@
 function Load(assignedPlayerId) end
 
 ---Called when game is ready, world changed, module reloaded, or AI enabled. One-time setup.
----Prefer read-only initialization here; Tournament Mode can block game commands outside Update().
+---Prefer read-only initialization here; Tournament Mode can block game commands outside Update()
+---and selected engine, render, and GameOptions helpers.
 function Init() end
 
 ---Called at configurable interval (default 1.0s) while game runs. Main game logic.
@@ -22,7 +23,8 @@ function Init() end
 function Update() end
 
 ---Called every frame while game runs. Use for drawing overlays and read-only facts.
----Avoid game commands here; Tournament Mode can block them outside Update().
+---Avoid game commands here; Tournament Mode can block them outside Update()
+---and can also restrict selected engine, render, and GameOptions helpers.
 function Render() end
 
 ---Called once when game ends, a replay ends, or the match is exited manually.
@@ -132,6 +134,7 @@ function Color.HSV(h, s, v) end
 ---@class GameOptions
 ---Lobby and pre-game configuration handle returned by `GetCurrentGameOptions()`.
 ---Setter methods return `false` when called while already in game.
+---Tournament Mode can also block these methods.
 GameOptions = {}
 
 ---@return OptionsAIDifficulty
@@ -343,6 +346,11 @@ function GameOptions:GetPlayerCivilization(playerIndex) end
 ---@return boolean
 function GameOptions:SetPlayerCivilization(playerIndex, civilization) end
 
+---Set the civilization of the currently assigned player slot.
+---@param civilization OptionsCivilization
+---@return boolean
+function GameOptions:SetAssignedPlayerCivilization(civilization) end
+
 ---@class MapTile
 ---Map tile from GetMapTile or GetAllMapTiles.
 MapTile = {}
@@ -376,6 +384,7 @@ function MapTile:GetObjects() end
 ---Unit, building, or projectile from object and projectile query helpers.
 Object = {}
 
+---Allowed even for explored resources and animals when other object methods are restricted.
 ---@return integer
 function Object:GetId() end
 
@@ -589,6 +598,7 @@ function Player:IsEnemyTo(player) end
 -- COMMANDS (Game API — Actions)
 -- Usually callable from Init(), Update(), or Render().
 -- Tournament Mode can block these outside Update().
+-- Tournament Mode can also restrict selected engine, render, and GameOptions helpers.
 -- Command bindings remain available when CONTROL's "Spectator Mode" option is enabled.
 -- =============================================================================
 
