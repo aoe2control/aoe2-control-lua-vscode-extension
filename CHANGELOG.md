@@ -15,9 +15,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Added `GameOptions` and enums `OptionsAIDifficulty`, `OptionsCivilizationSet`, `OptionsGameMode`, `OptionsMapSize`, `OptionsAge`, `OptionsRevealMap`, `OptionsVictory`, `OptionsResources`, `OptionsLocation`, and `OptionsCivilization` to the CONTROL API definitions
 - Added `GameOptions:SetRandomMapPoolLocations(...)` and `OptionsLocation.CUSTOM_MAP_POOL` to the CONTROL API definitions
 - Added `GameOptions:SetAssignedPlayerCivilization(...)` to the CONTROL API definitions
+- Added `MapTile:IsBuildable`, `VillagerOccupation:GetIdleVillagerCount`, `VillagerOccupation:GetIdleVillagers`, `VillagerOccupation:GetPriorityPercentage`, `ConstructionPlacement:SetTownCenterPadding`, and `ConstructionPlacement:GetValidFarmPlacementTile` to the CONTROL API definitions
 - Added `VillagerOccupation:SetLivestockVillagerLimit(...)`, `SetForageVillagerLimit(...)`, `SetFarmMaxTownCenterDistance(...)`, `SetFarmMaxMillDistance(...)`, and `SetProfessionBuildingRange(...)` to the CONTROL API definitions
 - Added `GetObjectsByClasses(...)` as both a global helper and a `Player` method in the CONTROL API definitions
 - Added `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` to the CONTROL API definitions
+- Expanded the `ResourceType` enum to match the engine's current values
 - Added `GetTechCost(...)` and `GetObjectCost(...)` as `Player` methods in the CONTROL API definitions
 - Added a snippet for iterating `ResourceCost` results
 - Added snippets for `GetCurrentGameOptions()`, `DispatchStartGame()`, and `DispatchLoadGame(...)`
@@ -31,7 +33,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Renamed `GetObjectAttribute(...)` to `GetObjectTypeAttribute(...)`
 - Renamed enum `FactId` to `Fact`
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding
+- Renamed `MapTile:GetPos()` to `MapTile:GetPosition()`
+- Updated `ResearchTechnology(...)` to auto-resolve a valid source
 - Updated `ConstructionPlacement` for the renamed `BuildStructure(...)` helpers and new `BuildStructureAtTown(...)` overloads
+- Updated `ConstructionPlacement` for the new overloads that omit `bypassTownCenterPadding`
 - Updated `FindBestPosition(...)`, `QueueBuildingRequest(...)`, `QueueBuildingRequestAtTown(...)`, and `IsStructureTypeQueued(...)` to use `UnitObjectType`-based signatures
 - Documented `ResourceTracker:Update()` as the refresh call for repopulated resource tracking
 - Documented `ResourceTracker:Cleanup()` for removing visibly missing cached resources

@@ -356,7 +356,7 @@ function GameOptions:SetAssignedPlayerCivilization(civilization) end
 MapTile = {}
 
 ---@return Vector2
-function MapTile:GetPos() end
+function MapTile:GetPosition() end
 
 ---@return Terrain
 function MapTile:GetTerrain() end
@@ -366,6 +366,9 @@ function MapTile:GetElevation() end
 
 ---@return TileVisibility
 function MapTile:GetTileVisibility() end
+
+---@return boolean
+function MapTile:IsBuildable() end
 
 ---Returns whether the tile is walkable after terrain and collision checks.
 ---@return boolean
@@ -690,11 +693,10 @@ function UnitsMove(units, position) end
 ---@return boolean
 function EnableScouting() end
 
----Research technology at specified buildings.
----@param researchSources UnitObjectType[]|Object[] Buildings that can research
+---Research technology while automatically selecting a valid source for the assigned player.
 ---@param technology Technology
 ---@return boolean
-function ResearchTechnology(researchSources, technology) end
+function ResearchTechnology(technology) end
 
 ---Delete a unit.
 ---@param unit Object
@@ -1608,7 +1610,279 @@ ResourceType = {
     WOOD = 1,
     STONE = 2,
     GOLD = 3,
-    POPULATION = 4
+    POPULATION = 4,
+    AMOUNT_FOOD = 0,
+    AMOUNT_WOOD = 1,
+    AMOUNT_STONE = 2,
+    AMOUNT_GOLD = 3,
+    AMOUNT_POPULATION_CAP = 4,
+    AMOUNT_RELIGION = 5,
+    AMOUNT_CURRENT_AGE = 6,
+    AMOUNT_RELICS = 7,
+    AMOUNT_TRADE_BONUS = 8,
+    AMOUNT_TRADE_GOODS = 9,
+    AMOUNT_TRADE_PRODUCTION = 10,
+    AMOUNT_POPULATION = 11,
+    AMOUNT_DECAY = 12,
+    AMOUNT_DISCOVERY = 13,
+    AMOUNT_RUINS = 14,
+    AMOUNT_MEAT = 15,
+    AMOUNT_BERRIES = 16,
+    AMOUNT_FISH = 17,
+    AMOUNT_KILLS = 20,
+    AMOUNT_RESEARCH_COUNT = 21,
+    AMOUNT_EXPLORATION = 22,
+    AMOUNT_CONVERT_PRIEST = 27,
+    AMOUNT_CONVERT_BUILDING = 28,
+    AMOUNT_BUILDING_LIMIT = 30,
+    AMOUNT_FOOD_LIMIT = 31,
+    AMOUNT_UNIT_LIMIT = 32,
+    AMOUNT_MAINTENANCE = 33,
+    AMOUNT_FAITH = 34,
+    AMOUNT_FAITH_RECHARGE_RATE = 35,
+    AMOUNT_FARM_FOOD = 36,
+    AMOUNT_CIVILIAN_POPULATION = 37,
+    AMOUNT_ALL_TECHS_ACHIEVED = 39,
+    AMOUNT_MILITARY_POPULATION = 40,
+    AMOUNT_CONVERSIONS = 41,
+    AMOUNT_WONDER = 42,
+    AMOUNT_RAZINGS = 43,
+    AMOUNT_KILL_RATIO = 44,
+    AMOUNT_PLAYER_KILLED = 45,
+    AMOUNT_TRIBUTE_INEFFICIENCY = 46,
+    AMOUNT_GOLD_BONUS = 47,
+    AMOUNT_TOWN_CENTER_UNAVAILABLE = 48,
+    AMOUNT_GOLD_COUNTER = 49,
+    AMOUNT_WRITING = 50,
+    AMOUNT_MONASTERIES = 52,
+    AMOUNT_TRIBUTE = 53,
+    AMOUNT_HOLD_RUINS = 54,
+    AMOUNT_HOLD_RELICS = 55,
+    AMOUNT_ORE = 56,
+    AMOUNT_CAPTURED_UNIT = 57,
+    AMOUNT_TRADE_GOOD_QUALITY = 59,
+    AMOUNT_TRADE_MARKET_LEVEL = 60,
+    AMOUNT_FORMATIONS = 61,
+    AMOUNT_BUILDING_HOUSING_RATE = 62,
+    AMOUNT_GATHER_TAX_RATE = 63,
+    AMOUNT_GATHER_ACCUMULATOR = 64,
+    AMOUNT_SALVAGE_DECAY_RATE = 65,
+    AMOUNT_ALLOW_FORMATIONS = 66,
+    AMOUNT_CAN_CONVERT = 67,
+    AMOUNT_CONVERT_RESISTANCE = 77,
+    AMOUNT_TRADE_VIG_RATE = 78,
+    AMOUNT_STONE_BONUS = 79,
+    AMOUNT_QUEUED_COUNT = 80,
+    AMOUNT_TRAINING_COUNT = 81,
+    AMOUNT_RAIDER = 82,
+    AMOUNT_BOARDING_RECHARGE_RATE = 83,
+    AMOUNT_STARTING_VILLAGERS = 84,
+    AMOUNT_RESEARCH_COST_MOD = 85,
+    AMOUNT_RESEARCH_TIME_MOD = 86,
+    AMOUNT_CONVERT_BOATS = 87,
+    AMOUNT_FISH_TRAP_FOOD = 88,
+    AMOUNT_HEAL_RATE_MODIFIER = 89,
+    AMOUNT_HEAL_RANGE = 90,
+    AMOUNT_STARTING_FOOD = 91,
+    AMOUNT_STARTING_WOOD = 92,
+    AMOUNT_STARTING_STONE = 93,
+    AMOUNT_STARTING_GOLD = 94,
+    AMOUNT_RAIDER_ABILITY = 95,
+    AMOUNT_BERSERKER_HEAL_TIMER = 96,
+    AMOUNT_DOMINANT_SHEEP_CONTROL = 97,
+    AMOUNT_OBJECT_COST_SUMMATION = 98,
+    AMOUNT_RESEARCH_SUMMATION = 99,
+    AMOUNT_RELIC_INCOME_SUMMATION = 100,
+    AMOUNT_TRADE_INCOME_SUMMATION = 101,
+    AMOUNT_CASTLE = 134,
+    AMOUNT_VALUE_KILLED_BY_OTHERS = 152,
+    AMOUNT_VALUE_RAZED_BY_OTHERS = 153,
+    AMOUNT_KILLED_BY_OTHERS = 154,
+    AMOUNT_RAZED_BY_OTHERS = 155,
+    AMOUNT_VALUE_CURRENT_UNITS = 164,
+    AMOUNT_VALUE_CURRENT_BUILDINGS = 165,
+    AMOUNT_FOOD_TOTAL = 166,
+    AMOUNT_WOOD_TOTAL = 167,
+    AMOUNT_STONE_TOTAL = 168,
+    AMOUNT_GOLD_TOTAL = 169,
+    AMOUNT_TOTAL_VALUE_OF_KILLS = 170,
+    AMOUNT_TOTAL_TRIBUTE_RECEIVED = 171,
+    AMOUNT_TOTAL_VALUE_OF_RAZINGS = 172,
+    AMOUNT_TOTAL_CASTLES_BUILT = 173,
+    AMOUNT_TOTAL_WONDERS_BUILT = 174,
+    AMOUNT_TRIBUTE_SCORE = 175,
+    AMOUNT_CONVERT_MIN_ADJ = 176,
+    AMOUNT_CONVERT_MAX_ADJ = 177,
+    AMOUNT_CONVERT_RESIST_MIN_ADJ = 178,
+    AMOUNT_CONVERT_RESIST_MAX_ADJ = 179,
+    AMOUNT_CONVERT_BUILDING_MIN = 180,
+    AMOUNT_CONVERT_BUILDING_MAX = 181,
+    AMOUNT_CONVERT_BUILDING_CHANCE = 182,
+    AMOUNT_SPIES = 183,
+    AMOUNT_VALUE_WONDERS_CASTLES = 184,
+    AMOUNT_FOOD_SCORE = 185,
+    AMOUNT_WOOD_SCORE = 186,
+    AMOUNT_STONE_SCORE = 187,
+    AMOUNT_GOLD_SCORE = 188,
+    AMOUNT_WOOD_BONUS = 189,
+    AMOUNT_FOOD_BONUS = 190,
+    AMOUNT_RELIC_RATE = 191,
+    AMOUNT_HERESY = 192,
+    AMOUNT_THEOCRACY = 193,
+    AMOUNT_CRENELLATIONS = 194,
+    AMOUNT_CONSTRUCTION_RATE_MOD = 195,
+    AMOUNT_HUN_WONDER_BONUS = 196,
+    AMOUNT_SPIES_DISCOUNT = 197,
+    AMOUNT_FEITORIA_FOOD_PRODUCTIVITY = 205,
+    AMOUNT_FEITORIA_WOOD_PRODUCTIVITY = 206,
+    AMOUNT_FEITORIA_STONE_PRODUCTIVITY = 207,
+    AMOUNT_FEITORIA_GOLD_PRODUCTIVITY = 208,
+    AMOUNT_TEMPORARY_MAP_REVEAL = 209,
+    AMOUNT_REVEAL_INITIAL_TYPE = 210,
+    AMOUNT_ELEVATION_BONUS_HIGHER = 211,
+    AMOUNT_ELEVATION_BONUS_LOWER = 212,
+    AMOUNT_RAIDING_PRODUCTIVITY = 213,
+    AMOUNT_MERCENARY_KIPCHAK_COUNT = 214,
+    AMOUNT_MERCENARY_KIPCHAK_LIMIT = 215,
+    AMOUNT_SHEPHERD_PRODUCTIVITY = 216,
+    AMOUNT_SHARED_LINE_OF_SIGHT = 217,
+    AMOUNT_FEUDAL_TOWN_CENTER_LIMIT = 218,
+    AMOUNT_FISHING_PRODUCTIVITY = 219,
+    AMOUNT_UNUSED_0 = 220,
+    AMOUNT_MONUMENT_FOOD_TRICKLE = 221,
+    AMOUNT_MONUMENT_WOOD_TRICKLE = 222,
+    AMOUNT_MONUMENT_STONE_TRICKLE = 223,
+    AMOUNT_MONUMENT_GOLD_TRICKLE = 224,
+    AMOUNT_RELIC_FOOD_RATE = 225,
+    AMOUNT_VILLAGERS_KILLED_BY_GAIA = 226,
+    AMOUNT_VILLAGERS_KILLED_BY_ANIMAL = 227,
+    AMOUNT_VILLAGERS_KILLED_BY_AI_PLAYER = 228,
+    AMOUNT_VILLAGERS_KILLED_BY_HUMAN_PLAYER = 229,
+    AMOUNT_FOOD_GENERATION = 230,
+    AMOUNT_WOOD_GENERATION = 231,
+    AMOUNT_STONE_GENERATION = 232,
+    AMOUNT_GOLD_GENERATION = 233,
+    AMOUNT_SPAWN_CAP = 234,
+    AMOUNT_FLEMISH_MILITIA_POP = 235,
+    AMOUNT_GOLD_FARMING_PRODUCTIVITY = 236,
+    AMOUNT_FOLWARK_COLLECTION_AMOUNT = 237,
+    AMOUNT_FOLWARK_COLLECTION_TYPE = 238,
+    AMOUNT_BUILDING_ID = 239,
+    AMOUNT_UNITS_CONVERTED = 240,
+    AMOUNT_STONE_GOLD_MINING_PRODUCTIVITY = 241,
+    AMOUNT_WORKSHOP_FOOD_TRICKLE = 242,
+    AMOUNT_WORKSHOP_WOOD_TRICKLE = 243,
+    AMOUNT_WORKSHOP_STONE_TRICKLE = 244,
+    AMOUNT_WORKSHOP_GOLD_TRICKLE = 245,
+    AMOUNT_UNITS_VALUE_TOTAL = 246,
+    AMOUNT_BUILDINGS_VALUE_TOTAL = 247,
+    AMOUNT_VILLAGERS_CREATED_TOTAL = 248,
+    AMOUNT_VILLAGERS_IDLE_PERIODS_TOTAL = 249,
+    AMOUNT_VILLAGERS_IDLE_SECONDS_TOTAL = 250,
+    AMOUNT_TRADE_FOOD_PERCENT = 251,
+    AMOUNT_TRADE_WOOD_PERCENT = 252,
+    AMOUNT_TRADE_STONE_PERCENT = 253,
+    AMOUNT_LIVESTOCK_FOOD_PRODUCTIVITY = 254,
+    AMOUNT_SPEED_UP_BUILDING_TYPE = 255,
+    AMOUNT_SPEED_UP_BUILDING_RANGE = 256,
+    AMOUNT_SPEED_UP_PERCENTAGE = 257,
+    AMOUNT_SPEED_UP_OBJECT_TYPE = 258,
+    AMOUNT_SPEED_UP_EFFECT_TYPE = 259,
+    AMOUNT_SPEED_UP_SECONDARY_EFFECT_TYPE = 260,
+    AMOUNT_SPEED_UP_SECONDARY_PERCENTAGE = 261,
+    AMOUNT_CIV_NAME_OVERRIDE = 262,
+    AMOUNT_STARTING_SCOUT_ID = 263,
+    AMOUNT_RELIC_WOOD_RATE = 264,
+    AMOUNT_RELIC_STONE_RATE = 265,
+    AMOUNT_CHOPPING_GOLD_PRODUCTIVITY = 266,
+    AMOUNT_FORAGING_WOOD_PRODUCTIVITY = 267,
+    AMOUNT_HUNTING_PRODUCTIVITY = 268,
+    AMOUNT_TECHNOLOGY_REWARD_EFFECT = 269,
+    AMOUNT_UNIT_REPAIR_COST = 270,
+    AMOUNT_BUILDING_REPAIR_COST = 271,
+    AMOUNT_ELEVATION_DAMAGE_HIGHER = 272,
+    AMOUNT_ELEVATION_DAMAGE_LOWER = 273,
+    AMOUNT_INFANTRY_KILL_REWARD = 274,
+    AMOUNT_MILITARY_CAN_CONVERT = 279,
+    AMOUNT_MILITARY_CONVERSION_RANGE_ADJ = 280,
+    AMOUNT_MILITARY_CONVERSION_CHANCE = 281,
+    AMOUNT_MILITARY_CONVERSION_RECHARGE_RATE = 282,
+    AMOUNT_SPAWN_STAY_INSIDE = 283,
+    AMOUNT_CAVALRY_KILL_REWARD = 284,
+    AMOUNT_TRIGGER_SHARED_VISIBILITY = 285,
+    AMOUNT_TRIGGER_SHARED_EXPLORATION = 286,
+    AMOUNT_GAIA_KILLS = 300,
+    AMOUNT_PLAYER1_KILLS = 301,
+    AMOUNT_PLAYER2_KILLS = 302,
+    AMOUNT_PLAYER3_KILLS = 303,
+    AMOUNT_PLAYER4_KILLS = 304,
+    AMOUNT_PLAYER5_KILLS = 305,
+    AMOUNT_PLAYER6_KILLS = 306,
+    AMOUNT_PLAYER7_KILLS = 307,
+    AMOUNT_PLAYER8_KILLS = 308,
+    AMOUNT_KILLS_BY_GAIA = 325,
+    AMOUNT_KILLS_BY_PLAYER1 = 326,
+    AMOUNT_KILLS_BY_PLAYER2 = 327,
+    AMOUNT_KILLS_BY_PLAYER3 = 328,
+    AMOUNT_KILLS_BY_PLAYER4 = 329,
+    AMOUNT_KILLS_BY_PLAYER5 = 330,
+    AMOUNT_KILLS_BY_PLAYER6 = 331,
+    AMOUNT_KILLS_BY_PLAYER7 = 332,
+    AMOUNT_KILLS_BY_PLAYER8 = 333,
+    AMOUNT_GAIA_RAZINGS = 350,
+    AMOUNT_PLAYER1_RAZINGS = 351,
+    AMOUNT_PLAYER2_RAZINGS = 352,
+    AMOUNT_PLAYER3_RAZINGS = 353,
+    AMOUNT_PLAYER4_RAZINGS = 354,
+    AMOUNT_PLAYER5_RAZINGS = 355,
+    AMOUNT_PLAYER6_RAZINGS = 356,
+    AMOUNT_PLAYER7_RAZINGS = 357,
+    AMOUNT_PLAYER8_RAZINGS = 358,
+    AMOUNT_RAZINGS_BY_GAIA = 375,
+    AMOUNT_RAZINGS_BY_PLAYER1 = 376,
+    AMOUNT_RAZINGS_BY_PLAYER2 = 377,
+    AMOUNT_RAZINGS_BY_PLAYER3 = 378,
+    AMOUNT_RAZINGS_BY_PLAYER4 = 379,
+    AMOUNT_RAZINGS_BY_PLAYER5 = 380,
+    AMOUNT_RAZINGS_BY_PLAYER6 = 381,
+    AMOUNT_RAZINGS_BY_PLAYER7 = 382,
+    AMOUNT_RAZINGS_BY_PLAYER8 = 383,
+    AMOUNT_GAIA_KILL_VALUE = 400,
+    AMOUNT_PLAYER1_KILL_VALUE = 401,
+    AMOUNT_PLAYER2_KILL_VALUE = 402,
+    AMOUNT_PLAYER3_KILL_VALUE = 403,
+    AMOUNT_PLAYER4_KILL_VALUE = 404,
+    AMOUNT_PLAYER5_KILL_VALUE = 405,
+    AMOUNT_PLAYER6_KILL_VALUE = 406,
+    AMOUNT_PLAYER7_KILL_VALUE = 407,
+    AMOUNT_PLAYER8_KILL_VALUE = 408,
+    AMOUNT_GAIA_RAZING_VALUE = 425,
+    AMOUNT_PLAYER1_RAZING_VALUE = 426,
+    AMOUNT_PLAYER2_RAZING_VALUE = 427,
+    AMOUNT_PLAYER3_RAZING_VALUE = 428,
+    AMOUNT_PLAYER4_RAZING_VALUE = 429,
+    AMOUNT_PLAYER5_RAZING_VALUE = 430,
+    AMOUNT_PLAYER6_RAZING_VALUE = 431,
+    AMOUNT_PLAYER7_RAZING_VALUE = 432,
+    AMOUNT_PLAYER8_RAZING_VALUE = 433,
+    AMOUNT_GAIA_TRIBUTE = 450,
+    AMOUNT_PLAYER1_TRIBUTE = 451,
+    AMOUNT_PLAYER2_TRIBUTE = 452,
+    AMOUNT_PLAYER3_TRIBUTE = 453,
+    AMOUNT_PLAYER4_TRIBUTE = 454,
+    AMOUNT_PLAYER5_TRIBUTE = 455,
+    AMOUNT_PLAYER6_TRIBUTE = 456,
+    AMOUNT_PLAYER7_TRIBUTE = 457,
+    AMOUNT_PLAYER8_TRIBUTE = 458,
+    AMOUNT_TRIBUTE_FROM_GAIA = 475,
+    AMOUNT_TRIBUTE_FROM_PLAYER1 = 476,
+    AMOUNT_TRIBUTE_FROM_PLAYER2 = 477,
+    AMOUNT_TRIBUTE_FROM_PLAYER3 = 478,
+    AMOUNT_TRIBUTE_FROM_PLAYER4 = 479,
+    AMOUNT_TRIBUTE_FROM_PLAYER5 = 480,
+    AMOUNT_TRIBUTE_FROM_PLAYER6 = 481,
+    AMOUNT_TRIBUTE_FROM_PLAYER7 = 482,
+    AMOUNT_TRIBUTE_FROM_PLAYER8 = 483
 }
 
 ---@enum PlayerAttribute
@@ -2432,8 +2706,14 @@ function VillagerOccupation:Update() end
 ---@return integer
 function VillagerOccupation:GetVillagerCount(profession) end
 
+---@return integer
+function VillagerOccupation:GetIdleVillagerCount() end
+
 ---@return Object[]
 function VillagerOccupation:GetAllVillagers() end
+
+---@return Object[]
+function VillagerOccupation:GetIdleVillagers() end
 
 ---@param amount integer
 ---@param position Vector3
@@ -2448,6 +2728,10 @@ function VillagerOccupation:RebalanceVillagers() end
 ---@param gold integer
 ---@param stone integer
 function VillagerOccupation:SetPriorities(wood, food, gold, stone) end
+
+---@param profession VillagerProfession
+---@return integer
+function VillagerOccupation:GetPriorityPercentage(profession) end
 
 function VillagerOccupation:ResetPriorities() end
 
@@ -2498,9 +2782,16 @@ function ConstructionPlacement(villagerOccupation) end
 
 function ConstructionPlacement:Update() end
 
+---@param padding integer
+function ConstructionPlacement:SetTownCenterPadding(padding) end
+
 ---Build a structure with a specific builder, deriving placement size from the structure type.
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, builderUnitId: integer, targetPos: Vector3, direction: PlacementDirection, padding?: integer): boolean
 ---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, builderUnitId: integer, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, builderUnitId: integer, targetPos: Vector3, directionPos: Vector3, padding?: integer): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, direction: PlacementDirection, padding?: integer): boolean
 ---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, direction: PlacementDirection, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, directionPos: Vector3, padding?: integer): boolean
 ---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, directionPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
 ---@param structureType UnitObjectType
 ---@param builderUnitId integer
@@ -2512,6 +2803,9 @@ function ConstructionPlacement:Update() end
 function ConstructionPlacement:BuildStructure(structureType, builderUnitId, targetPos, direction, padding, bypassTownCenterPadding) end
 
 ---Build a structure relative to the town center, auto-selecting a builder villager.
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, padding?: integer): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, targetPos: Vector3, padding?: integer, bypassTownCenterPadding?: boolean): boolean
+---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, padding?: integer): boolean
 ---@overload fun(self: ConstructionPlacement, structureType: UnitObjectType, padding?: integer, bypassTownCenterPadding?: boolean): boolean
 ---@param structureType UnitObjectType
 ---@param targetPos Vector3
@@ -2527,6 +2821,9 @@ function ConstructionPlacement:BuildStructureAtTown(structureType, targetPos, pa
 ---@param bypassTownCenterPadding? boolean
 ---@return Vector3
 function ConstructionPlacement:FindBestPosition(structureType, targetPos, direction, padding, bypassTownCenterPadding) end
+
+---@return MapTile|nil
+function ConstructionPlacement:GetValidFarmPlacementTile() end
 
 ---@param structureType UnitObjectType
 ---@param targetPosition Vector3
