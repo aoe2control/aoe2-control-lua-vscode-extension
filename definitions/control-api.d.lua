@@ -1215,6 +1215,11 @@ function IPC.HasMessages() end
 ---@return string[]
 function IPC.GetMessages() end
 
+---Wait for the next IPC message, optionally timing out after `timeoutMs`.
+---@param timeoutMs? integer
+---@return string|nil
+function IPC.WaitForMessage(timeoutMs) end
+
 ---@param str string
 ---@return table
 function ParseJSON(str) end
@@ -2504,9 +2509,9 @@ UnitObjectType = {
     MINING_CAMP_DARK_AGE = 584,
     LUMBER_CAMP_DARK_AGE = 562,
     FARM = 50,
-    BARRACKS = 12,
-    ARCHERY_RANGE = 87,
-    STABLE = 101,
+    BARRACKS_DARK_AGE = 12,
+    ARCHERY_RANGE_FEUDAL_AGE = 87,
+    STABLE_FEUDAL_AGE = 101,
     SIEGE_WORKSHOP = 49,
     BLACKSMITH_FEUDAL_AGE = 103,
     MARKET_FEUDAL_AGE = 84,
@@ -2653,9 +2658,6 @@ function ResourceTracker() end
 
 ---Refresh tracked resource sets so repopulated resources can be discovered again.
 function ResourceTracker:Update() end
-
----Remove cached resources that are visibly gone from the world.
-function ResourceTracker:Cleanup() end
 
 ---@param position Vector3
 ---@param radius number

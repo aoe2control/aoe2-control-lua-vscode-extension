@@ -7,6 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [Unreleased]
 
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
+- Added `IPC.WaitForMessage(...)` to the CONTROL API definitions
 - Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()` to the CONTROL API definitions
 - Added `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()` to the CONTROL API definitions
 - Added replay helpers `IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`, and enum `ReplaySpeed` to the CONTROL API definitions
@@ -35,11 +36,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding
 - Renamed `MapTile:GetPos()` to `MapTile:GetPosition()`
 - Updated `ResearchTechnology(...)` to auto-resolve a valid source
+- Corrected curated `UnitObjectType` building names to match the engine enum
 - Updated `ConstructionPlacement` for the renamed `BuildStructure(...)` helpers and new `BuildStructureAtTown(...)` overloads
 - Updated `ConstructionPlacement` for the new overloads that omit `bypassTownCenterPadding`
 - Updated `FindBestPosition(...)`, `QueueBuildingRequest(...)`, `QueueBuildingRequestAtTown(...)`, and `IsStructureTypeQueued(...)` to use `UnitObjectType`-based signatures
 - Documented `ResourceTracker:Update()` as the refresh call for repopulated resource tracking
-- Documented `ResourceTracker:Cleanup()` for removing visibly missing cached resources
 - Clarified that `ResourceTracker:GetDeadLivestock(...)` still returns tracked dead livestock even though most object queries filter to alive objects
 - Documented the new villager farming-limit and building-range tuning helpers on `VillagerOccupation`
 - Updated Tournament Mode guidance to note restrictions on selected engine, render, and `GameOptions` helpers
