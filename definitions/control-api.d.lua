@@ -844,6 +844,31 @@ function GetObjectsByClasses(classes) end
 ---@return number
 function GetGameTime() end
 
+---Milliseconds on a monotonic high-resolution clock with an arbitrary start.
+---Subtract two values to measure a duration.
+---@return number
+function GetClockMs() end
+
+---@class FunctionTelemetry
+---@field count integer calls since the module loaded
+---@field totalMs number
+---@field sampleCount integer calls in the recent window (at most 256)
+---@field averageMs number
+---@field p50Ms number
+---@field p95Ms number
+---@field maxMs number
+
+---@class ModuleTelemetry
+---@field update FunctionTelemetry
+---@field render FunctionTelemetry
+---@field lateUpdates integer updates that ran a full interval or more late
+---@field skippedIntervals integer update intervals dropped because of that
+---@field deferredUpdates integer Multithreading: an update came due while the previous one ran
+
+---Timing of the calling module instance; nil outside a module callback.
+---@return ModuleTelemetry|nil
+function GetModuleTelemetry() end
+
 ---Get all currently retained chat messages from the in-game chat buffer.
 ---@return string[]
 function GetAllChatMessages() end
