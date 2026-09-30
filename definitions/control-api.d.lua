@@ -403,6 +403,12 @@ function Object:GetName() end
 ---@return string
 function Object:GetInternalName() end
 
+---Name the game shows for the object's type, such as "Villager" or "Town Center",
+---in the game's language. Empty for types without one.
+---@return string
+function Object:GetTypeName() end
+
+---@deprecated Same as GetName(). Use GetTypeName() for the type's name.
 ---@return string
 function Object:GetMasterName() end
 
@@ -439,8 +445,13 @@ function Object:GetHitpoints() end
 ---@return number
 function Object:GetMaxHitpoints() end
 
+---False for foundations.
 ---@return boolean
 function Object:IsAlive() end
+
+---True for a building that is not finished yet (ObjectData.STATUS 0).
+---@return boolean
+function Object:IsFoundation() end
 
 ---@return UnitObjectType
 function Object:GetUnitObjectType() end
@@ -469,7 +480,7 @@ function Object:CalculatePath(targetPos) end
 ---@return boolean
 function Object:IsIdle() end
 
----True when the current graphic has 30 frames, which matches most walking graphics.
+---True while the unit follows a path. False for buildings and other static objects.
 ---@return boolean
 function Object:IsMoving() end
 
@@ -601,6 +612,10 @@ function Player:GetObjectsByClasses(unitClasses) end
 ---@param unitClass UnitClass
 ---@return Object[]
 function Player:GetObjectsByClassDeadInclusive(unitClass) end
+
+---The player's buildings that are not finished yet. The other object lists leave them out.
+---@return Object[]
+function Player:GetFoundations() end
 
 ---Number of objects GetObjectsByTypes returns, without building the list.
 ---@param unitTypes UnitObjectType[]
