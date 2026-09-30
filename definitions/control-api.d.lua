@@ -1141,7 +1141,7 @@ function Settings.AddFloat(key, default, min, max) end
 ---@param options string[]
 function Settings.AddDropdown(key, default, options) end
 
----Call only from Load(). Use Key.Add, Key.F, Key.SPACE, etc.
+---Call only from Load(). Use Key.Add, Key.F, Key.Space, etc.
 ---@param key string
 ---@param defaultVkCode integer
 function Settings.AddKeybind(key, defaultVkCode) end
@@ -2581,7 +2581,7 @@ Technology = {
     BODKIN_ARROW = 200,
     BRACER = 201,
     -- Stable
-    BLOODLINES = 19,
+    BLOODLINES = 435,
     HUSBANDRY = 39,
     -- Economy
     LOOM = 22,
@@ -2600,27 +2600,30 @@ Technology = {
 ---@enum Key
 ---Virtual key codes for keybinds. Use with Settings.AddKeybind and Settings.GetKeybind.
 Key = {
-    Add = 0x6B,        -- Numpad +
-    Subtract = 0x6D,    -- Numpad -
-    Multiply = 0x6A,    -- Numpad *
-    Divide = 0x6F,     -- Numpad /
-    Space = 0x20,
-    Escape = 0x1B,
-    Return = 0x0D,
-    Back = 0x08,
+    None = 0,
+    LButton = 0x01,
+    RButton = 0x02,
+    MButton = 0x04,
+    Backspace = 0x08,
     Tab = 0x09,
-    F1 = 0x70,
-    F2 = 0x71,
-    F3 = 0x72,
-    F4 = 0x73,
-    F5 = 0x74,
-    F6 = 0x75,
-    F7 = 0x76,
-    F8 = 0x77,
-    F9 = 0x78,
-    F10 = 0x79,
-    F11 = 0x7A,
-    F12 = 0x7B,
+    Enter = 0x0D,
+    Shift = 0x10,
+    Ctrl = 0x11,
+    Alt = 0x12,
+    Pause = 0x13,
+    CapsLock = 0x14,
+    Escape = 0x1B,
+    Space = 0x20,
+    PageUp = 0x21,
+    PageDown = 0x22,
+    End = 0x23,
+    Home = 0x24,
+    Left = 0x25,
+    Up = 0x26,
+    Right = 0x27,
+    Down = 0x28,
+    Insert = 0x2D,
+    Delete = 0x2E,
     Num0 = 0x30,
     Num1 = 0x31,
     Num2 = 0x32,
@@ -2656,7 +2659,35 @@ Key = {
     W = 0x57,
     X = 0x58,
     Y = 0x59,
-    Z = 0x5A
+    Z = 0x5A,
+    Numpad0 = 0x60,
+    Numpad1 = 0x61,
+    Numpad2 = 0x62,
+    Numpad3 = 0x63,
+    Numpad4 = 0x64,
+    Numpad5 = 0x65,
+    Numpad6 = 0x66,
+    Numpad7 = 0x67,
+    Numpad8 = 0x68,
+    Numpad9 = 0x69,
+    Multiply = 0x6A,
+    Add = 0x6B,
+    Separator = 0x6C,
+    Subtract = 0x6D,
+    Decimal = 0x6E,
+    Divide = 0x6F,
+    F1 = 0x70,
+    F2 = 0x71,
+    F3 = 0x72,
+    F4 = 0x73,
+    F5 = 0x74,
+    F6 = 0x75,
+    F7 = 0x76,
+    F8 = 0x77,
+    F9 = 0x78,
+    F10 = 0x79,
+    F11 = 0x7A,
+    F12 = 0x7B
 }
 
 -- =============================================================================
