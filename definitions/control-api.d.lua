@@ -395,9 +395,11 @@ Object = {}
 ---@return integer
 function Object:GetId() end
 
+---Name of the object's current graphic, such as "Villager Male (Idle)".
 ---@return string
 function Object:GetName() end
 
+---File name of the object's current graphic, such as "u_vil_male_villager_idleA_x1".
 ---@return string
 function Object:GetInternalName() end
 
@@ -467,8 +469,21 @@ function Object:CalculatePath(targetPos) end
 ---@return boolean
 function Object:IsIdle() end
 
+---True when the current graphic has 30 frames, which matches most walking graphics.
 ---@return boolean
 function Object:IsMoving() end
+
+---@class Sprite
+---@field name string graphic name, same as GetName()
+---@field fileName string graphic file name, same as GetInternalName()
+---@field facet integer direction the object faces, from 0; ignore when facetCount is 1
+---@field facetCount integer directions in the graphic (16 for a villager)
+---@field frameCount integer frames in one animation cycle of one direction
+---@field frameDuration number seconds per frame at normal game speed
+
+---The graphic the game draws for this object now. The current frame is not available.
+---@return Sprite|nil nil when the object has no graphic
+function Object:GetSprite() end
 
 ---@return boolean
 function Object:IsScouting() end
