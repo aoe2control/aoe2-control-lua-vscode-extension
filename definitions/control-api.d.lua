@@ -401,16 +401,12 @@ function Object:GetName() end
 
 ---File name of the object's current graphic, such as "u_vil_male_villager_idleA_x1".
 ---@return string
-function Object:GetInternalName() end
+function Object:GetGraphicFileName() end
 
 ---Name the game shows for the object's type, such as "Villager" or "Town Center",
 ---in the game's language. Empty for types without one.
 ---@return string
 function Object:GetTypeName() end
-
----@deprecated Same as GetName(). Use GetTypeName() for the type's name.
----@return string
-function Object:GetMasterName() end
 
 ---@return ObjectType
 function Object:GetObjectType() end
@@ -486,7 +482,7 @@ function Object:IsMoving() end
 
 ---@class Sprite
 ---@field name string graphic name, same as GetName()
----@field fileName string graphic file name, same as GetInternalName()
+---@field fileName string graphic file name, same as GetGraphicFileName()
 ---@field facet integer direction the object faces, from 0; ignore when facetCount is 1
 ---@field facetCount integer directions in the graphic (16 for a villager)
 ---@field frameCount integer frames in one animation cycle of one direction

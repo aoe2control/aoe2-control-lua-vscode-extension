@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Renamed `Object:GetInternalName()` to `Object:GetGraphicFileName()` and removed `Object:GetMasterName()`
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
 - Added `IPC.WaitForMessage(...)` to the CONTROL API definitions
 - Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()` to the CONTROL API definitions
