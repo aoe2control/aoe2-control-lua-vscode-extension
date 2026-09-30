@@ -44,8 +44,9 @@ function injectControlApiLibrary(context: vscode.ExtensionContext): void {
 
 	const definitionsPath = path.join(context.extensionPath, 'definitions');
 	const luaConfig = vscode.workspace.getConfiguration('Lua');
-	// Read the workspace value only, so user-level entries are not copied into it.
-	const current = luaConfig.inspect<unknown>('workspace.library')?.workspaceValue;
+	// The effective value: a workspace array replaces the user array, so user
+	// entries must be carried into it.
+	const current = luaConfig.get<unknown>('workspace.library');
 	const merged = mergeLibrarySetting(current, definitionsPath);
 	if (!merged) {
 		return;
