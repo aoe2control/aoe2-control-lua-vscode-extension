@@ -444,11 +444,11 @@ function Object:GetClass() end
 
 ---@param attribute ObjectAttribute
 ---@param damageType? integer
----@return number
+---@return number|nil nil in snapshot mode (Multithreading or Tournament Mode) when the value is not captured
 function Object:GetAttribute(attribute, damageType) end
 
 ---@param objectData ObjectData
----@return integer
+---@return integer|nil nil in snapshot mode (Multithreading or Tournament Mode) when the value is not captured
 function Object:GetObjectData(objectData) end
 
 ---Get this object's current native path as world positions.
@@ -524,7 +524,7 @@ function Player:GetUnitTypeCount(unitId) end
 
 ---@param factId Fact
 ---@param parameter? integer
----@return number
+---@return number|nil nil in snapshot mode (Multithreading or Tournament Mode) when the value is not captured
 function Player:GetFact(factId, parameter) end
 
 ---@param unitId UnitObjectType
@@ -775,7 +775,7 @@ function SetUnitCombatStance(units, stance) end
 ---Get fact value (population, resources, etc.). parameter often 0.
 ---@param factId Fact
 ---@param parameter? integer
----@return number
+---@return number|nil nil in snapshot mode (Multithreading or Tournament Mode) when the value is not captured
 function GetFact(factId, parameter) end
 
 ---Count of unit type for the assigned player.
@@ -930,13 +930,13 @@ function GetObjectsInArea(pos1, pos2) end
 
 ---@param objectTypeId UnitObjectType|integer
 ---@param objectData ObjectData
----@return integer
+---@return integer|nil nil in snapshot mode (Multithreading or Tournament Mode) when the value is not captured
 function GetObjectTypeData(objectTypeId, objectData) end
 
 ---@param objectTypeId UnitObjectType|integer
 ---@param attribute ObjectAttribute
 ---@param damageType integer
----@return number
+---@return number|nil nil in snapshot mode (Multithreading or Tournament Mode) when the value is not captured
 function GetObjectTypeAttribute(objectTypeId, attribute, damageType) end
 
 ---@param player Player
