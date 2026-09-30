@@ -367,13 +367,17 @@ function MapTile:GetElevation() end
 ---@return TileVisibility
 function MapTile:GetTileVisibility() end
 
----@return boolean
+---Whether the game would let the assigned player place a 1x1 building here now
+---(terrain, slope and objects). nil with Multithreading on.
+---@return boolean|nil
 function MapTile:IsBuildable() end
 
----Returns whether the tile is walkable after terrain and collision checks.
+---Whether land units can be here: navigatable terrain and no blocking object
+---(building, tree, mine). Units standing here do not count.
 ---@return boolean
 function MapTile:IsWalkable() end
 
+---Whether the terrain lets land units move, whatever stands on it.
 ---@return boolean
 function MapTile:IsNavigatable() end
 
@@ -916,6 +920,21 @@ function GetMapTile(x, y) end
 
 ---@return MapTile[]
 function GetAllMapTiles() end
+
+---Runs the game's placement check of an object type for the assigned player.
+---Returns the result and, for BLOCKED, the blocking object's id. nil with
+---Multithreading on.
+---@param objectTypeId integer
+---@param position Vector2|Vector3
+---@return PlacementResult|nil result
+---@return integer|nil blockingObjectId
+function CheckPlacement(objectTypeId, position) end
+
+---True when CheckPlacement returns CAN_PLACE. nil with Multithreading on.
+---@param objectTypeId integer
+---@param position Vector2|Vector3
+---@return boolean|nil
+function CanPlaceObject(objectTypeId, position) end
 
 ---Rebuilds the engine-owned object snapshot buffer and returns `(ptr, size)`.
 ---Dead-inclusive.
@@ -2222,6 +2241,18 @@ TileVisibility = {
     UNEXPLORED = 0,
     VISIBLE = 15,
     EXPLORED = 128
+}
+
+---@enum PlacementResult
+PlacementResult = {
+    CAN_PLACE = 0,
+    TERRAIN_EDGE = 1,
+    TERRAIN = 2,
+    SLOPE = 3,
+    UNEXPLORED = 5,
+    BLOCKED = 6,
+    OUTSIDE_MAP = 7,
+    MAP_BOUNDARY = 11
 }
 
 ---@enum ObjectAttribute
