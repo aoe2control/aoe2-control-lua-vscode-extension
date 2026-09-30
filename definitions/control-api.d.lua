@@ -771,6 +771,12 @@ function SetUnitStanceSeekShelter(units) end
 ---@param stance UnitCombatStance
 function SetUnitCombatStance(units, stance) end
 
+---Set the formation of owned units, as the game's formation buttons do. It
+---takes effect when the units next move together.
+---@param units Object[]
+---@param formation Formation
+function SetFormation(units, formation) end
+
 -- =============================================================================
 -- FACTS (Game API — Read State) — Safe from Init(), Update(), or Render().
 -- Tournament Mode restrictions apply to commands, not these read-only queries.
@@ -2336,6 +2342,14 @@ UnitCombatStance = {
     DEFENSIVE = 1,
     NO_ATTACK = 2,
     STAND_GROUND = 3
+}
+
+---@enum Formation
+Formation = {
+    LINE = 2,
+    BOX = 4,
+    STAGGERED = 7,
+    FLANK = 8
 }
 
 ---@enum Fact
