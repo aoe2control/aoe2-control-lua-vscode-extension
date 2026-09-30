@@ -1204,6 +1204,8 @@ function IPC.StartServer(pipeName) end
 
 function IPC.StopServer() end
 
+---Queue a message for every connected client. Returns false when no client is
+---connected, the envelope exceeds 1 MiB, or a client's queue is full.
 ---@param message string|table
 ---@return boolean
 function IPC.Send(message) end
@@ -1215,10 +1217,27 @@ function IPC.HasMessages() end
 ---@return string[]
 function IPC.GetMessages() end
 
----Wait for the next IPC message, optionally timing out after `timeoutMs`.
+---Wait for the next IPC message, at most `timeoutMs` and never longer than 500 ms.
 ---@param timeoutMs? integer
 ---@return string|nil
 function IPC.WaitForMessage(timeoutMs) end
+
+---@class IPCStats
+---@field connectedClients integer
+---@field sentMessages integer
+---@field sentBytes integer
+---@field sendFailedNoClient integer
+---@field sendFailedTooLarge integer
+---@field sendFailedQueueFull integer
+---@field receivedMessages integer
+---@field receiveDroppedQueueFull integer
+---@field receiveDroppedTooLarge integer
+---@field receiveDroppedInvalidRouting integer
+---@field slowClientDisconnects integer
+
+---Delivery counters for this module instance's IPC server, or nil without one.
+---@return IPCStats|nil
+function IPC.GetStats() end
 
 ---@param str string
 ---@return table
