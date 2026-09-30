@@ -587,6 +587,16 @@ function Player:GetObjectsByClasses(unitClasses) end
 ---@return Object[]
 function Player:GetObjectsByClassDeadInclusive(unitClass) end
 
+---Number of objects GetObjectsByTypes returns, without building the list.
+---@param unitTypes UnitObjectType[]
+---@return integer
+function Player:CountObjectsByTypes(unitTypes) end
+
+---Number of objects GetObjectsByClass returns, without building the list.
+---@param unitClass UnitClass
+---@return integer
+function Player:CountObjectsByClass(unitClass) end
+
 ---@return Object[]
 function Player:GetTownCenters() end
 
@@ -973,10 +983,43 @@ function CanPlaceObject(objectTypeId, position) end
 ---@return integer size
 function GetObjectsPtr() end
 
+---Objects inside the rectangle between pos1 and pos2. unitClass and owner
+---(a player id) filter the result; nil skips a filter.
 ---@param pos1 Vector2
 ---@param pos2 Vector2
+---@param unitClass? UnitClass|nil
+---@param owner? integer|nil
 ---@return Object[]
-function GetObjectsInArea(pos1, pos2) end
+function GetObjectsInArea(pos1, pos2, unitClass, owner) end
+
+---@class ObjectStates
+---Aligned arrays: index i of every array describes the same object.
+---@field id integer[]
+---@field unitType UnitObjectType[]
+---@field playerId integer[] -1 without an owner
+---@field x number[]
+---@field y number[]
+---@field hitpoints integer[]
+---@field targetId integer[] -1 without a visible target
+---@field alive boolean[]
+
+---Reads several objects in one call. Skips nil entries, objects that no
+---longer exist and objects that are not visible; use `id` to match results.
+---@param objects Object[]
+---@return ObjectStates
+function GetObjectStates(objects) end
+
+---@class ObjectChanges
+---Ids in ascending order.
+---@field created integer[]
+---@field destroyed integer[]
+---@field damaged integer[] objects with fewer hitpoints than at the previous call
+
+---Changes to the assigned player's objects (GetAssignedPlayer():GetPlayerObjects())
+---since the previous call from this module instance. The first call after a
+---module load reports every object as created.
+---@return ObjectChanges
+function GetObjectChanges() end
 
 ---@param objectTypeId UnitObjectType|integer
 ---@param objectData ObjectData
