@@ -2,6 +2,7 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { mergeLibrarySetting } from './librarySetting';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -43,15 +44,17 @@ function injectControlApiLibrary(context: vscode.ExtensionContext): void {
 
 	const definitionsPath = path.join(context.extensionPath, 'definitions');
 	const luaConfig = vscode.workspace.getConfiguration('Lua');
-	const currentLibrary = luaConfig.get<Record<string, boolean | string>>('workspace.library') ?? {};
-
-	// Avoid re-adding if already present
-	if (currentLibrary[definitionsPath]) {
+	// Read the workspace value only, so user-level entries are not copied into it.
+	const current = luaConfig.inspect<unknown>('workspace.library')?.workspaceValue;
+	const merged = mergeLibrarySetting(current, definitionsPath);
+	if (!merged) {
 		return;
 	}
 
-	const merged = { ...currentLibrary, [definitionsPath]: true };
-	luaConfig.update('workspace.library', merged, vscode.ConfigurationTarget.Workspace);
+	Promise.resolve(luaConfig.update('workspace.library', merged, vscode.ConfigurationTarget.Workspace)).catch((error: unknown) => {
+		vscode.window.showWarningMessage(
+			`AoE2 CONTROL: could not add the API definitions to Lua.workspace.library: ${String(error)}`);
+	});
 }
 
 // This method is called when your extension is deactivated
