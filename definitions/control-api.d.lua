@@ -900,12 +900,18 @@ function GetClockMs() end
 ---@field p95Ms number
 ---@field maxMs number
 
+---@class ApiCallTelemetry
+---@field name string function name at the call site, or "(unnamed)"
+---@field count integer calls since the module loaded
+---@field totalMs number time spent inside the function
+
 ---@class ModuleTelemetry
 ---@field update FunctionTelemetry
 ---@field render FunctionTelemetry
 ---@field lateUpdates integer updates that ran a full interval or more late
 ---@field skippedIntervals integer update intervals dropped because of that
 ---@field deferredUpdates integer Multithreading: an update came due while the previous one ran
+---@field api ApiCallTelemetry[] native calls, longest total first; empty unless the API Profiling setting is on
 
 ---Timing of the calling module instance; nil outside a module callback.
 ---@return ModuleTelemetry|nil
