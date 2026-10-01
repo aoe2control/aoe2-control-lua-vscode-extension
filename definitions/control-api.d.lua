@@ -713,10 +713,6 @@ function Player:GetObjectsByMostCommonType(unitTypes) end
 ---@return Object[]
 function Player:GetObjectsByClass(unitClass) end
 
----@param unitClasses UnitClass[]
----@return Object[]
-function Player:GetObjectsByClasses(unitClasses) end
-
 ---@param unitClass UnitClass
 ---@return Object[]
 function Player:GetObjectsByClassDeadInclusive(unitClass) end
@@ -2982,10 +2978,6 @@ ResourceTracker = {}
 ---@return ResourceTracker
 function ResourceTracker.new(...) end
 
----@deprecated Use `ResourceTracker.new()`.
----@return ResourceTracker
-function ResourceTracker() end
-
 ---Refresh tracked resource sets so repopulated resources can be discovered again.
 function ResourceTracker:Update() end
 
@@ -3027,10 +3019,6 @@ VillagerOccupation = {}
 ---@return VillagerOccupation
 function VillagerOccupation.new(...) end
 
----@deprecated Use `VillagerOccupation.new(...)`.
----@param resourceTracker ResourceTracker
----@return VillagerOccupation
-function VillagerOccupation(resourceTracker) end
 
 function VillagerOccupation:Update() end
 
@@ -3107,10 +3095,6 @@ ConstructionPlacement = {}
 ---@return ConstructionPlacement
 function ConstructionPlacement.new(...) end
 
----@deprecated Use `ConstructionPlacement.new(...)`.
----@param villagerOccupation VillagerOccupation
----@return ConstructionPlacement
-function ConstructionPlacement(villagerOccupation) end
 
 function ConstructionPlacement:Update() end
 

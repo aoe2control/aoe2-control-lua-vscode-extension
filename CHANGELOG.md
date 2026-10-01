@@ -15,6 +15,11 @@ CONTROL 1.1.
   removed, as in CONTROL 1.1.0.
 - Corrected `Color()` ranges, `PlayerAttribute.AGE`, `OptionsGameMode.UNAVAILABLE`, the `Key`
   names and `Technology.BLOODLINES`, and marked the values that are `nil` with Multithreading on.
+- Removed `ResourceTracker()`, `VillagerOccupation()` and `ConstructionPlacement()`, which fail in
+  the engine (use `.new(...)`), and `Player:GetObjectsByClasses()`, which exists only as the global
+  `GetObjectsByClasses()`.
+- `SendBackToWork()`, `SendAllBackToWork()`, `SetUnitStanceGuard()` and `SetUnitStanceFollow()` are
+  described as working commands again, as in CONTROL 1.1.0.
 - The extension now starts only in folders that contain CONTROL entry files (`*.main.lua` or
   `*.main.module`), instead of in every folder with Lua files.
 - Installing the extension now also installs the Lua Language Server.
