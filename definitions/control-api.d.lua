@@ -191,14 +191,15 @@ function Vector4(x, y, z, w) end
 ---@class Color
 ---@field new fun(r: number, g: number, b: number, a?: number): Color
 ---@field Parse fun(hexStr: string): Color
----@field HSV fun(h: number, s: number, v: number): Color
+---@field HSV fun(h: number, s: number, v: number, a?: number): Color
 Color = {}
 
----Create color. Values 0-255.
----@param r number Red (0-255)
----@param g number Green (0-255)
----@param b number Blue (0-255)
----@param a? number Alpha (0-255, optional)
+---Create color. With integer arguments (255) the components are 0-255; with any float
+---argument (1.0, 0.5) they are 0-1. Color(1.0, 1.0, 1.0) is white, Color(1, 1, 1) almost black.
+---@param r number Red
+---@param g number Green
+---@param b number Blue
+---@param a? number Alpha (default opaque)
 ---@return Color
 function Color.new(r, g, b, a) end
 
@@ -207,12 +208,13 @@ function Color.new(r, g, b, a) end
 ---@return Color
 function Color.Parse(hexStr) end
 
----Create color from HSV.
+---Create color from HSV, each 0-1.
 ---@param h number Hue
 ---@param s number Saturation
 ---@param v number Value
+---@param a? number Alpha (0-1, default 1)
 ---@return Color
-function Color.HSV(h, s, v) end
+function Color.HSV(h, s, v, a) end
 
 ---@class ResourceCost
 ---@field [1] ResourceType
@@ -867,10 +869,12 @@ function SetGatherPoint(buildings, targetPosition) end
 function RingTownBell(building, isCallingIn) end
 
 ---Send garrisoned units back to work.
+---Not supported on the current game build: logs this once per module load and does nothing.
 ---@param building Object
 function SendBackToWork(building) end
 
 ---Send all garrisoned units back to work.
+---Not supported on the current game build: logs this once per module load and does nothing.
 ---@param building Object
 function SendAllBackToWork(building) end
 
@@ -884,11 +888,13 @@ function SetUnitStanceAutoScout(units) end
 function SetUnitStancePatrol(units, targetPosition) end
 
 ---Set units to guard object.
+---Not supported on the current game build: logs this once per module load and does nothing.
 ---@param units Object[]
 ---@param targetObject Object
 function SetUnitStanceGuard(units, targetObject) end
 
 ---Set units to follow object.
+---Not supported on the current game build: logs this once per module load and does nothing.
 ---@param units Object[]
 ---@param targetObject Object
 function SetUnitStanceFollow(units, targetObject) end
@@ -1550,6 +1556,7 @@ OptionsCivilizationSet = {
 
 ---@enum OptionsGameMode
 OptionsGameMode = {
+    UNAVAILABLE = -1,
     RANDOM_MAP = 0,
     REGICIDE = 1,
     DEATH_MATCH = 2,
@@ -2173,7 +2180,7 @@ PlayerAttribute = {
     GOLD = 3,
     POP_SPACE_LEFT = 4,
     POP_CURRENT = 11,
-    AGE = 21
+    AGE = 6
 }
 
 ---@enum Age
@@ -2794,7 +2801,7 @@ UnitObjectType = {
     SCOUT_CAVALRY = 448,
     LIGHT_CAVALRY = 546,
     KNIGHT = 38,
-    CAVALRY = 283,
+    CAVALIER = 283,
     PALADIN = 569,
     -- Buildings
     HOUSE_DARK_AGE = 70,
