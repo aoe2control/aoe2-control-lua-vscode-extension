@@ -887,7 +887,7 @@ function SetUnitStancePatrol(units, targetPosition) end
 ---@param targetObject Object
 function SetUnitStanceGuard(units, targetObject) end
 
----Set units to follow object.
+---Set units to follow object. Villagers may stop following once the target moves.
 ---@param units Object[]
 ---@param targetObject Object
 function SetUnitStanceFollow(units, targetObject) end
