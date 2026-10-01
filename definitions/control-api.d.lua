@@ -28,6 +28,7 @@ function Update() end
 function Render() end
 
 ---Called once when game ends, a replay ends, or the match is exited manually.
+---Opening the tech tree, options, hotkeys, save or load screen does not end the match.
 ---On manual exit, `hasWon` is `false`.
 ---@param hasWon boolean Whether the assigned player won.
 function End(hasWon) end
@@ -368,6 +369,8 @@ function GameOptions:GetAntiquityMode() end
 ---@return boolean
 function GameOptions:SetAntiquityMode(antiquityMode) end
 
+---Selected map. `OptionsLocation.CUSTOM_MAP_POOL` after `SetRandomMapPoolLocations()` with two or more
+---locations; during a match, the map the game started.
 ---@return OptionsLocation
 function GameOptions:GetLocation() end
 
