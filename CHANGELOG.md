@@ -20,6 +20,7 @@ CONTROL 1.1.
   `GetObjectsByClasses()`.
 - `SendBackToWork()`, `SendAllBackToWork()`, `SetUnitStanceGuard()` and `SetUnitStanceFollow()` are
   described as working commands again, as in CONTROL 1.1.0.
+- Removed the `BuildingPosition` enum, as in CONTROL 1.1.0.
 - The extension now starts only in folders that contain CONTROL entry files (`*.main.lua` or
   `*.main.module`), instead of in every folder with Lua files.
 - Installing the extension now also installs the Lua Language Server.

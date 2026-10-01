@@ -3175,12 +3175,6 @@ UrgencyLevel = {
     HIGH = 2
 }
 
----@enum BuildingPosition
-BuildingPosition = {
-    TOWN_CENTER = 0,
-    AGGRESSIVE = 1
-}
-
 ---@enum VillagerProfession
 VillagerProfession = {
     WOOD = 0,
