@@ -50,6 +50,37 @@ Vector2 = {}
 ---@return Vector2
 function Vector2.new(x, y) end
 
+---@return number
+function Vector2:LengthSqr() end
+
+---@return number
+function Vector2:Length() end
+
+---Normalizes the vector in place.
+function Vector2:Normalize() end
+
+---@return Vector2
+function Vector2:Normalized() end
+
+---@param other Vector2
+---@return number
+function Vector2:Dot(other) end
+
+---@param other Vector2
+---@return number
+function Vector2:Cross(other) end
+
+---@return boolean
+function Vector2:IsNearlyZero() end
+
+---@param target Vector2
+---@param alpha number
+---@return Vector2
+function Vector2:Lerp(target, alpha) end
+
+---@param other Vector2
+---@return number
+function Vector2:Distance(other) end
 ---@deprecated Use `Vector2.new(...)`.
 ---@param x number
 ---@param y number
@@ -69,6 +100,37 @@ Vector3 = {}
 ---@return Vector3
 function Vector3.new(x, y, z) end
 
+---@return number
+function Vector3:LengthSqr() end
+
+---@return number
+function Vector3:Length() end
+
+---Normalizes the vector in place.
+function Vector3:Normalize() end
+
+---@return Vector3
+function Vector3:Normalized() end
+
+---@param other Vector3
+---@return number
+function Vector3:Dot(other) end
+
+---@param other Vector3
+---@return Vector3
+function Vector3:Cross(other) end
+
+---@return boolean
+function Vector3:IsNearlyZero() end
+
+---@param target Vector3
+---@param alpha number
+---@return Vector3
+function Vector3:Lerp(target, alpha) end
+
+---@param other Vector3
+---@return number
+function Vector3:Distance(other) end
 ---@deprecated Use `Vector3.new(...)`.
 ---@param x number
 ---@param y number
@@ -91,6 +153,33 @@ Vector4 = {}
 ---@return Vector4
 function Vector4.new(x, y, z, w) end
 
+---@return number
+function Vector4:LengthSqr() end
+
+---@return number
+function Vector4:Length() end
+
+---Normalizes the vector in place.
+function Vector4:Normalize() end
+
+---@return Vector4
+function Vector4:Normalized() end
+
+---@param other Vector4
+---@return number
+function Vector4:Dot(other) end
+
+---@return boolean
+function Vector4:IsNearlyZero() end
+
+---@param target Vector4
+---@param alpha number
+---@return Vector4
+function Vector4:Lerp(target, alpha) end
+
+---@param other Vector4
+---@return number
+function Vector4:Distance(other) end
 ---@deprecated Use `Vector4.new(...)`.
 ---@param x number
 ---@param y number
@@ -288,6 +377,27 @@ function GameOptions:SetLocation(location) end
 ---@param locations OptionsLocation[]|integer[]
 ---@return boolean
 function GameOptions:SetRandomMapPoolLocations(locations) end
+
+---Requested fixed seed; nil means the game picks one.
+---@return integer|nil
+function GameOptions:GetRandomMapSeed() end
+
+---Stages an exact unsigned 32-bit seed (0 to 4294967295).
+---@param seed integer
+---@return boolean
+function GameOptions:SetRandomMapSeed(seed) end
+
+---Returns the request to a game-selected seed.
+---@return boolean
+function GameOptions:ClearRandomMapSeed() end
+
+---@return RandomMapSource|nil
+function GameOptions:GetRandomMapSource() end
+
+---Selects a source from the current catalog generation; rejects stale values.
+---@param source RandomMapSource
+---@return boolean
+function GameOptions:SetRandomMapSource(source) end
 
 ---@return integer
 function GameOptions:GetPlayersCount() end
@@ -3111,3 +3221,62 @@ BuildingRequestPriority = {
     HIGH = 2,
     CRITICAL = 3
 }
+
+-- =============================================================================
+-- RANDOM MAP CONTROL
+-- =============================================================================
+
+---An immutable copy of one entry of the game's random-map catalog.
+---@class RandomMapSource
+---@field DisplayName string
+---@field NativeMapId integer
+---@field SourceKind string
+---@field ModIdentity string|nil
+---@field ResolvedPath string|nil
+---@field SourceIdentity string stable catalog identity
+---@field AuthoredSourceSha256 string|nil set only when CONTROL could hash the authored source
+---@field CatalogGeneration integer
+RandomMapSource = {}
+
+---@return string
+function RandomMapSource:GetDisplayName() end
+---@return integer
+function RandomMapSource:GetNativeMapId() end
+---@return string
+function RandomMapSource:GetSourceKind() end
+---@return string|nil
+function RandomMapSource:GetModIdentity() end
+---@return string|nil
+function RandomMapSource:GetResolvedPath() end
+---@return string
+function RandomMapSource:GetSourceIdentity() end
+---@return string|nil
+function RandomMapSource:GetAuthoredSourceSha256() end
+---@return integer
+function RandomMapSource:GetCatalogGeneration() end
+
+---API version 1 and capability flags: apiVersion, capabilityRevision, freshStart,
+---requestedSeed, effectiveSeed, sourceCatalog, refresh, selection, effectiveSource,
+---managedLocalMod, directPath, inlineSource.
+---@return table
+function GetRandomMapControlCapabilities() end
+
+---Lifecycle state, capability revision, requested and effective seed and source,
+---and the current catalog generation.
+---@return table
+function GetRandomMapStartStatus() end
+
+---Refreshes the game's random-map catalog; returns the new catalog generation, or nil.
+---@return integer|nil
+function RefreshRandomMapSources() end
+
+---@return RandomMapSource[]
+function GetAvailableRandomMapSources() end
+
+---Seed of the running random-map world, or nil until it exists.
+---@return integer|nil
+function GetEffectiveRandomMapSeed() end
+
+---Source of the running random-map world, or nil until it exists.
+---@return RandomMapSource|nil
+function GetEffectiveRandomMapSource() end

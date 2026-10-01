@@ -6,6 +6,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+- Added the Vector2/3/4 methods, the random-map control functions, `RandomMapSource` and the `GameOptions` seed and source methods
 - Renamed `Object:GetInternalName()` to `Object:GetGraphicFileName()` and removed `Object:GetMasterName()`
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
 - Added `IPC.WaitForMessage(...)` to the CONTROL API definitions
