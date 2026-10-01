@@ -1,10 +1,8 @@
-# Builds and tests every push. A version tag (v1.1.0) also publishes the
-# extension: the same .vsix goes to the VS Code Marketplace, Open VSX and a
-# GitHub release. Publishing waits for approval in the "release" environment.
-#
-# Repository setup: environment "release" with the maintainer as required
-# reviewer, and its secrets VSCE_PAT (Marketplace token for publisher BigJohn)
-# and OVSX_PAT (Open VSX token).
+# Builds and tests every push. A version tag (v1.1.0) also creates a GitHub
+# release with the packaged .vsix, after approval in the "release"
+# environment. The maintainer uploads that .vsix to the VS Code Marketplace
+# (marketplace.visualstudio.com/manage) and Open VSX by hand; no store tokens
+# are stored here.
 name: Build and release
 
 on:
@@ -43,7 +41,7 @@ jobs:
           name: vsix
           path: aoe2-control-lua.vsix
 
-  publish:
+  release:
     if: startsWith(github.ref, 'refs/tags/v')
     needs: build
     runs-on: ubuntu-latest
@@ -54,19 +52,12 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: vsix
-      - name: Publish to the VS Code Marketplace
-        run: npx --yes @vscode/vsce publish --packagePath aoe2-control-lua.vsix
-        env:
-          VSCE_PAT: ${{ secrets.VSCE_PAT }}
-      - name: Publish to Open VSX
-        run: npx --yes ovsx publish aoe2-control-lua.vsix --pat "$OVSX_PAT"
-        env:
-          OVSX_PAT: ${{ secrets.OVSX_PAT }}
       - name: Create the GitHub release
         run: |
-          cp aoe2-control-lua.vsix "aoe2-control-lua-${GITHUB_REF_NAME#v}.vsix"
-          gh release create "$GITHUB_REF_NAME" "aoe2-control-lua-${GITHUB_REF_NAME#v}.vsix" \
-            --repo "$GITHUB_REPOSITORY" --title "AoE2 CONTROL Lua ${GITHUB_REF_NAME#v}" \
+          version="${GITHUB_REF_NAME#v}"
+          cp aoe2-control-lua.vsix "aoe2-control-lua-$version.vsix"
+          gh release create "$GITHUB_REF_NAME" "aoe2-control-lua-$version.vsix" \
+            --repo "$GITHUB_REPOSITORY" --title "AoE2 CONTROL Lua $version" \
             --notes "See CHANGELOG.md for the changes in this version."
         env:
           GH_TOKEN: ${{ github.token }}
