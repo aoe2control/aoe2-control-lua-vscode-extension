@@ -868,13 +868,12 @@ function SetGatherPoint(buildings, targetPosition) end
 ---@param isCallingIn boolean
 function RingTownBell(building, isCallingIn) end
 
----Send garrisoned units back to work.
----Not supported on the current game build: logs this once per module load and does nothing.
+---Send the villagers garrisoned in the building back to work.
 ---@param building Object
 function SendBackToWork(building) end
 
----Send all garrisoned units back to work.
----Not supported on the current game build: logs this once per module load and does nothing.
+---Send the villagers garrisoned in all of the player's buildings back to work.
+---`building` is any of the player's buildings.
 ---@param building Object
 function SendAllBackToWork(building) end
 
@@ -888,13 +887,11 @@ function SetUnitStanceAutoScout(units) end
 function SetUnitStancePatrol(units, targetPosition) end
 
 ---Set units to guard object.
----Not supported on the current game build: logs this once per module load and does nothing.
 ---@param units Object[]
 ---@param targetObject Object
 function SetUnitStanceGuard(units, targetObject) end
 
 ---Set units to follow object.
----Not supported on the current game build: logs this once per module load and does nothing.
 ---@param units Object[]
 ---@param targetObject Object
 function SetUnitStanceFollow(units, targetObject) end
