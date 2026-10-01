@@ -1423,7 +1423,7 @@ function Settings.GetKeybind(key, defaultVkCode) end
 ---@return Color
 function Settings.GetColor(key, defaultColor) end
 
----Check if key is pressed. Use with Settings.GetKeybind for hotkeys.
+---Check if key is pressed. Use with Settings.GetKeybind for hotkeys. Returns false while the game window is not focused.
 ---@param vkCode integer
 ---@return boolean
 function IsKeyPressed(vkCode) end
