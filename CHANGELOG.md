@@ -3,7 +3,7 @@
 The extension's version follows the CONTROL version its definitions describe: 1.1.x matches
 CONTROL 1.1.
 
-## 1.1.0 (unreleased)
+## 1.1.0 (2026-10-02)
 
 - The definitions match the CONTROL 1.1.0 Lua API. New: random-map control (`RandomMapSource`,
   `GetAvailableRandomMapSources()`, the `GameOptions` seed and source methods), the Agent Bridge,
@@ -21,6 +21,10 @@ CONTROL 1.1.
 - `SendBackToWork()`, `SendAllBackToWork()`, `SetUnitStanceGuard()` and `SetUnitStanceFollow()` are
   described as working commands again, as in CONTROL 1.1.0.
 - Removed the `BuildingPosition` enum, as in CONTROL 1.1.0.
+- Updated descriptions for CONTROL 1.1.0 behavior: `IsKeyPressed()` is `false` while the game window
+  is not focused, `End()` no longer runs when the tech tree or another full-screen screen opens,
+  `GameOptions:GetLocation()` reports a custom map pool, and villagers may stop following a moving
+  target with `SetUnitStanceFollow()`.
 - The extension now starts only in folders that contain CONTROL entry files (`*.main.lua` or
   `*.main.module`), instead of in every folder with Lua files.
 - Installing the extension now also installs the Lua Language Server.
