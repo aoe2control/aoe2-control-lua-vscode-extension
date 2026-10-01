@@ -1,35 +1,16 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { mergeLibrarySetting } from './librarySetting';
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+// Activates in workspaces that contain CONTROL entry files (*.main.lua or
+// *.main.module); see activationEvents in package.json.
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "aoe2-control-lua" is now active!');
-
-	// Inject CONTROL API definitions into Lua workspace library for IntelliSense
 	injectControlApiLibrary(context);
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('aoe2-control-lua.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from aoe2-control-lua!');
-	});
-
-	context.subscriptions.push(disposable);
 }
 
 /**
- * Injects the CONTROL API definitions path into Lua.workspace.library so the
- * Lua Language Server (sumneko.lua) provides IntelliSense for the CONTROL engine.
+ * Adds the CONTROL API definitions to Lua.workspace.library so the Lua
+ * Language Server (sumneko.lua) offers completion and hover help for them.
  */
 function injectControlApiLibrary(context: vscode.ExtensionContext): void {
 	const autoInject = vscode.workspace.getConfiguration('aoe2ControlLua').get<boolean>('autoInjectLibrary', true);
@@ -58,5 +39,4 @@ function injectControlApiLibrary(context: vscode.ExtensionContext): void {
 	});
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}

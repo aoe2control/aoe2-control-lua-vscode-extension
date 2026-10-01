@@ -1,78 +1,42 @@
-# aoe2-control-lua
+# AoE2 CONTROL Lua
 
-VS Code extension for the **CONTROL** Lua scripting engine used with Age of Empires II: Definitive Edition. CONTROL communicates directly with AoE2:DE to read game state and send commands—no pixel scanning or input simulation.
+Completion, hover help and snippets for writing modules for
+[CONTROL](https://aoe2control.github.io/), the Lua scripting engine for Age of Empires II:
+Definitive Edition.
 
-## Features
+## What it does
 
-- **IntelliSense** — Full API definitions for lifecycle callbacks (`Load`, `Init`, `Update`, `Render`, `End`), game commands, facts, render API, settings, IPC, and types
-- **Updated engine surface** — Includes `IPC.HasMessages()`, `IPC.WaitForMessage(...)`, `IsObjectTypeAvailable(...)`, `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `IsMenuOpen()`, replay helpers (`IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`), menu/game control helpers (`DispatchStartGame()`, `DispatchRestartGame()`, `DispatchResignGame()`, `DispatchQuitGame()`, `DispatchLoadGame(...)`, `GetAvailableSaveFiles()`), engine control helpers (`SetEngineUIVisibility(...)`, `UnloadEngine()`, `AssignAndLoadModule(...)`), `GetCurrentGameOptions()`, `GameOptions`, `GameOptions:SetRandomMapPoolLocations(...)`, `GameOptions:SetAssignedPlayerCivilization(...)`, `OptionsLocation.CUSTOM_MAP_POOL`, `MapTile:GetPosition()`, `MapTile:IsBuildable()`, `VillagerOccupation:GetIdleVillagerCount()`, `VillagerOccupation:GetIdleVillagers()`, `VillagerOccupation:GetPriorityPercentage()`, `VillagerOccupation:SetLivestockVillagerLimit(...)`, `VillagerOccupation:SetForageVillagerLimit(...)`, `VillagerOccupation:SetFarmMaxTownCenterDistance(...)`, `VillagerOccupation:SetFarmMaxMillDistance(...)`, `VillagerOccupation:SetProfessionBuildingRange(...)`, `ConstructionPlacement:SetTownCenterPadding(...)`, `ConstructionPlacement:GetValidFarmPlacementTile()`, the related `Options*` enums, `GetObjectsByClasses(...)`, expanded `ResourceType`, `ProjectileType`, `ReplaySpeed`, `GetTechCost(...)`, `GetObjectCost(...)`, object name helpers, `Object:GetActionTargetPosition()`, `Object:IsExplored()`, current native pathfinding helpers, the renamed `GetObjectTypeAttribute(...)`, and the renamed `Fact` enum
-- **Current construction helpers** — Reflects the renamed `BuildStructure(...)` API, the new `BuildStructureAtTown(...)` helpers, the added no-`bypassTownCenterPadding` overloads, `SetTownCenterPadding(...)`, `GetValidFarmPlacementTile()`, and the `UnitObjectType`-based placement/queue signatures
-- **Tournament Mode aware guidance** — Snippets and callback docs steer game commands into `Update()` while keeping read-only queries available in `Init()` and `Render()`
-- **Spectator Mode note** — Command guidance reflects that controls remain available when CONTROL's `"Spectator Mode"` option is enabled
-- **Code snippets** — Quick insert for common CONTROL patterns
-- **Lua Language Server integration** — Optional auto-injection of definitions into the workspace library
+- Adds the CONTROL Lua API to the [Lua Language Server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua):
+  every function, type and enum with its parameters, return values and a short description.
+- Adds snippets for the module callbacks and common patterns. Their prefixes are the callback
+  names (`Load`, `Update`, ...) and short names such as `control-module`, `game-options` and
+  `ipc-drain`.
 
-## Requirements
+## Setup
 
-- [Lua Language Server](https://marketplace.visualstudio.com/items?itemName=sumneko.lua) (recommended for IntelliSense)
+1. Install this extension. VS Code installs the Lua Language Server with it.
+2. Open your CONTROL modules folder, or any folder that contains a module entry file
+   (`*.main.lua` or `*.main.module`).
 
-## Extension Settings
+The extension starts only in such folders. It then adds its API definitions to the folder's
+`Lua.workspace.library` setting, which VS Code stores in `.vscode/settings.json`.
 
-| Setting | Description |
-|---------|-------------|
-| `aoe2ControlLua.autoInjectLibrary` | Automatically add CONTROL API definitions to Lua workspace library for IntelliSense (default: `true`) |
+## Settings
 
-## Release Notes
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `aoe2ControlLua.autoInjectLibrary` | `true` | Adds the CONTROL API definitions to the workspace's `Lua.workspace.library` setting. Turn it off to manage that setting yourself. |
 
-### Unreleased
+## Versions
 
-- Added IntelliSense for `IPC.HasMessages()`
-- Added IntelliSense for `IPC.WaitForMessage(...)`
-- Added IntelliSense for `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()`
-- Added IntelliSense for `GetAllChatMessages()`, `GetLastChatMessage()`, `GetNewChatMessages()`, and `IsMenuOpen()`
-- Added IntelliSense for replay helpers `IsGamePaused()`, `SetGamePaused(...)`, `SetReplaySpeed(...)`, `GetCurrentReplayFileName()`, and enum `ReplaySpeed`
-- Added IntelliSense for `DispatchStartGame()`, `DispatchRestartGame()`, `DispatchResignGame()`, `DispatchQuitGame()`, `DispatchLoadGame(...)`, `GetAvailableSaveFiles()`, `GetCurrentGameOptions()`, `SetEngineUIVisibility(...)`, and `UnloadEngine()`
-- Added IntelliSense for `AssignAndLoadModule(...)` for dynamic in-module reassignment and reloads
-- Added IntelliSense for `GameOptions` and enums `OptionsAIDifficulty`, `OptionsCivilizationSet`, `OptionsGameMode`, `OptionsMapSize`, `OptionsAge`, `OptionsRevealMap`, `OptionsVictory`, `OptionsResources`, `OptionsLocation`, and `OptionsCivilization`
-- Added IntelliSense for `GameOptions:SetRandomMapPoolLocations(...)` and `OptionsLocation.CUSTOM_MAP_POOL`
-- Added IntelliSense for `GameOptions:SetAssignedPlayerCivilization(...)`
-- Added IntelliSense for `MapTile:GetPosition()`, `MapTile:IsBuildable()`, `VillagerOccupation:GetIdleVillagerCount()`, `VillagerOccupation:GetIdleVillagers()`, `VillagerOccupation:GetPriorityPercentage()`, `ConstructionPlacement:SetTownCenterPadding(...)`, and `ConstructionPlacement:GetValidFarmPlacementTile()`
-- Added IntelliSense for `VillagerOccupation:SetLivestockVillagerLimit(...)`, `SetForageVillagerLimit(...)`, `SetFarmMaxTownCenterDistance(...)`, `SetFarmMaxMillDistance(...)`, and `SetProfessionBuildingRange(...)`
-- Added IntelliSense for `GetObjectsByClasses(...)` on both globals and `Player`
-- Added IntelliSense for `ResourceType`, `GetTechCost(...)`, and `GetObjectCost(...)` on both globals and `Player`
-- Expanded the `ResourceType` enum to match the engine's current values
-- Added a snippet for iterating `ResourceCost` results from the new cost helpers
-- Added snippets for `GetCurrentGameOptions()`, `DispatchStartGame()`, and `DispatchLoadGame(...)`
-- Added IntelliSense for `GetProjectileById()`, `GetAllProjectiles()`, `GetProjectilesByType()`, `ProjectileType`, `Object:GetName()`, `Object:GetInternalName()`, and `Object:GetMasterName()`
-- Added IntelliSense for `Object:GetActionTargetPosition()`
-- Added IntelliSense for `Object:IsExplored()`
-- Added IntelliSense for `Object:CalculatePath(...)`
-- Added the auto-source `TrainUnit(unitId, amount?)` overload
-- Renamed the global object-type attribute helper to `GetObjectTypeAttribute(...)`
-- Renamed enum `FactId` to `Fact`
-- Renamed `ChatMessage(...)` to `SendChatMessage(...)` to match the engine binding
-- Renamed `MapTile:GetPos()` to `MapTile:GetPosition()`
-- Updated `ResearchTechnology(...)` to auto-resolve a valid source
-- Corrected curated `UnitObjectType` building names to match the engine enum (for example `BARRACKS_DARK_AGE`, `ARCHERY_RANGE_FEUDAL_AGE`, `STABLE_FEUDAL_AGE`)
-- Updated `ConstructionPlacement` docs for the renamed `BuildStructure(...)` helpers and `BuildStructureAtTown(...)`
-- Updated `ConstructionPlacement` docs for the new overloads that omit `bypassTownCenterPadding`
-- Updated `FindBestPosition(...)`, building queue helpers, and `IsStructureTypeQueued(...)` to use `UnitObjectType` instead of manual building size or raw ids
-- Documented `ResourceTracker:Update()` as the resource refresh entry point for repopulated resource discovery
-- Clarified that `ResourceTracker:GetDeadLivestock(...)` still returns tracked dead livestock even though most object queries filter to alive objects
-- Documented the new villager farming-limit and building-range tuning helpers on `VillagerOccupation`
-- Updated `CalculatePath(...)` docs and snippets to use `Vector3` and return the waypoint list directly
-- Updated `MapTile:IsWalkable()` documentation to reflect collision-aware checks
-- Documented restricted cross-player data access when "Modules See Everything" is disabled
-- Documented that assigning a module suppresses native AI actions for that player
-- Updated lifecycle/snippet guidance for Tournament Mode command restrictions, including selected engine, render, and GameOptions helpers
-- Documented that command bindings remain available when `"Spectator Mode"` is enabled
-- Documented that `Object:GetId()` remains available for explored resources and animals even when other object methods are restricted
-- Documented that `End(hasWon)` also fires when a replay ends, and still reports `false` on manual game exit
+The extension's version follows the CONTROL version it describes: 1.1.x matches CONTROL 1.1.
+Changes are listed in the [changelog](CHANGELOG.md).
 
-### 0.0.1
+## Links
 
-Initial release with IntelliSense support and code snippets for the CONTROL Lua engine.
+- [CONTROL documentation](https://aoe2control.github.io/)
+- [Lua API reference for AI coding agents](https://aoe2control.github.io/ai-agent-reference/)
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).

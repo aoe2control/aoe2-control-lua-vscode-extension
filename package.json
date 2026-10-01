@@ -1,8 +1,8 @@
 {
   "name": "aoe2-control-lua",
-  "displayName": "aoe2-control-lua",
-  "description": "Coding support for the Age of Empires 2 Lua engine \"CONTROL\"",
-  "version": "0.9.0",
+  "displayName": "AoE2 CONTROL Lua",
+  "description": "Lua API definitions and snippets for CONTROL, the Lua scripting engine for Age of Empires II: Definitive Edition",
+  "version": "1.1.0",
   "license": "MIT",
   "publisher": "BigJohn",
   "repository": "https://github.com/aoe2control/aoe2-control-lua-vscode-extension",
@@ -10,21 +10,19 @@
   "engines": {
     "vscode": "^1.105.0"
   },
+  "extensionDependencies": [
+    "sumneko.lua"
+  ],
   "categories": [
-    "Other"
+    "Programming Languages",
+    "Snippets"
   ],
   "activationEvents": [
-    "onLanguage:lua",
-    "workspaceContains:**/*.lua"
+    "workspaceContains:**/*.main.lua",
+    "workspaceContains:**/*.main.module"
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "commands": [
-      {
-        "command": "aoe2-control-lua.helloWorld",
-        "title": "Hello World"
-      }
-    ],
     "snippets": [
       {
         "language": "lua",
@@ -37,7 +35,7 @@
         "aoe2ControlLua.autoInjectLibrary": {
           "type": "boolean",
           "default": true,
-          "description": "Automatically add CONTROL API definitions to Lua workspace library for IntelliSense (requires Lua Language Server)"
+          "description": "Add the CONTROL API definitions to the workspace's Lua.workspace.library setting so the Lua Language Server offers completion and hover help"
         }
       }
     }
@@ -61,5 +59,12 @@
     "typescript": "^5.9.3",
     "@vscode/test-cli": "^0.0.12",
     "@vscode/test-electron": "^2.5.2"
-  }
+  },
+  "keywords": [
+    "aoe2",
+    "age of empires",
+    "lua",
+    "control",
+    "modding"
+  ]
 }

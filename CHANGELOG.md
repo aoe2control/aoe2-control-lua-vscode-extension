@@ -1,13 +1,27 @@
-# Change Log
+# Changelog
 
-All notable changes to the "aoe2-control-lua" extension will be documented in this file.
+The extension's version follows the CONTROL version its definitions describe: 1.1.x matches
+CONTROL 1.1.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## 1.1.0 (unreleased)
 
-## [Unreleased]
+- The definitions match the CONTROL 1.1.0 Lua API. New: random-map control (`RandomMapSource`,
+  `GetAvailableRandomMapSources()`, the `GameOptions` seed and source methods), the Agent Bridge,
+  `CheckPlacement()` and `CanPlaceObject()`, the large-game object calls (`GetObjectStates()`,
+  `GetObjectChanges()`, object counts), `GetClockMs()` and `GetModuleTelemetry()`,
+  `Object:GetSprite()`, `Object:GetTypeName()`, foundations, `SetFormation()`, the vector methods
+  and `IPC.GetStats()`. See the [CONTROL 1.1.0 release notes](https://github.com/aoe2control/AoE2Control/releases).
+- `Object:GetInternalName()` is now `Object:GetGraphicFileName()`, and `Object:GetMasterName()` is
+  removed, as in CONTROL 1.1.0.
+- Corrected `Color()` ranges, `PlayerAttribute.AGE`, `OptionsGameMode.UNAVAILABLE`, the `Key`
+  names and `Technology.BLOODLINES`, and marked the values that are `nil` with Multithreading on.
+- The extension now starts only in folders that contain CONTROL entry files (`*.main.lua` or
+  `*.main.module`), instead of in every folder with Lua files.
+- Installing the extension now also installs the Lua Language Server.
+- Renamed the extension to "AoE2 CONTROL Lua".
 
-- Added the Vector2/3/4 methods, the random-map control functions, `RandomMapSource` and the `GameOptions` seed and source methods
-- Renamed `Object:GetInternalName()` to `Object:GetGraphicFileName()` and removed `Object:GetMasterName()`
+## 0.9.0
+
 - Added `IPC.HasMessages()` to the CONTROL API definitions and snippets
 - Added `IPC.WaitForMessage(...)` to the CONTROL API definitions
 - Added `IsObjectTypeAvailable(...)`, `CalculatePath(...)`, and `Object:GetPath()` to the CONTROL API definitions
