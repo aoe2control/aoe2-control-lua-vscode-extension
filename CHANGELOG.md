@@ -3,6 +3,13 @@
 The extension's version follows the CONTROL version its definitions describe: 1.1.x matches
 CONTROL 1.1.
 
+## 1.1.1 (unreleased)
+
+- The definitions add the content of game build 54800 (The Viking Sagas), as in CONTROL 1.1.1:
+  `OptionsCivilization.SAXONS`, `VARANGIANS` and `DANES`, `OptionsLocation.ARABIAN_DESERT` (and the
+  missing `MICHI` and `TEAM_MOATS`), the new `Terrain` forests, `UnitClass.GOLD_HUNTABLE` and new
+  `ResourceType` names.
+
 ## 1.1.0 (2026-10-02)
 
 - The definitions match the CONTROL 1.1.0 Lua API. New: random-map control (`RandomMapSource`,
