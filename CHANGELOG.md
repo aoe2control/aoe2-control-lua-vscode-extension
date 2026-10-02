@@ -9,6 +9,7 @@ CONTROL 1.1.
   `OptionsCivilization.SAXONS`, `VARANGIANS` and `DANES`, `OptionsLocation.ARABIAN_DESERT` (and the
   missing `MICHI` and `TEAM_MOATS`), the new `Terrain` forests, `UnitClass.GOLD_HUNTABLE` and new
   `ResourceType` names.
+- `AgentBridge` is removed, as in CONTROL 1.1.1: CONTROL hosts the Agent Bridge itself.
 
 ## 1.1.0 (2026-10-02)
 
