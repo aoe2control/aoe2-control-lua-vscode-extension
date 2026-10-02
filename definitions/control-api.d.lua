@@ -1482,21 +1482,6 @@ function IPC.GetStats() end
 -- not available in multiplayer.
 -- =============================================================================
 
----@class AgentBridge
-AgentBridge = {}
-
----Open the bridge for this module instance. Call in Load(). Returns false when
----the setting is off, in a multiplayer match, or when another module owns it.
----@return boolean
-function AgentBridge.Start() end
-
----Publish an observation and apply a pending action. Call in Update().
----@return boolean
-function AgentBridge.Tick() end
-
----Close the bridge. Call in Unload().
-function AgentBridge.Stop() end
-
 ---@param str string
 ---@return table
 function ParseJSON(str) end
