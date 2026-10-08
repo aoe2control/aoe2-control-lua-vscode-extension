@@ -2,7 +2,7 @@
   "name": "aoe2-control-lua",
   "displayName": "AoE2 CONTROL Lua",
   "description": "Lua API definitions and snippets for CONTROL, the Lua scripting engine for Age of Empires II: Definitive Edition",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "publisher": "BigJohn",
   "repository": "https://github.com/aoe2control/aoe2-control-lua-vscode-extension",
