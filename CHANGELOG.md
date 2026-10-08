@@ -3,7 +3,7 @@
 The extension's version follows the CONTROL version its definitions describe: 1.1.x matches
 CONTROL 1.1.
 
-## 1.1.1 (unreleased)
+## 1.1.1 (2026-10-08)
 
 - The definitions add the content of game build 54800 (The Viking Sagas), as in CONTROL 1.1.1:
   `OptionsCivilization.SAXONS`, `VARANGIANS` and `DANES`, `OptionsLocation.ARABIAN_DESERT` (and the
