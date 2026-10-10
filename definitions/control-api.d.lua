@@ -466,6 +466,21 @@ function GameOptions:SetPlayerCivilization(playerIndex, civilization) end
 ---@return boolean
 function GameOptions:SetAssignedPlayerCivilization(civilization) end
 
+---AI script of a computer slot, or nil when the slot is not a computer.
+---@param playerIndex integer 0 to 7
+---@return string|nil
+function GameOptions:GetPlayerAI(playerIndex) end
+
+---Makes the slot a computer that runs the named AI script. The name must be in GetAvailableAIs().
+---@param playerIndex integer 0 to 7
+---@param name string
+---@return boolean
+function GameOptions:SetPlayerAI(playerIndex, name) end
+
+---AI scripts the lobby offers, in the lobby's order.
+---@return AIScript[]
+function GameOptions:GetAvailableAIs() end
+
 ---@class MapTile
 ---Map tile from GetMapTile or GetAllMapTiles.
 MapTile = {}
@@ -3219,6 +3234,11 @@ BuildingRequestPriority = {
 -- =============================================================================
 
 ---An immutable copy of one entry of the game's random-map catalog.
+---@class AIScript
+---@field Name string name to pass to GameOptions:SetPlayerAI
+---@field Source string "builtin", "install" or "custom"
+AIScript = {}
+
 ---@class RandomMapSource
 ---@field DisplayName string
 ---@field NativeMapId integer
