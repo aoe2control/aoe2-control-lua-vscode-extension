@@ -779,7 +779,7 @@ function Log(message) end
 ---@param visible boolean
 function SetEngineUIVisibility(visible) end
 
----Request the CONTROL engine to unload itself.
+---Request the CONTROL engine to unload itself. While DispatchQuitGame() or a start is in progress, waits until that has finished, for up to 30 seconds.
 function UnloadEngine() end
 
 ---Set game speed multiplier (e.g. 1.5, 30).
@@ -849,11 +849,12 @@ function UnitsTargetObject(units, target) end
 ---@return boolean
 function UnitsBuildStructure(builders, structureId, position) end
 
----Move units to position.
+---Move units to position. With queue true, add the position to their waypoints, as shift-click does.
 ---@param units Object[]
 ---@param position Vector3
+---@param queue? boolean
 ---@return boolean
-function UnitsMove(units, position) end
+function UnitsMove(units, position, queue) end
 
 ---Enable auto-scouting.
 ---@return boolean
