@@ -836,11 +836,12 @@ function SendChatMessage(message) end
 ---@return boolean
 function TrainUnit(trainSources, unitId, amount) end
 
----Order units to attack/target object.
+---Order units to attack/target object. With queue true, add the order after their current ones, as shift-right-click does.
 ---@param units Object[]
 ---@param target Object
+---@param queue? boolean
 ---@return boolean
-function UnitsTargetObject(units, target) end
+function UnitsTargetObject(units, target, queue) end
 
 ---Order builders to construct structure.
 ---@param builders Object[]
