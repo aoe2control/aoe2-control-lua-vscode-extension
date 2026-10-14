@@ -3,6 +3,15 @@
 The extension's version follows the CONTROL version its definitions describe: 1.1.x matches
 CONTROL 1.1.
 
+## 1.1.2 (2026-10-14)
+
+- The definitions match the CONTROL 1.1.2 Lua API. New: AI script goals (`SetGoal()`, `SetGoals()`,
+  `Player:GetGoal()`, `Player:GetGoals()`), the farm and fish trap reseed queues
+  (`QueueFarmReseeds()`, `SetAutoFarmReseed()` and the rest, `Player:GetFarmReseedQueue()`), the
+  `GameOptions` AI script methods (`GetAvailableAIs()`, `SetPlayerAI()`, `GetPlayerAI()`) with the
+  `AIScript` type, and the `queue` parameter of `UnitsMove()` and `UnitsTargetObject()`.
+- `UnloadEngine()` describes that it waits for a quit or start in progress.
+
 ## 1.1.1 (2026-10-08)
 
 - The definitions add the content of game build 54800 (The Viking Sagas), as in CONTROL 1.1.1:
