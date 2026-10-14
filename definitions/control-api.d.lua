@@ -674,6 +674,20 @@ function Player:GetColor() end
 ---@return number
 function Player:GetAttribute(attribute) end
 
+---Farms (or pastures) in the reseed queue, 0 to 40.
+---@return integer
+function Player:GetFarmReseedQueue() end
+
+---Fish traps in the rebuild queue, 0 to 40.
+---@return integer
+function Player:GetFishTrapRebuildQueue() end
+
+---@return boolean
+function Player:IsAutoFarmReseedEnabled() end
+
+---@return boolean
+function Player:IsAutoFishTrapRebuildEnabled() end
+
 ---@param unitId UnitObjectType
 ---@return integer
 function Player:GetUnitTypeCount(unitId) end
@@ -941,6 +955,39 @@ function SetUnitCombatStance(units, stance) end
 ---@param units Object[]
 ---@param formation Formation
 function SetFormation(units, formation) end
+
+---Add farms to the reseed queue, as the Mill's Reseed Farm button does. The
+---game takes the cost now and adds as many of `amount` as the player can
+---afford; the queue holds up to 40. Civilizations with pastures queue pastures.
+---@param amount integer 1 to 40
+---@return boolean
+function QueueFarmReseeds(amount) end
+
+---Remove up to `amount` farms from the reseed queue and refund their cost.
+---@param amount integer 1 to 40
+---@return boolean
+function CancelFarmReseeds(amount) end
+
+---Turn automatic farm reseeding on or off. While on, the game queues a farm
+---when one expires and the player can pay.
+---@param enabled boolean
+---@return boolean
+function SetAutoFarmReseed(enabled) end
+
+---Add fish traps to the rebuild queue, as the Dock's Rebuild Fish Trap button does.
+---@param amount integer 1 to 40
+---@return boolean
+function QueueFishTrapRebuilds(amount) end
+
+---Remove up to `amount` fish traps from the rebuild queue and refund their cost.
+---@param amount integer 1 to 40
+---@return boolean
+function CancelFishTrapRebuilds(amount) end
+
+---Turn automatic fish trap rebuilding on or off.
+---@param enabled boolean
+---@return boolean
+function SetAutoFishTrapRebuild(enabled) end
 
 -- =============================================================================
 -- FACTS (Game API — Read State) — Safe from Init(), Update(), or Render().
