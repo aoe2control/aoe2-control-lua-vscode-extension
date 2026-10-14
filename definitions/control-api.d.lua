@@ -688,6 +688,20 @@ function Player:IsAutoFarmReseedEnabled() end
 ---@return boolean
 function Player:IsAutoFishTrapRebuildEnabled() end
 
+---Goal goalId (1-16384) of the player's AI script. nil when the player is not a
+---computer player with an AI script, the module may not read this player, or the
+---id is out of range.
+---@param goalId integer
+---@return integer|nil
+function Player:GetGoal(goalId) end
+
+---Goals firstGoalId to lastGoalId as a list: values[1] is goal firstGoalId. nil in
+---the same cases as GetGoal.
+---@param firstGoalId integer
+---@param lastGoalId integer
+---@return integer[]|nil
+function Player:GetGoals(firstGoalId, lastGoalId) end
+
 ---@param unitId UnitObjectType
 ---@return integer
 function Player:GetUnitTypeCount(unitId) end
@@ -988,6 +1002,21 @@ function CancelFishTrapRebuilds(amount) end
 ---@param enabled boolean
 ---@return boolean
 function SetAutoFishTrapRebuild(enabled) end
+
+---Set goal goalId (1-16384) of the player's AI script (.per) to a 32-bit whole
+---number. The player must be a computer player whose script runs: turn Suppress
+---Native AI off. Not a game command; does not count toward Sequential Actions.
+---@param goalId integer
+---@param value integer
+---@return boolean
+function SetGoal(goalId, value) end
+
+---Set the goals from firstGoalId on to the list values. The script sees all of
+---them in its next rule pass, never part of them.
+---@param firstGoalId integer
+---@param values integer[]
+---@return boolean
+function SetGoals(firstGoalId, values) end
 
 -- =============================================================================
 -- FACTS (Game API — Read State) — Safe from Init(), Update(), or Render().
