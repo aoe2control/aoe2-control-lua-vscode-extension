@@ -1233,6 +1233,7 @@ function GetObjectsInArea(pos1, pos2, unitClass, owner) end
 ---Aligned arrays: index i of every array describes the same object.
 ---@field id integer[]
 ---@field unitType UnitObjectType[]
+---@field class UnitClass[]
 ---@field playerId integer[] -1 without an owner
 ---@field x number[]
 ---@field y number[]
