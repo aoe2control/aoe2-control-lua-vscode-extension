@@ -3,6 +3,11 @@
 The extension's version follows the CONTROL version its definitions describe: 1.1.x matches
 CONTROL 1.1.
 
+## 1.1.4 (2026-10-26)
+
+- The definitions match the CONTROL 1.1.4 Lua API. New: the `class` array in `ObjectStates`, the
+  result of `GetObjectStates()`.
+
 ## 1.1.2 (2026-10-14)
 
 - The definitions match the CONTROL 1.1.2 Lua API. New: AI script goals (`SetGoal()`, `SetGoals()`,
